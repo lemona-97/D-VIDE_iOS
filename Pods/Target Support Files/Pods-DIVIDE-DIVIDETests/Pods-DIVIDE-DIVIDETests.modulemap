@@ -1,0 +1,6 @@
+framework module Pods_DIVIDE_DIVIDETests {
+  umbrella header "Pods-DIVIDE-DIVIDETests-umbrella.h"
+
+  export *
+  module * { export * }
+}
