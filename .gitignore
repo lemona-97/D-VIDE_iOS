@@ -7,7 +7,7 @@ xcuserdata/
 
 DIVIDE/API/
 DIVIDE/Model/AppleLoginInfo.swift
-DIVIDE/Scene/LoginViewController.swift
+DIVIDE/Scene/Login/LoginViewController.swift
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint

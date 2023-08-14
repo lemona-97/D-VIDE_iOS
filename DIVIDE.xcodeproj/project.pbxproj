@@ -333,7 +333,6 @@
 				FA8D328B2A81DC43003810BA /* Constants */,
 				FAAD48F4289AB99300508C12 /* Configuration */,
 				FA8D32F12A89D772003810BA /* Scene */,
-				FA8D32F22A89D7AC003810BA /* ViewModel */,
 				FA8D32F32A89D7F5003810BA /* Model */,
 				FA8D32F42A89D90A003810BA /* Stream */,
 				FA8D32752A7B71FE003810BA /* Cell */,
@@ -458,42 +457,23 @@
 		FA8D32F12A89D772003810BA /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				FA59C63628911DD2001ADD50 /* TabBarController.swift */,
-				FA8D327C2A7CDFD6003810BA /* LoginViewController.swift */,
-				324C343F286AF32A0057286A /* HomeViewController.swift */,
-				FA9DFB8828AF31670036B106 /* PostDetailViewController.swift */,
-				FAD566FF29543599007A6904 /* ReviewViewController.swift */,
-				FAAD48F1289AB85300508C12 /* PostRecruitingViewController.swift */,
-				FA8D325C2A7A53AC003810BA /* ReviewDetailViewController.swift */,
-				3294CDA9289D07E800FF14AD /* ChatListViewController.swift */,
-				FA8D32B32A846DF7003810BA /* ChatRoomViewController.swift */,
-				FA8D32912A81E9D5003810BA /* PostReviewViewController.swift */,
-				FA8D32982A824026003810BA /* FollowViewController.swift */,
-				FA8D32A82A839381003810BA /* MyReviewViewController.swift */,
-				FA8D32772A7B9BA2003810BA /* ChangeDefaultAddressViewController.swift */,
-				FA8D326D2A7B53D2003810BA /* MyOrderHistoryViewController.swift */,
-				FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */,
+				FAEC53112A89EFC6000DDEDD /* TabBar */,
+				FAEC53102A89EFB5000DDEDD /* Login */,
+				FAEC53122A89EFDA000DDEDD /* Home */,
+				FAEC53132A89EFEC000DDEDD /* PostDetail */,
+				FAEC53142A89EFFE000DDEDD /* PostRecruiting */,
+				FAEC53152A89F01C000DDEDD /* Review */,
+				FAEC53162A89F02C000DDEDD /* ReviewDetail */,
+				FAEC53172A89F03D000DDEDD /* ChatList */,
+				FAEC531D2A89F08B000DDEDD /* ChatRoom */,
+				FAEC531B2A89F07B000DDEDD /* Profile */,
+				FAEC53192A89F064000DDEDD /* Follow */,
+				FAEC531A2A89F070000DDEDD /* MyOrderHistory */,
+				FAEC531C2A89F082000DDEDD /* MyReview */,
+				FAEC53182A89F05A000DDEDD /* PostReview */,
+				FAEC531E2A89F095000DDEDD /* ChangeDefaultAddress */,
 			);
 			path = Scene;
-			sourceTree = "<group>";
-		};
-		FA8D32F22A89D7AC003810BA /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				FA8D32852A809A8C003810BA /* LoginViewModel.swift */,
-				FA9DFB9328B37A6A0036B106 /* HomeViewModel.swift */,
-				FAA412D62A6632C70053258D /* PostDetailViewModel.swift */,
-				32B7B8A728A248100092CFD6 /* PostRecrutingViewModel.swift */,
-				FA0AAAB82954567C00783B93 /* ReviewViewModel.swift */,
-				FA8D325E2A7A55D9003810BA /* ReviewDetailViewModel.swift */,
-				FA8D32B72A84719D003810BA /* ChatListViewModel.swift */,
-				FA8D32952A81EA47003810BA /* PostReviewViewModel.swift */,
-				FA8D32732A7B5762003810BA /* MyOrderHistoryViewModel.swift */,
-				FA8D32662A7B4A4F003810BA /* ProfileViewModel.swift */,
-				FA8D329E2A8241C6003810BA /* FollowViewModel.swift */,
-				FA8D32AC2A83939F003810BA /* MyReviewViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		FA8D32F32A89D7F5003810BA /* Model */ = {
@@ -605,6 +585,138 @@
 				FA8D32E82A84C492003810BA /* Encodable.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		FAEC53102A89EFB5000DDEDD /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				FA8D327C2A7CDFD6003810BA /* LoginViewController.swift */,
+				FA8D32852A809A8C003810BA /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		FAEC53112A89EFC6000DDEDD /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				FA59C63628911DD2001ADD50 /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		FAEC53122A89EFDA000DDEDD /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				324C343F286AF32A0057286A /* HomeViewController.swift */,
+				FA9DFB9328B37A6A0036B106 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FAEC53132A89EFEC000DDEDD /* PostDetail */ = {
+			isa = PBXGroup;
+			children = (
+				FA9DFB8828AF31670036B106 /* PostDetailViewController.swift */,
+				FAA412D62A6632C70053258D /* PostDetailViewModel.swift */,
+			);
+			path = PostDetail;
+			sourceTree = "<group>";
+		};
+		FAEC53142A89EFFE000DDEDD /* PostRecruiting */ = {
+			isa = PBXGroup;
+			children = (
+				FAAD48F1289AB85300508C12 /* PostRecruitingViewController.swift */,
+				32B7B8A728A248100092CFD6 /* PostRecrutingViewModel.swift */,
+			);
+			path = PostRecruiting;
+			sourceTree = "<group>";
+		};
+		FAEC53152A89F01C000DDEDD /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				FAD566FF29543599007A6904 /* ReviewViewController.swift */,
+				FA0AAAB82954567C00783B93 /* ReviewViewModel.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		FAEC53162A89F02C000DDEDD /* ReviewDetail */ = {
+			isa = PBXGroup;
+			children = (
+				FA8D325C2A7A53AC003810BA /* ReviewDetailViewController.swift */,
+				FA8D325E2A7A55D9003810BA /* ReviewDetailViewModel.swift */,
+			);
+			path = ReviewDetail;
+			sourceTree = "<group>";
+		};
+		FAEC53172A89F03D000DDEDD /* ChatList */ = {
+			isa = PBXGroup;
+			children = (
+				3294CDA9289D07E800FF14AD /* ChatListViewController.swift */,
+				FA8D32B72A84719D003810BA /* ChatListViewModel.swift */,
+			);
+			path = ChatList;
+			sourceTree = "<group>";
+		};
+		FAEC53182A89F05A000DDEDD /* PostReview */ = {
+			isa = PBXGroup;
+			children = (
+				FA8D32912A81E9D5003810BA /* PostReviewViewController.swift */,
+				FA8D32952A81EA47003810BA /* PostReviewViewModel.swift */,
+			);
+			path = PostReview;
+			sourceTree = "<group>";
+		};
+		FAEC53192A89F064000DDEDD /* Follow */ = {
+			isa = PBXGroup;
+			children = (
+				FA8D32982A824026003810BA /* FollowViewController.swift */,
+				FA8D329E2A8241C6003810BA /* FollowViewModel.swift */,
+			);
+			path = Follow;
+			sourceTree = "<group>";
+		};
+		FAEC531A2A89F070000DDEDD /* MyOrderHistory */ = {
+			isa = PBXGroup;
+			children = (
+				FA8D326D2A7B53D2003810BA /* MyOrderHistoryViewController.swift */,
+				FA8D32732A7B5762003810BA /* MyOrderHistoryViewModel.swift */,
+			);
+			path = MyOrderHistory;
+			sourceTree = "<group>";
+		};
+		FAEC531B2A89F07B000DDEDD /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */,
+				FA8D32662A7B4A4F003810BA /* ProfileViewModel.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		FAEC531C2A89F082000DDEDD /* MyReview */ = {
+			isa = PBXGroup;
+			children = (
+				FA8D32A82A839381003810BA /* MyReviewViewController.swift */,
+				FA8D32AC2A83939F003810BA /* MyReviewViewModel.swift */,
+			);
+			path = MyReview;
+			sourceTree = "<group>";
+		};
+		FAEC531D2A89F08B000DDEDD /* ChatRoom */ = {
+			isa = PBXGroup;
+			children = (
+				FA8D32B32A846DF7003810BA /* ChatRoomViewController.swift */,
+			);
+			path = ChatRoom;
+			sourceTree = "<group>";
+		};
+		FAEC531E2A89F095000DDEDD /* ChangeDefaultAddress */ = {
+			isa = PBXGroup;
+			children = (
+				FA8D32772A7B9BA2003810BA /* ChangeDefaultAddressViewController.swift */,
+			);
+			path = ChangeDefaultAddress;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
