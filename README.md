@@ -2,6 +2,6 @@
 D/VIDE iOS 개발
 
 ---
-TDD
-MVVM
+TDD \n
+MVVM \n
 CocoaPod (Then, SnapKit, RxSwift, NMapsMap, Moya, SwiftyJSON)
