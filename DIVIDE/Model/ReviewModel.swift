@@ -34,5 +34,10 @@ struct Review: Codable {
 }
 
 
+struct ReviewLikeResponse : Decodable {
+    var reviewLikeId        : Int
+}
 
-
+struct ReviewUnLikeResponse : Decodable {
+    var reviewId            : Int
+}

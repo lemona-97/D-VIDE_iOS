@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import RxGesture
+import RxSwift
+
 import SnapKit
 import Then
 import Cosmos
@@ -13,18 +16,21 @@ import Cosmos
 final class ReviewTableViewCell: UITableViewCell {
     
     private let detailContentsView = UIView()
-    
     private let userImageView = UIImageView()
     private let userImageViewIndicator = UIActivityIndicatorView()
     private let userID = MainLabel(type: .Basics3)
     private let userLocation = MainLabel(type: .small1)
-    private let reviewLikeCount = MainLabel(type: .small1)
-    private let likeButton = UIButton()
+    let reviewLikeCount = MainLabel(type: .small1)
+    let likeButton = UIButton()
     private let foodImageView = UIImageView()
     private let foodImageViewIndicator = UIActivityIndicatorView()
     private let storeNameTag = MainLabel(type: .Point3)
     private let contentTextView = UITextView()
     private let cosmosView = CosmosView()
+    
+    var likeLisenter : (() -> ())?
+    var detailLisenter : (() -> ())?
+    private var disposeBag = DisposeBag()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 
@@ -32,6 +38,7 @@ final class ReviewTableViewCell: UITableViewCell {
         setAttribute()
         addView()
         setLayout()
+        addAction()
     }
     required init?(coder aDecoder: NSCoder) {
 
@@ -157,17 +164,19 @@ final class ReviewTableViewCell: UITableViewCell {
             $0.width.equalTo(35)
         }
         likeButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.top.equalToSuperview().offset(20)
-            $0.height.equalTo(15)
-            $0.width.equalTo(17)
+            $0.trailing.equalToSuperview().offset(-10)
+            $0.top.equalToSuperview().offset(10)
+            $0.height.equalTo(25)
+            $0.width.equalTo(28)
         }
+        
         foodImageView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(19)
             $0.bottom.equalToSuperview().offset(-10)
             $0.height.equalTo(86)
             $0.width.equalTo(87)
         }
+        
         foodImageViewIndicator.snp.makeConstraints {
             $0.center.equalTo(foodImageView)
             $0.width.height.equalTo(foodImageView.snp.height)
@@ -178,6 +187,7 @@ final class ReviewTableViewCell: UITableViewCell {
             $0.height.equalTo(21)
             $0.trailing.equalToSuperview().offset(-20)
         }
+        
         contentTextView.snp.makeConstraints {
             $0.top.equalTo(storeNameTag.snp.bottom)
             $0.leading.equalTo(storeNameTag).offset(-5)
@@ -205,6 +215,30 @@ final class ReviewTableViewCell: UITableViewCell {
             self.userImageViewIndicator.stopAnimating()
         }
     }
+    
+    private func addAction() {
+        likeButton.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            if let likeLisenter = likeLisenter {
+                likeLisenter()
+            }
+            
+            print("?")
+        }), for: .touchUpInside)
+        
+        detailContentsView.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                if let detailLisenter = detailLisenter {
+                    detailLisenter()
+                }
+                print("??")
+            }.disposed(by: disposeBag)
+        
+        
+    }
+    
     func setData(reviewData : ReviewData) {
         showIndicator(indicator: self.foodImageViewIndicator)
         self.userImageView.load(url: reviewData.user.profileImgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {

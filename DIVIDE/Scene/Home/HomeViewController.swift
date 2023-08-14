@@ -151,7 +151,7 @@ final class HomeViewController: UIViewController, CLLocationManagerDelegate {
             $0.width.equalTo(115)
             $0.height.equalTo(50)
             $0.leading.equalToSuperview().offset(26)
-            $0.bottom.equalToSuperview().offset(-90)
+            $0.bottom.equalToSuperview().offset(-100)
         }
     }
     

@@ -17,7 +17,7 @@ final class ReviewViewController: UIViewController {
     private var disposeBag              = DisposeBag()
     private var viewModel : ReviewBusinessLogic?
     private let dummyUserPosition       = UserPosition(longitude: 127.030767490, latitude: 37.49015482509)
-
+    
     //상단
     private let topTitleView            = UIView()
     private let reviewTitleImg          = UIImageView()
@@ -63,8 +63,9 @@ final class ReviewViewController: UIViewController {
             $0.showsVerticalScrollIndicator = false
             $0.backgroundColor = .viewBackgroundGray
             $0.separatorStyle = .none
+            $0.isUserInteractionEnabled = true
         }
-
+        
     }
     private func addView() {
         self.view.addSubview(topTitleView)
@@ -100,10 +101,14 @@ final class ReviewViewController: UIViewController {
             $0.top.equalTo(topTitleView.snp.bottom).offset(10)
             $0.bottom.equalToSuperview()
         }
- 
+        
     }
     private func bindTableView(){
+  
         reviewTableView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        
+        
         // 테스트 하려면 dummy로 하면 됨 강남구 역삼동 주변으로 조회 됨.
         self.viewModel?.requestAroundReviews(param: UserDefaultsManager.userPosition ?? dummyUserPosition)
             .asObservable()
@@ -111,12 +116,49 @@ final class ReviewViewController: UIViewController {
                 guard let self = self else { return }
                 self.allReviewDataFromServer.append(item)
                 cell.setData(reviewData: item)
+                
+                cell.likeLisenter = { [weak self] in
+                    guard let self = self else { return }
+                    if cell.likeButton.isSelected {
+                        cell.likeButton.isSelected.toggle()
+                        self.viewModel?.requestReviewUnLike(reviewId: self.allReviewDataFromServer[row].review.reviewId, completion: { result in
+                            switch result {
+                            case .success(let response):
+                                print("취소된 리뷰 ID : \(response.reviewId)")
+                                cell.reviewLikeCount.text = String(Int(cell.reviewLikeCount.text ?? "0")! - 1)
+                            case .failure(let err):
+                                print(err)
+                            }
+                            
+                        }) } else {
+                            cell.likeButton.isSelected.toggle()
+                            self.viewModel?.requestReviewLike(reviewId: self.allReviewDataFromServer[row].review.reviewId, completion: { result in
+                                switch result {
+                                case .success(let response):
+                                    print("리뷰 좋아요 ID : \(response.reviewLikeId)")
+                                    cell.reviewLikeCount.text = String(Int(cell.reviewLikeCount.text ?? "0")! + 1)
+                                case .failure(let err):
+                                    print(err)
+                                }
+                                
+                            })
+                        }
+                    
+                }
+                    
+                
+                cell.detailLisenter = { [weak self] in
+                    let destinationVC = ReviewDetailViewController()
+                    destinationVC.setReviewId(reviewId : (self?.allReviewDataFromServer[row].review.reviewId)!)
+                    
+                    self?.navigationController?.pushViewController(destinationVC, animated: true)
+                }
                 GeocodingManager.reverseGeocoding(lat: item.review.latitude, lng: item.review.longitude) { location in
                     cell.setLocation(location: location)
                 }
             }.disposed(by: disposeBag)
     }
-
+    
 }
 
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource {
@@ -126,16 +168,13 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ReviewTableViewCell.className, for: indexPath) as? ReviewTableViewCell else { return UITableViewCell() }
+        
+        
+        
+        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 168
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let destinationVC = ReviewDetailViewController()
-        destinationVC.setReviewId(reviewId : allReviewDataFromServer[indexPath.row].review.reviewId)
-        
-        self.navigationController?.pushViewController(destinationVC, animated: true)
-        
     }
 }

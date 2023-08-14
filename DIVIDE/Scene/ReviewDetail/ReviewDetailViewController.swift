@@ -228,6 +228,7 @@ final class ReviewDetailViewController: UIViewController {
             $0.top.equalTo(likeButton.snp.bottom).offset(15)
             $0.trailing.equalToSuperview().offset(-20)
         }
+        
         contentTextView.snp.makeConstraints {
             $0.leading.equalTo(storeHashTag)
             $0.trailing.equalToSuperview().offset(-21)

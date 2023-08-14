@@ -116,6 +116,7 @@ final class PostRecruitingViewController: UIViewController, CLLocationManagerDel
         }
         navigationLabel.do {
             $0.text = "D/VIDE 모집글 작성"
+            $0.numberOfLines = 2
         }
         
         backButton.do {
@@ -202,6 +203,7 @@ final class PostRecruitingViewController: UIViewController, CLLocationManagerDel
             $0.resignFirstResponder()
             $0.textColor = .mainOrange1
         }
+        
         deliveryAimTextField.do {
             $0.textFieldTextChanged($0)
             $0.keyboardType = .numberPad
@@ -396,6 +398,7 @@ final class PostRecruitingViewController: UIViewController, CLLocationManagerDel
             $0.trailing.equalTo(deliveryFeeTextField.snp.trailing).offset(-18)
             $0.centerY.equalTo(deliveryFeeTextField.snp.centerY)
         }
+        
         aimUnitLabel.snp.makeConstraints {
             $0.trailing.equalTo(deliveryAimTextField.snp.trailing).offset(-18)
             $0.centerY.equalTo(deliveryAimTextField.snp.centerY)
@@ -576,7 +579,13 @@ final class PostRecruitingViewController: UIViewController, CLLocationManagerDel
             self.viewModel?.requestpostRecruiting(param: inputData, img: imgList) { [weak self] result in
                 switch result {
                 case .success(let response):
-                    self?.presentAlert(title: "post 성공: \(response.postId)")
+                    let destination = PopupViewController()
+                    destination.dismissListener = { self?.navigationController?.popViewController(animated: true) }
+                    destination.modalPresentationStyle = .overFullScreen
+                    destination.setPopupMessage(message: UserDefaultsManager.displayName! + "님의 글이 업로드 되었어요!\n 채팅을 확인해 보세요")
+                    
+                    self?.navigationController?.present(destination, animated: false)
+                    
                 case .failure(let err):
                     print(err)
                 }

@@ -126,6 +126,7 @@
 		FAC4BE7F2920C18500E7F788 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */; };
 		FAD5670029543599007A6904 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD566FF29543599007A6904 /* ReviewViewController.swift */; };
 		FAD5670229543FDA007A6904 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5670129543FDA007A6904 /* ReviewTableViewCell.swift */; };
+		FAEC53212A89F368000DDEDD /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53202A89F368000DDEDD /* PopupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -268,6 +269,7 @@
 		FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FAD566FF29543599007A6904 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		FAD5670129543FDA007A6904 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
+		FAEC53202A89F368000DDEDD /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,11 +393,11 @@
 			children = (
 				32B7B8A328A23FAB0092CFD6 /* APIService.swift */,
 				FA8D32532A78BA6C003810BA /* BaseURL.swift */,
-				FA8D324F2A78BA2C003810BA /* Token.swift */,
-				FA8D32512A78BA44003810BA /* NaverClient.swift */,
-				32AA8E4B28A4EEE300BA68E3 /* MoyaInterceptor.swift */,
-				FA8D327E2A7CEF91003810BA /* KakaoClient.swift */,
 				FA8D32E62A84C417003810BA /* Firebase.swift */,
+				FA8D327E2A7CEF91003810BA /* KakaoClient.swift */,
+				32AA8E4B28A4EEE300BA68E3 /* MoyaInterceptor.swift */,
+				FA8D32512A78BA44003810BA /* NaverClient.swift */,
+				FA8D324F2A78BA2C003810BA /* Token.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -438,9 +440,9 @@
 		FA8D328B2A81DC43003810BA /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				FA8D328C2A81DC57003810BA /* PostStatus.swift */,
 				FA8D329C2A8240E5003810BA /* FollowType.swift */,
 				FA8D324B2A73464C003810BA /* MenuCategory.swift */,
+				FA8D328C2A81DC57003810BA /* PostStatus.swift */,
 				FA3EDAD02A7209180078AA89 /* SIZE.swift */,
 			);
 			path = Constants;
@@ -457,21 +459,22 @@
 		FA8D32F12A89D772003810BA /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				FAEC53112A89EFC6000DDEDD /* TabBar */,
-				FAEC53102A89EFB5000DDEDD /* Login */,
-				FAEC53122A89EFDA000DDEDD /* Home */,
-				FAEC53132A89EFEC000DDEDD /* PostDetail */,
-				FAEC53142A89EFFE000DDEDD /* PostRecruiting */,
-				FAEC53152A89F01C000DDEDD /* Review */,
-				FAEC53162A89F02C000DDEDD /* ReviewDetail */,
+				FAEC531F2A89F34F000DDEDD /* Popup */,
+				FAEC531E2A89F095000DDEDD /* ChangeDefaultAddress */,
 				FAEC53172A89F03D000DDEDD /* ChatList */,
 				FAEC531D2A89F08B000DDEDD /* ChatRoom */,
-				FAEC531B2A89F07B000DDEDD /* Profile */,
 				FAEC53192A89F064000DDEDD /* Follow */,
+				FAEC53122A89EFDA000DDEDD /* Home */,
+				FAEC53102A89EFB5000DDEDD /* Login */,
 				FAEC531A2A89F070000DDEDD /* MyOrderHistory */,
 				FAEC531C2A89F082000DDEDD /* MyReview */,
+				FAEC53132A89EFEC000DDEDD /* PostDetail */,
+				FAEC53142A89EFFE000DDEDD /* PostRecruiting */,
 				FAEC53182A89F05A000DDEDD /* PostReview */,
-				FAEC531E2A89F095000DDEDD /* ChangeDefaultAddress */,
+				FAEC531B2A89F07B000DDEDD /* Profile */,
+				FAEC53152A89F01C000DDEDD /* Review */,
+				FAEC53162A89F02C000DDEDD /* ReviewDetail */,
+				FAEC53112A89EFC6000DDEDD /* TabBar */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -479,26 +482,26 @@
 		FA8D32F32A89D7F5003810BA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FA8D32E02A84B43D003810BA /* StreamError.swift */,
-				FA8D32D82A84AA42003810BA /* Message.swift */,
-				FA8D32D62A84AA1C003810BA /* ImageMediaItem.swift */,
-				FA8D32D42A84A9FF003810BA /* Channel.swift */,
-				FA8D32712A7B5754003810BA /* MyOrderHistoryModel.swift */,
-				FA9DFB9028B375D10036B106 /* UserPosition.swift */,
-				FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */,
-				FA8D326F2A7B56E1003810BA /* UserPostModel.swift */,
 				FA8D32812A8076CC003810BA /* AppleLoginInfo.swift */,
-				FA8D32872A809FB5003810BA /* LoginModel.swift */,
-				32B7B8A528A245350092CFD6 /* PostRecruitingModel.swift */,
-				FAA412D82A6632D00053258D /* PostDetailModel.swift */,
-				FA8D32A52A83786C003810BA /* JoinOrderModel.swift */,
-				FA0AAABC295C04B500783B93 /* ReviewModel.swift */,
-				FA8D32602A7B365A003810BA /* ReviewDetailModel.swift */,
+				FA8D32D42A84A9FF003810BA /* Channel.swift */,
 				FA8D32B92A847B6E003810BA /* ChatListModel.swift */,
-				FA8D32642A7B4A45003810BA /* ProfileModel.swift */,
-				FA8D32A02A83187C003810BA /* FollowModel.swift */,
 				FA8D32DC2A84B40A003810BA /* DatabaseRepresentaion.swift */,
+				FA8D32A02A83187C003810BA /* FollowModel.swift */,
+				FA8D32D62A84AA1C003810BA /* ImageMediaItem.swift */,
+				FA8D32A52A83786C003810BA /* JoinOrderModel.swift */,
+				FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */,
+				FA8D32872A809FB5003810BA /* LoginModel.swift */,
+				FA8D32D82A84AA42003810BA /* Message.swift */,
+				FA8D32712A7B5754003810BA /* MyOrderHistoryModel.swift */,
+				FAA412D82A6632D00053258D /* PostDetailModel.swift */,
+				32B7B8A528A245350092CFD6 /* PostRecruitingModel.swift */,
 				FA8D328E2A81E8AE003810BA /* PostReviewModel.swift */,
+				FA8D32642A7B4A45003810BA /* ProfileModel.swift */,
+				FA8D32602A7B365A003810BA /* ReviewDetailModel.swift */,
+				FA0AAABC295C04B500783B93 /* ReviewModel.swift */,
+				FA8D32E02A84B43D003810BA /* StreamError.swift */,
+				FA9DFB9028B375D10036B106 /* UserPosition.swift */,
+				FA8D326F2A7B56E1003810BA /* UserPostModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -545,9 +548,9 @@
 			isa = PBXGroup;
 			children = (
 				FA8D32C12A84940D003810BA /* Controller */,
-				FAA412D12A662F230053258D /* Manager */,
 				FAAD48F7289AB9B000508C12 /* CustomClass */,
 				FAAD48F8289AB9BC00508C12 /* Extension */,
+				FAA412D12A662F230053258D /* Manager */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -717,6 +720,14 @@
 				FA8D32772A7B9BA2003810BA /* ChangeDefaultAddressViewController.swift */,
 			);
 			path = ChangeDefaultAddress;
+			sourceTree = "<group>";
+		};
+		FAEC531F2A89F34F000DDEDD /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				FAEC53202A89F368000DDEDD /* PopupViewController.swift */,
+			);
+			path = Popup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -996,6 +1007,7 @@
 				FA59C605288E6A24001ADD50 /* HomeTopMenuCollectionViewCell.swift in Sources */,
 				FA8D32E12A84B43D003810BA /* StreamError.swift in Sources */,
 				FA0AAAC3295CADF500783B93 /* ReviewRecommendTableViewCell.swift in Sources */,
+				FAEC53212A89F368000DDEDD /* PopupViewController.swift in Sources */,
 				FA8D32922A81E9D5003810BA /* PostReviewViewController.swift in Sources */,
 				FA8D32B82A84719D003810BA /* ChatListViewModel.swift in Sources */,
 				FA8D325D2A7A53AC003810BA /* ReviewDetailViewController.swift in Sources */,

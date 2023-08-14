@@ -10,17 +10,17 @@ import KakaoSDKAuth
 import FirebaseAuth
 class TabBarController: UITabBarController {
     static let objectRatio  = 4.0 / 7.0
-    let HomeIcon: UIImage = UIImage(imageLiteralResourceName: "Divide.png").resize(toTargetSize: CGSize(width: 52.22*objectRatio, height: 56.78*objectRatio))!.withRenderingMode(.alwaysOriginal)
-    let HomeIconUnselected: UIImage = UIImage(imageLiteralResourceName: "DivideUnselected.png").resize(toTargetSize: CGSize(width: 52.22*objectRatio, height: 56.78*objectRatio))!.withRenderingMode(.alwaysOriginal)
+    let HomeIcon: UIImage = UIImage(imageLiteralResourceName: "Divide.png").resize(toTargetSize: CGSize(width: 60 * objectRatio, height: 60 * objectRatio))!.withRenderingMode(.alwaysOriginal)
+    let HomeIconUnselected: UIImage = UIImage(imageLiteralResourceName: "DivideUnselected.png").resize(toTargetSize: CGSize(width: 55 * objectRatio, height: 55 * objectRatio))!.withRenderingMode(.alwaysOriginal)
     
-    let ReviewIcon: UIImage = UIImage(imageLiteralResourceName: "리뷰.png").resize(toTargetSize: CGSize(width: 60.17*objectRatio, height: 56.86*objectRatio))!.withRenderingMode(.alwaysOriginal)
-    let ReviewSelectedIcon: UIImage = UIImage(imageLiteralResourceName: "리뷰Unselected.png").resize(toTargetSize: CGSize(width: 60.17*objectRatio, height: 56.86*objectRatio))!.withRenderingMode(.alwaysOriginal)
+    let ReviewIcon: UIImage = UIImage(imageLiteralResourceName: "리뷰.png").resize(toTargetSize: CGSize(width: 70 * objectRatio, height: 70 * objectRatio))!.withRenderingMode(.alwaysOriginal)
+    let ReviewSelectedIcon: UIImage = UIImage(imageLiteralResourceName: "리뷰Unselected.png").resize(toTargetSize: CGSize(width: 60 * objectRatio, height: 60 * objectRatio))!.withRenderingMode(.alwaysOriginal)
     
-        let ChatIcon: UIImage = UIImage(imageLiteralResourceName: "채팅.png").resize(toTargetSize: CGSize(width: 57.2*objectRatio, height: 52.22*objectRatio))!.withRenderingMode(.alwaysOriginal)
-        let ChatIconUnselected: UIImage = UIImage(imageLiteralResourceName: "채팅Unselected.png").resize(toTargetSize: CGSize(width: 57.2*objectRatio, height: 52.22*objectRatio))!.withRenderingMode(.alwaysOriginal)
+    let ChatIcon: UIImage = UIImage(imageLiteralResourceName: "채팅.png").resize(toTargetSize: CGSize(width: 60 * objectRatio, height: 60 * objectRatio))!.withRenderingMode(.alwaysOriginal)
+    let ChatIconUnselected: UIImage = UIImage(imageLiteralResourceName: "채팅Unselected.png").resize(toTargetSize: CGSize(width: 55 * objectRatio, height: 55 * objectRatio))!.withRenderingMode(.alwaysOriginal)
     
-    let ProfileIcon: UIImage = UIImage(imageLiteralResourceName: "기본 프로필.png").resize(toTargetSize: CGSize(width: 57.69*objectRatio, height: 57.34*objectRatio))!.withRenderingMode(.alwaysOriginal)
-    let ProfileIconUnselected: UIImage = UIImage(imageLiteralResourceName: "기본 프로필Unselected.png").resize(toTargetSize: CGSize(width: 57.69*objectRatio, height: 57.34*objectRatio))!.withRenderingMode(.alwaysOriginal)
+    let ProfileIcon: UIImage = UIImage(imageLiteralResourceName: "기본 프로필.png").resize(toTargetSize: CGSize(width: 60 * objectRatio, height: 60 * objectRatio))!.withRenderingMode(.alwaysOriginal)
+    let ProfileIconUnselected: UIImage = UIImage(imageLiteralResourceName: "기본 프로필Unselected.png").resize(toTargetSize: CGSize(width: 55 * objectRatio, height: 55 * objectRatio))!.withRenderingMode(.alwaysOriginal)
     override func viewDidLoad() {
         super.viewDidLoad()
         

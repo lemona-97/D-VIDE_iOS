@@ -117,7 +117,7 @@ final class ChatListTableViewCell: UITableViewCell {
     }
 
 
-    open func setData(channel : Channel) {
+    public func setData(channel : Channel) {
         self.titleLabel.text = channel.id
     }
 
