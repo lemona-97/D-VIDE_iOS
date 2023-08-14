@@ -15,7 +15,7 @@ import Then
 final class ReviewViewController: UIViewController {
     
     private var disposeBag              = DisposeBag()
-    private var viewModel : ReviewBusinessLogic?
+    private var viewModel               : ReviewBusinessLogic?
     private let dummyUserPosition       = UserPosition(longitude: 127.030767490, latitude: 37.49015482509)
     
     //상단

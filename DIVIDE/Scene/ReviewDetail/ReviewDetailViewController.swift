@@ -37,6 +37,7 @@ final class ReviewDetailViewController: UIViewController {
     private let contentTextView = UITextView()
     
     private var viewModel : ReviewDetailBusinessLogic?
+
     private var disposeBag = DisposeBag()
     private var reviewId : Int?
     override func viewDidLoad() {
@@ -267,11 +268,44 @@ final class ReviewDetailViewController: UIViewController {
                     self.likeButton.isSelected = true
                 }
             }).disposed(by: self.disposeBag)
+        
+        
     }
     
     private func addAction() {
         closeButton.addAction(UIAction(handler: { action in
             self.navigationController?.popViewController(animated: true)
+        }), for: .touchUpInside)
+        
+        likeButton.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            
+            if self.likeButton.isSelected {
+                if let reviewId = self.reviewId {
+                    viewModel?.requestReviewUnLike(reviewId: reviewId, completion: { result in
+                        switch result {
+                        case .success(let response):
+                            print("취소된 리뷰 ID : \(response.reviewId)")
+                            self.likeCountLabel.text = String(Int(self.likeCountLabel.text ?? "0")! - 1)
+                        case .failure(let err):
+                            print(err)
+                        }
+                    })
+                }
+                
+            } else {
+                if let reviewId = self.reviewId {
+                    viewModel?.requestReviewLike(reviewId: reviewId, completion: { result in
+                        switch result {
+                        case .success(let response):
+                            print("리뷰 좋아요 ID : \(response.reviewLikeId)")
+                            self.likeCountLabel.text = String(Int(self.likeCountLabel.text ?? "0")! + 1)
+                        case .failure(let err):
+                            print(err)
+                        }
+                    })
+                }
+            }
         }), for: .touchUpInside)
     }
     
