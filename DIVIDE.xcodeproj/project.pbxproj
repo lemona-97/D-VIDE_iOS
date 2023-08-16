@@ -127,6 +127,9 @@
 		FAD5670029543599007A6904 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD566FF29543599007A6904 /* ReviewViewController.swift */; };
 		FAD5670229543FDA007A6904 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5670129543FDA007A6904 /* ReviewTableViewCell.swift */; };
 		FAEC53212A89F368000DDEDD /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53202A89F368000DDEDD /* PopupViewController.swift */; };
+		FAEC53242A8C4FF9000DDEDD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53232A8C4FF9000DDEDD /* SignUpViewController.swift */; };
+		FAEC53262A8C50DD000DDEDD /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53252A8C50DD000DDEDD /* SignUpViewModel.swift */; };
+		FAEC53292A8CBFE6000DDEDD /* PopupType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53282A8CBFE6000DDEDD /* PopupType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -270,6 +273,9 @@
 		FAD566FF29543599007A6904 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		FAD5670129543FDA007A6904 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		FAEC53202A89F368000DDEDD /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		FAEC53232A8C4FF9000DDEDD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		FAEC53252A8C50DD000DDEDD /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		FAEC53282A8CBFE6000DDEDD /* PopupType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,6 +450,7 @@
 				FA8D324B2A73464C003810BA /* MenuCategory.swift */,
 				FA8D328C2A81DC57003810BA /* PostStatus.swift */,
 				FA3EDAD02A7209180078AA89 /* SIZE.swift */,
+				FAEC53282A8CBFE6000DDEDD /* PopupType.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -459,6 +466,7 @@
 		FA8D32F12A89D772003810BA /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				FAEC53222A8C4FE3000DDEDD /* SignUp */,
 				FAEC531F2A89F34F000DDEDD /* Popup */,
 				FAEC531E2A89F095000DDEDD /* ChangeDefaultAddress */,
 				FAEC53172A89F03D000DDEDD /* ChatList */,
@@ -730,6 +738,15 @@
 			path = Popup;
 			sourceTree = "<group>";
 		};
+		FAEC53222A8C4FE3000DDEDD /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				FAEC53232A8C4FF9000DDEDD /* SignUpViewController.swift */,
+				FAEC53252A8C50DD000DDEDD /* SignUpViewModel.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -980,6 +997,7 @@
 				FA8D326E2A7B53D2003810BA /* MyOrderHistoryViewController.swift in Sources */,
 				FA8D328F2A81E8AE003810BA /* PostReviewModel.swift in Sources */,
 				3294CDAA289D07E800FF14AD /* ChatListViewController.swift in Sources */,
+				FAEC53292A8CBFE6000DDEDD /* PopupType.swift in Sources */,
 				FA8D32652A7B4A45003810BA /* ProfileModel.swift in Sources */,
 				FA0AAABD295C04B500783B93 /* ReviewModel.swift in Sources */,
 				324C3440286AF32A0057286A /* HomeViewController.swift in Sources */,
@@ -988,6 +1006,7 @@
 				FA8D32882A809FB5003810BA /* LoginModel.swift in Sources */,
 				FA8D32672A7B4A4F003810BA /* ProfileViewModel.swift in Sources */,
 				FA8D327A2A7C9EA5003810BA /* UserDefaultsManager.swift in Sources */,
+				FAEC53262A8C50DD000DDEDD /* SignUpViewModel.swift in Sources */,
 				FA8D324E2A778448003810BA /* ImageCacheManager.swift in Sources */,
 				FA8A7204289ABA4700E26196 /* Array.swift in Sources */,
 				FAD5670029543599007A6904 /* ReviewViewController.swift in Sources */,
@@ -999,6 +1018,7 @@
 				FA59C63728911DD2001ADD50 /* TabBarController.swift in Sources */,
 				FA8D329D2A8240E5003810BA /* FollowType.swift in Sources */,
 				FA8D32E32A84B4C1003810BA /* ChannelFirestoreStream.swift in Sources */,
+				FAEC53242A8C4FF9000DDEDD /* SignUpViewController.swift in Sources */,
 				FA8D32702A7B56E1003810BA /* UserPostModel.swift in Sources */,
 				FA8D32D72A84AA1C003810BA /* ImageMediaItem.swift in Sources */,
 				FAAD4906289ABA1200508C12 /* TextFieldClass.swift in Sources */,

@@ -160,8 +160,8 @@ final class HomeViewController: UIViewController, CLLocationManagerDelegate {
         
         viewModel?.requestAroundPosts(param: self.userPosition ?? dummyUserPosition)
             .asObservable()
-            .bind(to: tableView.rx.items(cellIdentifier: OrderTableViewCell.className, cellType: OrderTableViewCell.self)) { (row, item, cell) in
-                
+            .bind(to: tableView.rx.items(cellIdentifier: OrderTableViewCell.className, cellType: OrderTableViewCell.self)) { [weak self] (row, item, cell) in
+                guard let self = self else { return }
                 self.allDataFromServer.append(item)
                 cell.setData(data: item)
                 
@@ -210,7 +210,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let selectedCatagory = categories.allCases[indexPath.item - 1].categoryName
         viewModel?.requestAroundPostsWithCategory(param: self.userPosition ?? dummyUserPosition, category: selectedCatagory)
             .asObservable()
-            .bind(to: tableView.rx.items(cellIdentifier: OrderTableViewCell.className, cellType: OrderTableViewCell.self)) { (row, item, cell) in
+            .bind(to: tableView.rx.items(cellIdentifier: OrderTableViewCell.className, cellType: OrderTableViewCell.self)) {[weak self] (row, item, cell) in
+                guard let self = self else { return }
                 self.allDataFromServer.append(item)
                 cell.setData(data: item)
                 DispatchQueue.global().async {

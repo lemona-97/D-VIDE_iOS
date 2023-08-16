@@ -8,7 +8,10 @@
 import Foundation
 import Moya
 
-protocol LoginBusinessLogic {
+protocol DIVIDELoginLogic {
+    func divideSignIn(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void)
+}
+protocol LoginBusinessLogic : DIVIDELoginLogic {
     /// 카카오 로그인 시 서버에서 자동으로 회원 가입 후 ->  토큰 & userId 제공
     func kakaoSignUp(accessToken : String, completion: @escaping (Result<LoginResponse, Error>) -> Void)
     
@@ -21,10 +24,7 @@ protocol LoginBusinessLogic {
 }
 
 class LoginViewModel : LoginBusinessLogic {
-    
-    
-    
-    
+
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     // 로그인 자동으로 됨
     func kakaoSignUp(accessToken : String, completion: @escaping (Result<LoginResponse, Error>) -> Void) {

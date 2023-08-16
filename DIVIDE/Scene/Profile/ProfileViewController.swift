@@ -11,6 +11,7 @@ import Then
 import RxSwift
 import RxGesture
 import MessageUI
+
 final class ProfileViewController: UIViewController, UIImagePickerControllerDelegate {
     private var allComponents                   = [UIView()]
     
@@ -24,6 +25,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
     private let mainProfileTag                  = MainLabel(type: .small3)
     private let userNickName                    = UITextField()
     private let userNickNameModifyBtn           = UIButton()
+    private let logOutLabel                     = MainLabel(type: .Basics2)
     
     private let followingCount                  = MainLabel(type: .Big2)
     private let followingLabel                  = MainLabel(type: .Basics2)
@@ -73,6 +75,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
         allComponents.append(retrenchView)
         allComponents.append(seeMyOrderHistoryButton)
         allComponents.append(seeMyReviewsButton)
+        allComponents.append(logOutLabel)
         allComponents.append(serviceCenterButton)
         allComponents.append(changeDefaultAddressButton)
         allComponents.append(followingCount)
@@ -149,6 +152,15 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
         userNickNameModifyBtn.do {
             $0.setImage(UIImage(named: "글쓰기.png"), for: .normal)
             $0.alpha = 0
+        }
+        
+        logOutLabel.do {
+            $0.text = "로그아웃"
+            $0.textColor = .black
+            $0.cornerRadius = 10
+            $0.borderColor = .mainOrange2
+            $0.borderWidth = 1
+            $0.textAlignment = .center
         }
         
         followingCount.do {
@@ -298,6 +310,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
 
         view.addSubview(userNickName)
         view.addSubview(userNickNameModifyBtn)
+        view.addSubview(logOutLabel)
         view.addSubview(retrenchView)
         view.addSubview(seeMyOrderHistoryButton)
         view.addSubview(seeMyReviewsButton)
@@ -366,6 +379,13 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
             $0.height.equalTo(26)
             $0.leading.equalTo(userNickName.snp.trailing).offset(-10)
             $0.bottom.equalTo(userNickName.snp.bottom)
+        }
+        
+        logOutLabel.snp.makeConstraints {
+            $0.leading.equalTo(mainProfile).offset(10)
+            $0.height.equalTo(20)
+            $0.trailing.equalTo(mainProfileImageView.snp.leading).offset(-5)
+            $0.bottom.equalTo(mainProfile.snp.top).offset(-10)
         }
         
         followingCount.snp.makeConstraints {
@@ -502,6 +522,35 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
         mainProfileImgCameraBtn.addTarget(self, action: #selector(setProfileImg), for: .touchUpInside)
         userNickNameModifyBtn.addTarget(self, action: #selector(modifyNickName), for: .touchUpInside)
         
+        //로그아웃 후 초기화면으로 전환
+        logOutLabel.rx.tapGesture()
+            .when(.recognized)
+            .bind{ [weak self] _ in
+                guard let self = self else { return }
+                let destination = PopupViewController()
+                destination.confirmListener = { 
+                    UserDefaultsManager.DIVIDE_TOKEN = nil
+                    UserDefaultsManager.displayName = nil
+                    UserDefaultsManager.userPosition = nil
+                    UserDefaultsManager.appleUserInfo = nil
+                    UserDefaultsManager.userId = nil
+                    guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+                    guard let firstWindow = window.windows.first else { return }
+                    
+                    self.navigationController?.popToRootViewController(animated: false)
+                    
+                    firstWindow.rootViewController = UINavigationController(rootViewController: LoginViewController())
+                }
+                destination.dismissListener = nil
+                destination.setPopupMessage(message: "로그아웃 하시겠습니까?", popupType: .SELECT)
+                destination.modalPresentationStyle = .overFullScreen
+                self.navigationController?.present(destination, animated: false)
+
+            }.disposed(by: disposeBag)
+        
+
+        
+        
         seeMyOrderHistoryButton.addAction(UIAction(handler: { [weak self] action in
             guard let self = self else { return }
             let destination = MyOrderHistoryViewController()
@@ -562,6 +611,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
                     self.present(sendMailErrorAlert, animated: true, completion: nil)
                 }
         }), for: .touchUpInside)
+        
         changeDefaultAddressButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             let destination = ChangeDefaultAddressViewController()

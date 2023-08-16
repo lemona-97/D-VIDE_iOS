@@ -75,11 +75,20 @@ extension String {
         return self
     }
     
-    func regex(pattern: String) -> Bool {
-        let regexTest = NSPredicate(format: "SELF MATCHES %@", pattern)
-        return regexTest.evaluate(with: self)
-    }
+    func isValidateEmail() -> Bool {
+        let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        return emailPredicate.evaluate(with: self)
+
     
+    }
+    // 패스워드 정규성 체크
+    func isValidatePassword() -> Bool {
+        let regex = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-]).{8,50}" // 8자리 ~ 50자리 영어+숫자+특수문자
+
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        return predicate.evaluate(with: self)
+    }
     func isOnlyNumber() -> Bool {
         var result = true
         self.forEach { char in

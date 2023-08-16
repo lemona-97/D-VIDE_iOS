@@ -28,7 +28,7 @@ public enum LabelType {
     case small2
     case small3
     case small4
-    
+    case warning
     
 }
 
@@ -89,6 +89,9 @@ class MainLabel: UILabel {
             self.font = UIFont.NotoSansKR(.bold, size: 10)
         case .small4:
             self.font = UIFont.NotoSansKR(.medium, size: 7)
+        case .warning:
+            self.textColor = .red
+            self.font = UIFont.NotoSansKR(.bold, size: 13)
         }
     }
 }

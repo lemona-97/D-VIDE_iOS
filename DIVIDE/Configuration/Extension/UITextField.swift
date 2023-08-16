@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 extension UITextField {
     func setPaddingFor(left: CGFloat = 0, right: CGFloat = 0) {
@@ -16,6 +17,35 @@ extension UITextField {
         let rightPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: right, height: self.frame.size.height))
         self.rightView = rightPaddingView
         self.rightViewMode = .always
+    }
+    
+    func addLeftImage(image:UIImage) {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let leftImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        leftImage.image = image
+        
+        view.addSubview(leftImage)
+        leftImage.center = view.center
+        self.leftView = view
+        self.leftViewMode = .always
+    }
+    
+    func addRightClearButton(){
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let rightButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        rightButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        rightButton.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            self.deleteText()
+        }), for: .touchUpInside)
+        view.addSubview(rightButton)
+        rightButton.center = view.center
+        self.rightView = view
+        self.rightViewMode = .always
+    }
+    
+    func deleteRightButton() {
+        self.rightView = nil
     }
     
     func setDatePicker(target: Any, selector: Selector) {
@@ -34,5 +64,9 @@ extension UITextField {
     
     @objc func tapCancel() {
         self.resignFirstResponder()
+    }
+    
+    func deleteText() {
+        self.text = ""
     }
 }

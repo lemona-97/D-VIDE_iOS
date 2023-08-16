@@ -19,13 +19,17 @@ import CoreLocation
 
 final class LoginViewController: UIViewController {
     
-    private let catchphraseLabel        = MainLabel(type: .Big1)
+    private let catchphraseLabel        = MainLabel(type: .Point4)
     private let halfBubbleImageView     = UIImageView()
     private let mainImageView           = UIImageView()
     private let bottomImageView         = UIImageView()
     
+    private let emailTextField          = UITextField()
+    private let passwordTextField       = UITextField()
+    
     private let kakaoLoginImage         = UIImageView()
     private let appleLoginImage         = UIImageView()
+    private let loginButton             = MainButton(type: .mainAction)
     private let signupButton            = UIButton()
     
     private var locationManager         = CLLocationManager()
@@ -56,8 +60,8 @@ final class LoginViewController: UIViewController {
         catchphraseLabel.do {
             $0.text = "나와 디바이더가 되어 \n나누러 가볼까?"
             $0.numberOfLines = 2
-            
         }
+        
         halfBubbleImageView.do {
             $0.image = UIImage(named: "loginMainHalfBubble")
             $0.contentMode = .scaleAspectFit
@@ -76,6 +80,33 @@ final class LoginViewController: UIViewController {
             $0.clipsToBounds = false
         }
         
+        emailTextField.do {
+            $0.addLeftImage(image: UIImage(systemName: "person")!)
+            $0.textColor = .black
+            $0.roundCorner(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], cornerRadius: 5)
+            $0.font = .AppleSDGothicNeo(.bold, size: 12)
+            $0.attributedPlaceholder = NSAttributedString(string: "이메일", attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray2])
+            $0.textContentType = .emailAddress
+            $0.tintColor = .mainOrange1
+            $0.delegate = self
+            $0.borderColor = .gray3
+            $0.borderWidth = 1        }
+        
+        passwordTextField.do {
+            $0.addLeftImage(image: UIImage(systemName: "lock")!)
+            $0.isSecureTextEntry = true
+            $0.textColor = .black
+            $0.roundCorner(corners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], cornerRadius: 5)
+            $0.cornerRadius = 5
+            $0.font = .AppleSDGothicNeo(.bold, size: 12)
+            $0.attributedPlaceholder = NSAttributedString(string: "비밀번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray2])
+            $0.textContentType = .password
+            $0.tintColor = .mainOrange1
+            $0.delegate = self
+            $0.borderColor = .gray3
+            $0.borderWidth = 1
+        }
+        
         kakaoLoginImage.do {
             $0.image = UIImage(named: "kakaoLogin")
             $0.contentMode = .scaleAspectFit
@@ -90,8 +121,12 @@ final class LoginViewController: UIViewController {
             $0.contentMode = .scaleAspectFit
             $0.backgroundColor = .black
         }
+    
+        loginButton.do {
+            $0.setTitle("로그인", for: .normal)
+            $0.cornerRadius = 22.5
+        }
         
-
         signupButton.do {
             $0.setTitle("회원 가입", for: .normal)
             $0.setTitleColor(.gray2, for: .normal)
@@ -100,28 +135,30 @@ final class LoginViewController: UIViewController {
     }
     
     private func addView() {
-        self.view.addSubviews([catchphraseLabel, halfBubbleImageView, mainImageView, bottomImageView, kakaoLoginImage, appleLoginImage])
+        self.view.addSubviews([catchphraseLabel, halfBubbleImageView, mainImageView, bottomImageView])
+        self.view.addSubviews([emailTextField, passwordTextField, loginButton, kakaoLoginImage, appleLoginImage])
         self.view.addSubview(signupButton)
     }
     private func setLayout() {
         halfBubbleImageView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(39)
-            $0.top.equalToSuperview().offset(140)
-            $0.width.equalTo(SIZE.width / 2)
-            $0.height.equalTo(74)
+            $0.top.equalToSuperview().offset(120)
+            $0.width.equalTo(SIZE.width / 3)
+            $0.height.equalTo(50)
         }
         
         catchphraseLabel.snp.makeConstraints {
             $0.leading.equalTo(halfBubbleImageView)
-            $0.bottom.equalTo(halfBubbleImageView.snp.top).offset(20)
-            $0.height.equalTo(80)
-            $0.width.equalTo(250)
+            $0.bottom.equalTo(halfBubbleImageView.snp.top).offset(15)
+            $0.height.equalTo(60)
+            $0.width.equalTo(200)
         }
+        
         mainImageView.snp.makeConstraints {
             $0.leading.equalTo(halfBubbleImageView.snp.centerX)
-            $0.top.equalTo(halfBubbleImageView.snp.bottom).offset(21)
+            $0.top.equalTo(halfBubbleImageView.snp.bottom)
             $0.trailing.equalToSuperview().offset(-31)
-            $0.height.equalTo(223)
+            $0.height.equalTo(160)
         }
         
         bottomImageView.snp.makeConstraints {
@@ -130,17 +167,38 @@ final class LoginViewController: UIViewController {
             $0.height.equalTo(83)
         }
         
+        emailTextField.snp.makeConstraints {
+            $0.top.equalTo(mainImageView.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().offset(39)
+            $0.trailing.equalToSuperview().offset(-39)
+            $0.height.equalTo(40)
+        }
+        
+        passwordTextField.snp.makeConstraints {
+            $0.top.equalTo(emailTextField.snp.bottom).offset(5)
+            $0.leading.trailing.equalTo(emailTextField)
+            $0.trailing.equalToSuperview().offset(-39)
+            $0.height.equalTo(40)
+        }
+        
+        loginButton.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(39)
+            $0.trailing.equalToSuperview().offset(-39)
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(30)
+            $0.height.equalTo(45)
+        }
+        
         kakaoLoginImage.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(39)
             $0.trailing.equalToSuperview().offset(-39)
-            $0.top.equalTo(mainImageView.snp.bottom).offset(42)
+            $0.top.equalTo(loginButton.snp.bottom).offset(10)
             $0.height.equalTo(45)
         }
         
         appleLoginImage.snp.makeConstraints {
             $0.leading.equalTo(kakaoLoginImage)
             $0.trailing.equalTo(kakaoLoginImage)
-            $0.top.equalTo(kakaoLoginImage.snp.bottom).offset(12)
+            $0.top.equalTo(kakaoLoginImage.snp.bottom).offset(10)
             $0.height.equalTo(45)
         }
         
@@ -167,7 +225,8 @@ final class LoginViewController: UIViewController {
                             guard let accessToken = oauthToken?.accessToken else { return }
                             
                             KAKAO_ACCESS_TOKEN = accessToken
-                            self.viewModel?.kakaoSignUp(accessToken: accessToken) { result in
+                            self.viewModel?.kakaoSignUp(accessToken: accessToken) { [weak self] result in
+                                guard let self = self else { return }
                                 switch result {
                                 case .success(let response):
                                     print("=========================================================================")
@@ -195,7 +254,8 @@ final class LoginViewController: UIViewController {
                                         Auth.auth().createUser(withEmail: (user?.kakaoAccount?.email)!, password: (user?.kakaoAccount?.email)! + "kakaoLogin")
                                     }
                                     print("=========================================================================")
-                                    self.getUserPosition { userPosition in
+                                    self.getUserPosition { [weak self] userPosition in
+                                        guard let self = self else { return }
                                         print("userPosition : \(userPosition)")
                                         self.viewModel?.setUserPositon(userPosition: userPosition) {
                                             self.navigationController?.popViewController(animated: true)
@@ -229,9 +289,14 @@ final class LoginViewController: UIViewController {
             }.disposed(by: disposeBag)
           
         
-//        signupButton.addAction(UIAction(handler: { _ in
-//            회원가입 화면으로 !
-//        }), for: .touchUpInside)
+
+        
+        signupButton.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            let destination = SignUpViewController()
+            self.navigationController?.navigationBar.isHidden = true
+            self.navigationController?.pushViewController(destination, animated: true)
+        }), for: .touchUpInside)
     }
     
     /// 애플 로그인 호출
@@ -331,5 +396,30 @@ extension LoginViewController : ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("애플 로그인 에러 발생")
         print("error \(error)")
+    }
+}
+
+extension LoginViewController : UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.view.rx.tapGesture()
+            .when(.recognized)
+            .bind { _ in
+                textField.resignFirstResponder()
+            }.disposed(by: disposeBag)
+        textField.borderColor = .mainOrange1
+        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.borderColor = .gray3
+        textField.deleteRightButton()
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField.text == "" {
+            textField.deleteRightButton()
+        } else {
+            textField.addRightClearButton()
+        }
     }
 }
