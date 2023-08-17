@@ -8,6 +8,8 @@
 import UIKit
 
 import RxSwift
+import RxCocoa
+
 import Then
 import SnapKit
 class OtherProfileViewController: UIViewController {
@@ -32,7 +34,7 @@ class OtherProfileViewController: UIViewController {
     
     private let feedLabel                   = MainLabel(type: .Basics4)
     private let feedTableView               = UITableView()
-    
+    private var otherReviewData  : [Review] = []
     
     private var viewModel : OtherProfileBusinessLogic?
     private var disposeBag = DisposeBag()
@@ -44,7 +46,7 @@ class OtherProfileViewController: UIViewController {
         setLayout()
         setUp()
         requestOtherProfile()
-        bindToViewModel()
+        
         addAction()
     }
     
@@ -124,6 +126,12 @@ class OtherProfileViewController: UIViewController {
         feedLabel.do {
             $0.textColor = .black
             $0.text = "• OO님의 피드"
+        }
+        
+        feedTableView.do {
+            $0.separatorStyle = .none
+            $0.backgroundColor = .gray0
+            $0.showsVerticalScrollIndicator = false
         }
     }
     
@@ -211,6 +219,20 @@ class OtherProfileViewController: UIViewController {
             $0.top.equalTo(rightBox.snp.bottom).offset(9)
             $0.height.equalTo(20)
         }
+        
+        feedLabel.snp.makeConstraints {
+            $0.leading.equalTo(profileImageView).offset(13)
+            $0.top.equalTo(profileBox.snp.bottom).offset(20)
+            $0.height.equalTo(14)
+            $0.trailing.equalTo(rightBox)
+        }
+        
+        feedTableView.snp.makeConstraints {
+            $0.top.equalTo(feedLabel.snp.bottom).offset(9)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-5)
+        }
     }
     
     private func setUp() {
@@ -238,11 +260,23 @@ class OtherProfileViewController: UIViewController {
             case .failure(let err):
                 print(err)
             }
+            bindToViewModel()
         })
     }
     
     private func bindToViewModel() {
-        
+        feedTableView.rx.setDelegate(self).disposed(by: disposeBag)
+        guard let userId = self.userId else { return }
+        self.viewModel?.requestOtherReview(userId : userId, first : 0)
+            .asObservable()
+            .bind(to : feedTableView.rx.items(cellIdentifier: ReviewTableViewCell.className, cellType: ReviewTableViewCell.self)) { [weak self] (row, item, cell) in
+                guard let self = self else { return }
+                self.otherReviewData.append(item)
+                cell.setData(review: item, profileImage: self.profileImageView.image!, nickname: self.profileNickname.text!)
+                GeocodingManager.reverseGeocoding(lat: item.latitude, lng: item.longitude) { location in
+                   cell.setLocation(location: location)
+                }
+            }.disposed(by: disposeBag)
     }
     
     private func addAction() {
@@ -250,4 +284,20 @@ class OtherProfileViewController: UIViewController {
     }
 
 
+}
+
+
+extension OtherProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        otherReviewData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReviewTableViewCell.className, for: indexPath) as? ReviewTableViewCell else { return UITableViewCell() }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        161
+    }
 }

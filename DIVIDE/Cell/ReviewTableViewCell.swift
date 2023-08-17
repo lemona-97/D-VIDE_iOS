@@ -258,6 +258,25 @@ final class ReviewTableViewCell: UITableViewCell {
             self.likeButton.isSelected = true
         }
     }
+    func setData(review : Review, profileImage : UIImage, nickname : String) {
+        showIndicator(indicator: self.foodImageViewIndicator)
+        self.userImageView.image = profileImage
+        self.stopIndicator(indicator: self.userImageViewIndicator)
+        
+        
+        self.userID.text = nickname
+        self.reviewLikeCount.text = String(Int(review.likeCount))
+        showIndicator(indicator: self.foodImageViewIndicator)
+        self.foodImageView.load(url: review.reviewImgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {
+            self.stopIndicator(indicator: self.foodImageViewIndicator)
+        }
+        self.storeNameTag.text = "# " + review.storeName.removingPercentEncoding!
+        self.contentTextView.text = review.content
+        self.cosmosView.rating = review.starRating
+        if review.isLiked {
+            self.likeButton.isSelected = true
+        }
+    }
     
     func setLocation(location : String) {
         DispatchQueue.main.async {

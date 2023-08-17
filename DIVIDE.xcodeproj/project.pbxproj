@@ -35,6 +35,7 @@
 		FA0C4B6D2A8DF7BD009783FF /* OtherProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B6C2A8DF7BD009783FF /* OtherProfileViewController.swift */; };
 		FA0C4B6F2A8E0A49009783FF /* OtherProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B6E2A8E0A49009783FF /* OtherProfileViewModel.swift */; };
 		FA0C4B712A8E0A95009783FF /* OtherProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B702A8E0A95009783FF /* OtherProfileModel.swift */; };
+		FA0C4B732A8E192D009783FF /* OtherReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B722A8E192D009783FF /* OtherReviewModel.swift */; };
 		FA3EDAC72A6F9DC30078AA89 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */; };
 		FA3EDAD12A7209180078AA89 /* SIZE.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EDAD02A7209180078AA89 /* SIZE.swift */; };
 		FA4967C4288A9E2B000247E4 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4967C3288A9E2B000247E4 /* OrderTableViewCell.swift */; };
@@ -189,6 +190,7 @@
 		FA0C4B6C2A8DF7BD009783FF /* OtherProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewController.swift; sourceTree = "<group>"; };
 		FA0C4B6E2A8E0A49009783FF /* OtherProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewModel.swift; sourceTree = "<group>"; };
 		FA0C4B702A8E0A95009783FF /* OtherProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileModel.swift; sourceTree = "<group>"; };
+		FA0C4B722A8E192D009783FF /* OtherReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherReviewModel.swift; sourceTree = "<group>"; };
 		FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		FA3EDAD02A7209180078AA89 /* SIZE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIZE.swift; sourceTree = "<group>"; };
 		FA4967C3288A9E2B000247E4 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 				FA0C4B702A8E0A95009783FF /* OtherProfileModel.swift */,
 				FA8D32602A7B365A003810BA /* ReviewDetailModel.swift */,
 				FA0AAABC295C04B500783B93 /* ReviewModel.swift */,
+				FA0C4B722A8E192D009783FF /* OtherReviewModel.swift */,
 				FA8D32E02A84B43D003810BA /* StreamError.swift */,
 				FA9DFB9028B375D10036B106 /* UserPosition.swift */,
 				FA8D326F2A7B56E1003810BA /* UserPostModel.swift */,
@@ -1036,6 +1039,7 @@
 				324C3440286AF32A0057286A /* HomeViewController.swift in Sources */,
 				FA9DFB8928AF31670036B106 /* PostDetailViewController.swift in Sources */,
 				FAA412D92A6632D00053258D /* PostDetailModel.swift in Sources */,
+				FA0C4B732A8E192D009783FF /* OtherReviewModel.swift in Sources */,
 				FA8D32882A809FB5003810BA /* LoginModel.swift in Sources */,
 				FA8D32672A7B4A4F003810BA /* ProfileViewModel.swift in Sources */,
 				FA0C4B6F2A8E0A49009783FF /* OtherProfileViewModel.swift in Sources */,

@@ -7,9 +7,10 @@
 
 import Foundation
 import Moya
-
+import RxSwift
 protocol OtherProfileBusinessLogic {
     func requestOtherProfile(userId : Int, completion : @escaping (Result<OtherProfileModel, Error>) -> Void)
+    func requestOtherReview(userId : Int, first : Int?) -> Single<[Review]>
 }
 
 class OtherProfileViewModel : OtherProfileBusinessLogic {
@@ -31,5 +32,14 @@ class OtherProfileViewModel : OtherProfileBusinessLogic {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func requestOtherReview(userId : Int, first : Int?) -> Single<[Review]> {
+        realProvider.rx.request(.requestOtherReview(userId: userId, first: first ?? nil))
+            .filterSuccessfulStatusCodes()
+            .map(OtherReviewData.self)
+            .flatMap { response in
+                    .just(response.data)
+            }
     }
 }

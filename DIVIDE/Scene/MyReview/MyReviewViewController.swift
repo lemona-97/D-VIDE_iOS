@@ -87,7 +87,7 @@ final class MyReviewViewController: UIViewController {
         
         self.viewModel?.requestMyReview(first: 0)
             .asObservable()
-            .bind(to: reviewTableView.rx.items(cellIdentifier: "ReviewTableViewCell", cellType: ReviewTableViewCell.self)) { [weak self]  (row, item, cell) in
+            .bind(to: reviewTableView.rx.items(cellIdentifier: ReviewTableViewCell.className, cellType: ReviewTableViewCell.self)) { [weak self]  (row, item, cell) in
                 guard let self = self else { return }
                 self.myReviewData.append(item)
                 cell.setData(reviewData: item)
