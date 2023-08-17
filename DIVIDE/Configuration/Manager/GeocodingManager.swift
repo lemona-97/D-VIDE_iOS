@@ -21,7 +21,6 @@ class GeocodingManager {
     ///
     ///  한달 300만회 (하루 약 10만 회) 까지만 가능
     class func reverseGeocoding(lat: Double, lng: Double,  completion: @escaping (String) -> ()) {
-        
         let lng = String(format: "%.4f", lng)
         let lat = String(format: "%.4f", lat)
         
@@ -33,7 +32,6 @@ class GeocodingManager {
             completion(cachedCoordinate as String)
         }
         print("캐시에 없는 좌표입니다. 리버스 지오코딩을 진행하고 캐시에 저장합니다.")
-        
         guard var urlComponents = URLComponents(string: "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc") else { return }
         guard let clientID = NMFAuthManager.shared().clientId else { return }
         
@@ -78,5 +76,6 @@ class GeocodingManager {
                 }
             }
         }.resume()
+        
     }
 }

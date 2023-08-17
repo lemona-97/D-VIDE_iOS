@@ -16,71 +16,73 @@ import PhotosUI
 final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: property
-    private var imageArray : [UIImage] = []
-    private var photoConfiguration = PHPickerConfiguration()
+    private var imageArray : [UIImage]          = []
+    private var photoConfiguration              = PHPickerConfiguration()
     
     
-    private let topBackground = UIView()
-    private let proposerImage = UIImageView()
-    private let proposerImageIndicator = UIActivityIndicatorView()
-    private let proposerNickName = MainLabel(type: .Basics5)
-    private let closeButton = UIButton(configuration: UIButton.Configuration.filled())
-    private let mainScrollView = UIScrollView()
+    private let topBackground                   = UIView()
+    private let proposerImage                   = UIImageView()
+    private let proposerImageIndicator          = UIActivityIndicatorView()
+    private let proposerNickName                = MainLabel(type: .Basics5)
+    private let proposerDetailTouchBox          = UIView()
+    private let closeButton                     = UIButton(configuration: UIButton.Configuration.filled())
+    private let mainScrollView                  = UIScrollView()
     
-    private let foodImageView = UIImageView()
-    private let foodImageIndicator = UIActivityIndicatorView()
+    private let foodImageView                   = UIImageView()
+    private let foodImageIndicator              = UIActivityIndicatorView()
     
-    private let informationView = UIView()
-    private let titleLabel = MainLabel(type: .Big1)
-    private let dueTimeLabel = MainLabel(type: .Point4)
-    private let dueTime = MainLabel(type: .Point4)
-    private let AMPM = MainLabel(type: .Basics2)
-    
-    
-    private let deliveryFeeLabel = MainLabel(type: .Point4)
-    private let deliveryFee = MainLabel(type: .Point4)
-    private let deliveryFeeUnitLabel = MainLabel(type: .Basics2)
-    
-    private let deliveryAimMoneyLabel = MainLabel(type: .Point4)
-    private let deliveryAimMoney = MainLabel(type: .Big1)
-    private let aimUnitLabel = MainLabel(type: .Basics2)
+    private let informationView                 = UIView()
+    private let titleLabel                      = MainLabel(type: .Big1)
+    private let dueTimeLabel                    = MainLabel(type: .Point4)
+    private let dueTime                         = MainLabel(type: .Point4)
+    private let AMPM                            = MainLabel(type: .Basics2)
     
     
-    private let presentOrderMoneyLabel = MainLabel(type: .Point4)
-    private let presentOrderMoney = MainLabel(type: .Big1)
-    private let presentUnitLabel = MainLabel(type: .Basics2)
+    private let deliveryFeeLabel                = MainLabel(type: .Point4)
+    private let deliveryFee                     = MainLabel(type: .Point4)
+    private let deliveryFeeUnitLabel            = MainLabel(type: .Basics2)
     
-    private let progressBarBackground = UIView()
-    
-    private let progressBar = UIView()
-    
-    private let contentLabel  = MainLabel(type: .Point4)
-    private let content       = MainLabel(type: .Basics4)
-    
-    private let placeLabel = MainLabel(type: .Point4)
-    private let mapContainerView = UIView()
-    lazy var mapView = NMFMapView(frame: view.frame)
-    private var marker = NMFMarker()
+    private let deliveryAimMoneyLabel           = MainLabel(type: .Point4)
+    private let deliveryAimMoney                = MainLabel(type: .Big1)
+    private let aimUnitLabel                    = MainLabel(type: .Basics2)
     
     
-    private let joinButton = MainButton(type: .mainAction)
+    private let presentOrderMoneyLabel          = MainLabel(type: .Point4)
+    private let presentOrderMoney               = MainLabel(type: .Big1)
+    private let presentUnitLabel                = MainLabel(type: .Basics2)
+    
+    private let progressBarBackground           = UIView()
+    
+    private let progressBar                     = UIView()
+    
+    private let contentLabel                    = MainLabel(type: .Point4)
+    private let content                         = MainLabel(type: .Basics4)
+    
+    private let placeLabel                      = MainLabel(type: .Point4)
+    private let mapContainerView                = UIView()
+    lazy var mapView                            = NMFMapView(frame: view.frame)
+    private var marker                          = NMFMarker()
+    
+    
+    private let joinButton                      = MainButton(type: .mainAction)
     
     
     var postId : Int?
+    private var postUserId : Int?
     
     // bottom sheet
     // 하단 버튼 누를때 메모리에 적재 하기 위해서 lazy 작성
-    private let bottomSheetView = UIView()
-    private let orderMenuLabel = MainLabel(type: .Big2)
-    private let orderShopLabel = MainLabel(type: .Point4)
+    private let bottomSheetView                 = UIView()
+    private let orderMenuLabel                  = MainLabel(type: .Big2)
+    private let orderShopLabel                  = MainLabel(type: .Point4)
     
-    private let orderImageView1 = UIImageView()
-    private let orderImageView2 = UIImageView()
+    private let orderImageView1                 = UIImageView()
+    private let orderImageView2                 = UIImageView()
     
-    private let orderAmountLabel = MainLabel(type: .Big2)
-    private let orderAmountValueTextField = MainTextField(type: .color)
-    private let orderAmountFeeLabel = MainLabel(type: .Point3)
-    private let chatWithDIVIDERButton = MainButton(type: .mainAction)
+    private let orderAmountLabel                = MainLabel(type: .Big2)
+    private let orderAmountValueTextField       = MainTextField(type: .color)
+    private let orderAmountFeeLabel             = MainLabel(type: .Point3)
+    private let chatWithDIVIDERButton           = MainButton(type: .mainAction)
     
     private var viewModel : PostDetailBusinessLogic?
     private var disposeBag = DisposeBag()
@@ -292,7 +294,7 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
         
     }
     private func addView() {
-        self.view.addSubviews([topBackground, mainScrollView, proposerImage, proposerImageIndicator, proposerNickName, closeButton, bottomSheetView])
+        self.view.addSubviews([topBackground, mainScrollView, proposerImage, proposerImageIndicator, proposerNickName, closeButton, bottomSheetView, proposerDetailTouchBox])
         mainScrollView.addSubviews([foodImageView, foodImageIndicator, informationView])
         informationView.addSubviews([titleLabel,
                                      dueTimeLabel,
@@ -348,6 +350,13 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
             $0.leading.equalTo(proposerImage).offset(44)
             $0.width.equalTo(150)
             $0.height.equalTo(38)
+        }
+        
+        proposerDetailTouchBox.snp.makeConstraints {
+            $0.leading.equalTo(proposerImage)
+            $0.trailing.equalTo(proposerNickName)
+            $0.top.equalTo(proposerImage)
+            $0.bottom.equalTo(proposerImage)
         }
         
         closeButton.snp.makeConstraints {
@@ -630,7 +639,7 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
                 }
                 
                 self.orderShopLabel.text = postDetailData.data?.postDetail?.storeName
-                
+                self.postUserId = postDetailData.data?.user?.id
             }).disposed(by: self.disposeBag)
     }
     
@@ -638,6 +647,14 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
     ///
     /// joinButton 누르면 주문서 작성 bottom sheet 등장
     private func addAction() {
+        proposerDetailTouchBox.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                let destination = OtherProfileViewController()
+                destination.modalPresentationStyle = .pageSheet
+                destination.userId = self?.postUserId
+                self?.navigationController?.present(destination, animated: true)
+            }.disposed(by: disposeBag)
         self.joinButton.addAction(UIAction(handler: { [weak self] action in
             guard let self = self else { return }
 

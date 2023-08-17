@@ -12,12 +12,14 @@ import Then
 public enum LabelType {
     case hopang
     case title
+    case orange
     case Big1
     case Big2
     case Point1
     case Point2
     case Point3
     case Point4
+    case Point5
     case Basics1
     case Basics2
     case Basics3
@@ -57,6 +59,9 @@ class MainLabel: UILabel {
         case .title:
             self.font = UIFont.NotoSansKR(.bold, size: 25)
             self.textColor = .mainOrange1
+        case .orange:
+            self.textColor = .mainOrange1
+            self.font = UIFont.NotoSansKR(.bold, size: 10)
         case .Big1:
             self.font = UIFont.NotoSansKR(.bold, size: 22)
         case .Big2:
@@ -69,6 +74,8 @@ class MainLabel: UILabel {
             self.font = UIFont.NotoSansKR(.bold, size: 14)
         case .Point4:
             self.font = UIFont.NotoSansKR(.bold, size: 16)
+        case .Point5:
+            self.font = UIFont.NotoSansKR(.bold, size: 18)
         case .Basics1:
             self.font = UIFont.NotoSansKR(.regular, size: 12)
         case .Basics2:

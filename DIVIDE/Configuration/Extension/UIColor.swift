@@ -19,7 +19,7 @@ extension UIColor {
     
     class var disable: UIColor { UIColor(hex: 0xCCCCCC) }
     
-    
+    class var lightOrange       : UIColor { UIColor(hex: 0xF5BF50)}
     class var mainOrange1       : UIColor { UIColor(hex: 0xFF8A00)}
     class var mainOrange2       : UIColor { UIColor(hex: 0xFF7C03)}
     class var mainYellow        : UIColor { UIColor(hex: 0xFFBD2F)}

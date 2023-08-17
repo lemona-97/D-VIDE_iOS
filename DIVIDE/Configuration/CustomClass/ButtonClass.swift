@@ -10,6 +10,7 @@ import UIKit
 
 public enum CustomButtonType {
     case mainAction
+    case followAction
     case color
 }
 
@@ -37,6 +38,13 @@ class MainButton: UIButton {
             self.titleLabel?.font = UIFont.SDSamliphopang(.basic, size: 20)
             self.layer.cornerRadius = 25
             self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
+        case .followAction:
+            self.setTitleColor(.white, for: .normal)
+            self.backgroundColor = .mainOrange2
+            self.titleLabel?.font = UIFont.SDSamliphopang(.basic, size: 12)
+            self.layer.cornerRadius = 11
+            self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
+            
         case .color:
             self.backgroundColor = .mainOrange2
         }
@@ -51,7 +59,13 @@ class MainButton: UIButton {
                self.backgroundColor = .mainOrange2
                self.layer.cornerRadius = 18
                self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMinXMinYCorner)
-               
+           case .followAction:
+               self.setTitle("팔로우", for: .normal)
+               self.setTitleColor(.white, for: .normal)
+               self.backgroundColor = .mainOrange2
+               self.titleLabel?.font = UIFont.SDSamliphopang(.basic, size: 12)
+               self.layer.cornerRadius = 11
+               self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner)
            case .color:
                self.backgroundColor = .mainOrange2
            }
