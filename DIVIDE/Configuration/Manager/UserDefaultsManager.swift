@@ -18,6 +18,8 @@ struct UserDefaultsManager {
     static var userId : Int?
     @UserDefaultWrapper(key: "DisplayName", defaultValue: nil)
     static var displayName : String?
+    @UserDefaultWrapper(key: "ReverseGeocoding", defaultValue: nil)
+    static var coordinates : [UserPosition]?
 }
 
 @propertyWrapper
@@ -50,28 +52,28 @@ struct UserDefaultWrapper<T: Codable> {
                 UserDefaults.standard.set(encoded, forKey: key)
                 if key == "userPosition" {
                     print("=========================================================================")
-                    print("              User Default : 사용자 기본 주소지 좌표값 수정 완료 ", newValue)
+                    print("              User Default : 사용자 기본 주소지 좌표값 수정 완료 ", newValue as Any)
                     print("=========================================================================")
                     
                 }
                 if key == "appleUserInfo" {
                     print("=========================================================================")
-                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue)
+                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue as Any)
                     print("=========================================================================")
                 }
                 if key == "DIVIDETOKEN" {
                     print("=========================================================================")
-                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue)
+                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue as Any)
                     print("=========================================================================")
                 }
                 if key == "userId" {
                     print("=========================================================================")
-                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue)
+                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue as Any)
                     print("=========================================================================")
                 }
                 if key == "DisplayName" {
                     print("=========================================================================")
-                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue)
+                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue as Any)
                     print("=========================================================================")
                 }
             }

@@ -130,6 +130,7 @@
 		FAEC53242A8C4FF9000DDEDD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53232A8C4FF9000DDEDD /* SignUpViewController.swift */; };
 		FAEC53262A8C50DD000DDEDD /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53252A8C50DD000DDEDD /* SignUpViewModel.swift */; };
 		FAEC53292A8CBFE6000DDEDD /* PopupType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53282A8CBFE6000DDEDD /* PopupType.swift */; };
+		FAEC532B2A8DA237000DDEDD /* CoordinateCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC532A2A8DA237000DDEDD /* CoordinateCacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -276,6 +277,7 @@
 		FAEC53232A8C4FF9000DDEDD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FAEC53252A8C50DD000DDEDD /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		FAEC53282A8CBFE6000DDEDD /* PopupType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupType.swift; sourceTree = "<group>"; };
+		FAEC532A2A8DA237000DDEDD /* CoordinateCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateCacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -546,6 +548,7 @@
 				FAA412D22A662F380053258D /* CalculateManager.swift */,
 				FA8D324D2A778448003810BA /* ImageCacheManager.swift */,
 				FA8D32562A7A32F2003810BA /* GeocodingManager.swift */,
+				FAEC532A2A8DA237000DDEDD /* CoordinateCacheManager.swift */,
 				FA8D32792A7C9EA5003810BA /* UserDefaultsManager.swift */,
 				FA8D32C42A849477003810BA /* FirebaseStorageManager.swift */,
 			);
@@ -1063,6 +1066,7 @@
 				FA8D32DD2A84B40A003810BA /* DatabaseRepresentaion.swift in Sources */,
 				FA8D32992A824026003810BA /* FollowViewController.swift in Sources */,
 				FA3EDAD12A7209180078AA89 /* SIZE.swift in Sources */,
+				FAEC532B2A8DA237000DDEDD /* CoordinateCacheManager.swift in Sources */,
 				FA8D32572A7A32F2003810BA /* GeocodingManager.swift in Sources */,
 				FA8D32DB2A84AD5A003810BA /* NSObject.swift in Sources */,
 				324C343C286AF32A0057286A /* AppDelegate.swift in Sources */,
