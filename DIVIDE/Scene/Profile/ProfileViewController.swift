@@ -368,7 +368,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
         }
         
         userNickName.snp.makeConstraints {
-            $0.width.equalTo(100)
+            $0.leading.trailing.equalTo(mainProfile)
             $0.height.equalTo(23)
             $0.centerX.equalTo(mainProfile)
             $0.centerY.equalTo(mainProfile)
@@ -665,7 +665,6 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
             userNickName.snp.updateConstraints {
                 $0.centerY.equalTo(mainProfile)
                 $0.height.equalTo(23)
-                $0.width.equalTo(100)
             }
             userNickName.resignFirstResponder()
             
@@ -688,7 +687,6 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
             userNickName.snp.updateConstraints {
                 $0.centerY.equalTo(mainProfile).offset(79.5)
                 $0.height.equalTo(30)
-                $0.width.equalTo(120)
             }
         }
         

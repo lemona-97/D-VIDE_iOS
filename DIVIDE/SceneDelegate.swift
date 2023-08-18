@@ -25,9 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
 
         getUserLocation()
         
-        if AuthApi.hasToken() == false && UserDefaultsManager.appleUserInfo == nil {
+        if AuthApi.hasToken() == false && UserDefaultsManager.appleUserInfo == nil && UserDefaultsManager.DIVIDE_TOKEN == nil {
             print("========================================================")
-            print("                 Kakao, Apple - 비 로그인 상태")
+            print("                 비 로그인 상태")
             print("========================================================")
             initialViewController = UINavigationController(rootViewController: LoginViewController())
             window?.rootViewController = initialViewController
@@ -40,6 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
             initialViewController = UINavigationController(rootViewController: TabBarController())
             window?.rootViewController = initialViewController
             window?.makeKeyAndVisible()
+            
         } else if UserDefaultsManager.appleUserInfo != nil {
             LoginViewModel().divideSignIn(email: (UserDefaultsManager.appleUserInfo?.email)!, password: (UserDefaultsManager.appleUserInfo?.email)! + "appleLogin") { [weak self] result in
                 guard let self = self else { return }
@@ -58,9 +59,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
                 self.window?.rootViewController = initialViewController
                 self.window?.makeKeyAndVisible()
             }
+        } else if UserDefaultsManager.DIVIDE_TOKEN != nil {
+            print("========================================================")
+            print("                 DIVIDE - 자체 로그인 상태")
+            print("========================================================")
+            initialViewController = UINavigationController(rootViewController: TabBarController())
+            window?.rootViewController = initialViewController
+            window?.makeKeyAndVisible()
         }
-        
-        
       }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -99,7 +105,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
     }
 
     func getUserLocation() {
-        var locationManager = CLLocationManager()
+        let locationManager = CLLocationManager()
         // 델리게이트를 설정하고,
         locationManager.delegate = self
         // 거리 정확도

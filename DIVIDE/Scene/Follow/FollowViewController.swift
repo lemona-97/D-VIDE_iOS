@@ -20,7 +20,10 @@ final class FollowViewController: UIViewController {
     private let followCollectionView       = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     
     var type : FollowType?
+    var isOther = false
+    var userId : Int?
     private var allDataOfFollowInfo  : [FollowInfo] = []
+    private var allDataOfOtherFollowInfo : [OtherFollowModel] = []
     private var viewModel : FollowBusinessLogic?
     private var disposeBag = DisposeBag()
     
@@ -108,30 +111,48 @@ final class FollowViewController: UIViewController {
         backButton.addAction(UIAction(handler: {[weak self] _ in
             guard let self = self else { return }
             self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true)
         }), for: .touchUpInside)
     }
     
     private func bindFollow() {
+        
         guard let type = self.type else { return }
         followCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-        self.viewModel?.requestFollowList(type: type, first: nil)
-            .asObservable()
-            .bind(to: followCollectionView.rx.items(cellIdentifier: "FollowCollectionViewCell", cellType: FollowCollectionViewCell.self)) { (row, item, cell) in
-                self.allDataOfFollowInfo.append(item)
-                
-                cell.setData(type: type, info: item)
-            }.disposed(by: disposeBag)
+        
+        if isOther {
+            if let userId = self.userId {
+                self.viewModel?.requestOtherFollowList(relation: type, first: 0, userId: userId)
+                    .asObservable()
+                    .bind(to: followCollectionView.rx.items(cellIdentifier: FollowCollectionViewCell.className, cellType: FollowCollectionViewCell.self)) { (row, item, cell) in
+                        self.allDataOfOtherFollowInfo.append(item)
+                        
+                        cell.setData(type: type, info: item)
+                    }.disposed(by: disposeBag)
+
+
+            }
+        } else {
+            self.viewModel?.requestFollowList(type: type, first: nil)
+                .asObservable()
+                .bind(to: followCollectionView.rx.items(cellIdentifier: FollowCollectionViewCell.className, cellType: FollowCollectionViewCell.self)) { (row, item, cell) in
+                    self.allDataOfFollowInfo.append(item)
+                    
+                    cell.setData(type: type, info: item)
+                }.disposed(by: disposeBag)
+        }
+        
     }
     
 }
 
 extension FollowViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        allDataOfFollowInfo.count
+        allDataOfFollowInfo.count + allDataOfOtherFollowInfo.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FollowCollectionViewCell", for: indexPath) as! FollowCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowCollectionViewCell.className, for: indexPath) as! FollowCollectionViewCell
 
         return cell
     }

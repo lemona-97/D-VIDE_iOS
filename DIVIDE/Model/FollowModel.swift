@@ -2,18 +2,15 @@
 //  FollowModel.swift
 //  DIVIDE
 //
-//  Created by wooseob on 2023/08/09.
+//  Created by wooseob on 2023/08/18.
 //
 
 import Foundation
 
-struct FollowResponse : Decodable {
-    var data            : [FollowInfo]
+struct FollowResponse : Codable {
+    var followId  : String?
 }
 
-struct FollowInfo : Decodable {
-    var userId          : Int?
-    var profileImgUrl   : String?
-    var nickname        : String?
-    var followId        : Int?
+struct UnfollowResponse : Codable {
+    var result : Bool?
 }

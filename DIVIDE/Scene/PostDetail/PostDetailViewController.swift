@@ -718,7 +718,13 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
                     guard let self = self else { return }
                     switch result {
                     case .success(let result):
-                        self.presentAlert(title: "order 성공: \(result.orderId)")
+                        let destination = PopupViewController()
+                        destination.dismissListener = {
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                        destination.setPopupMessage(message: "디바이드 참여 완료!", popupType: .ALERT)
+                        destination.modalPresentationStyle = .overFullScreen
+                        self.navigationController?.present(destination, animated: true)
                     case .failure(let err):
                         print(err)
                     }

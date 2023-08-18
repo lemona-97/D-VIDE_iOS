@@ -36,6 +36,8 @@
 		FA0C4B6F2A8E0A49009783FF /* OtherProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B6E2A8E0A49009783FF /* OtherProfileViewModel.swift */; };
 		FA0C4B712A8E0A95009783FF /* OtherProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B702A8E0A95009783FF /* OtherProfileModel.swift */; };
 		FA0C4B732A8E192D009783FF /* OtherReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B722A8E192D009783FF /* OtherReviewModel.swift */; };
+		FA0C4B752A8EF169009783FF /* FollowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B742A8EF169009783FF /* FollowModel.swift */; };
+		FA0C4B772A8F0AEF009783FF /* OtherFollowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B762A8F0AEF009783FF /* OtherFollowModel.swift */; };
 		FA3EDAC72A6F9DC30078AA89 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */; };
 		FA3EDAD12A7209180078AA89 /* SIZE.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EDAD02A7209180078AA89 /* SIZE.swift */; };
 		FA4967C4288A9E2B000247E4 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4967C3288A9E2B000247E4 /* OrderTableViewCell.swift */; };
@@ -86,7 +88,7 @@
 		FA8D32992A824026003810BA /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32982A824026003810BA /* FollowViewController.swift */; };
 		FA8D329D2A8240E5003810BA /* FollowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D329C2A8240E5003810BA /* FollowType.swift */; };
 		FA8D329F2A8241C6003810BA /* FollowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D329E2A8241C6003810BA /* FollowViewModel.swift */; };
-		FA8D32A12A83187C003810BA /* FollowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32A02A83187C003810BA /* FollowModel.swift */; };
+		FA8D32A12A83187C003810BA /* FollowListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32A02A83187C003810BA /* FollowListModel.swift */; };
 		FA8D32A32A833699003810BA /* FollowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32A22A833699003810BA /* FollowCollectionViewCell.swift */; };
 		FA8D32A62A83786C003810BA /* JoinOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32A52A83786C003810BA /* JoinOrderModel.swift */; };
 		FA8D32A92A839381003810BA /* MyReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32A82A839381003810BA /* MyReviewViewController.swift */; };
@@ -191,6 +193,8 @@
 		FA0C4B6E2A8E0A49009783FF /* OtherProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewModel.swift; sourceTree = "<group>"; };
 		FA0C4B702A8E0A95009783FF /* OtherProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileModel.swift; sourceTree = "<group>"; };
 		FA0C4B722A8E192D009783FF /* OtherReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherReviewModel.swift; sourceTree = "<group>"; };
+		FA0C4B742A8EF169009783FF /* FollowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowModel.swift; sourceTree = "<group>"; };
+		FA0C4B762A8F0AEF009783FF /* OtherFollowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowModel.swift; sourceTree = "<group>"; };
 		FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		FA3EDAD02A7209180078AA89 /* SIZE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIZE.swift; sourceTree = "<group>"; };
 		FA4967C3288A9E2B000247E4 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -242,7 +246,7 @@
 		FA8D32982A824026003810BA /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		FA8D329C2A8240E5003810BA /* FollowType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowType.swift; sourceTree = "<group>"; };
 		FA8D329E2A8241C6003810BA /* FollowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewModel.swift; sourceTree = "<group>"; };
-		FA8D32A02A83187C003810BA /* FollowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowModel.swift; sourceTree = "<group>"; };
+		FA8D32A02A83187C003810BA /* FollowListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowListModel.swift; sourceTree = "<group>"; };
 		FA8D32A22A833699003810BA /* FollowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA8D32A52A83786C003810BA /* JoinOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinOrderModel.swift; sourceTree = "<group>"; };
 		FA8D32A82A839381003810BA /* MyReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewViewController.swift; sourceTree = "<group>"; };
@@ -259,7 +263,7 @@
 		FA8D32DE2A84B42C003810BA /* ChatFirestoreStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatFirestoreStream.swift; sourceTree = "<group>"; };
 		FA8D32E02A84B43D003810BA /* StreamError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamError.swift; sourceTree = "<group>"; };
 		FA8D32E22A84B4C1003810BA /* ChannelFirestoreStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelFirestoreStream.swift; sourceTree = "<group>"; };
-		FA8D32E42A84B80C003810BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA8D32E42A84B80C003810BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA8D32E62A84C417003810BA /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		FA8D32E82A84C492003810BA /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		FA8D32EC2A84DB01003810BA /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
@@ -524,7 +528,8 @@
 				FA8D32D42A84A9FF003810BA /* Channel.swift */,
 				FA8D32B92A847B6E003810BA /* ChatListModel.swift */,
 				FA8D32DC2A84B40A003810BA /* DatabaseRepresentaion.swift */,
-				FA8D32A02A83187C003810BA /* FollowModel.swift */,
+				FA8D32A02A83187C003810BA /* FollowListModel.swift */,
+				FA0C4B742A8EF169009783FF /* FollowModel.swift */,
 				FA8D32D62A84AA1C003810BA /* ImageMediaItem.swift */,
 				FA8D32A52A83786C003810BA /* JoinOrderModel.swift */,
 				FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */,
@@ -536,6 +541,7 @@
 				FA8D328E2A81E8AE003810BA /* PostReviewModel.swift */,
 				FA8D32642A7B4A45003810BA /* ProfileModel.swift */,
 				FA0C4B702A8E0A95009783FF /* OtherProfileModel.swift */,
+				FA0C4B762A8F0AEF009783FF /* OtherFollowModel.swift */,
 				FA8D32602A7B365A003810BA /* ReviewDetailModel.swift */,
 				FA0AAABC295C04B500783B93 /* ReviewModel.swift */,
 				FA0C4B722A8E192D009783FF /* OtherReviewModel.swift */,
@@ -1033,6 +1039,7 @@
 				FA8D328F2A81E8AE003810BA /* PostReviewModel.swift in Sources */,
 				FA0C4B712A8E0A95009783FF /* OtherProfileModel.swift in Sources */,
 				3294CDAA289D07E800FF14AD /* ChatListViewController.swift in Sources */,
+				FA0C4B752A8EF169009783FF /* FollowModel.swift in Sources */,
 				FAEC53292A8CBFE6000DDEDD /* PopupType.swift in Sources */,
 				FA8D32652A7B4A45003810BA /* ProfileModel.swift in Sources */,
 				FA0AAABD295C04B500783B93 /* ReviewModel.swift in Sources */,
@@ -1072,10 +1079,11 @@
 				FAA412D72A6632C70053258D /* PostDetailViewModel.swift in Sources */,
 				FA8A71FB289ABA4700E26196 /* UIImage.swift in Sources */,
 				FA8A71F7289ABA4700E26196 /* UIFont.swift in Sources */,
-				FA8D32A12A83187C003810BA /* FollowModel.swift in Sources */,
+				FA8D32A12A83187C003810BA /* FollowListModel.swift in Sources */,
 				FA8A7203289ABA4700E26196 /* UIViewController.swift in Sources */,
 				FA0C4B6A2A8DF3CA009783FF /* MeasureTime.swift in Sources */,
 				FA8D32962A81EA47003810BA /* PostReviewViewModel.swift in Sources */,
+				FA0C4B772A8F0AEF009783FF /* OtherFollowModel.swift in Sources */,
 				32AA8E4C28A4EEE300BA68E3 /* MoyaInterceptor.swift in Sources */,
 				FA8D32A32A833699003810BA /* FollowCollectionViewCell.swift in Sources */,
 				FA8A7206289ABA4700E26196 /* UITextField.swift in Sources */,

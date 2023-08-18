@@ -11,6 +11,9 @@ import RxSwift
 protocol OtherProfileBusinessLogic {
     func requestOtherProfile(userId : Int, completion : @escaping (Result<OtherProfileModel, Error>) -> Void)
     func requestOtherReview(userId : Int, first : Int?) -> Single<[Review]>
+    func followUser(userId : Int, completion : @escaping (Result<FollowResponse, Error>) -> Void)
+    func unfollowUser(userId : Int, completion : @escaping (Result<UnfollowResponse, Error>) -> Void)
+    
 }
 
 class OtherProfileViewModel : OtherProfileBusinessLogic {
@@ -42,4 +45,43 @@ class OtherProfileViewModel : OtherProfileBusinessLogic {
                     .just(response.data)
             }
     }
+    
+    func followUser(userId : Int, completion : @escaping (Result<FollowResponse, Error>) -> Void) {
+        realProvider.request(.followUser(userId: userId)) { result in
+            switch result {
+            case let .success(response):
+                print(response.description)
+                do {
+                    let decoded = try JSONDecoder().decode(FollowResponse.self, from: response.data)
+                    completion(.success(decoded))
+                } catch let error {
+                    completion(.failure(error))
+                }
+            case let .failure(error):
+                completion(.failure(error))
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func unfollowUser(userId : Int, completion : @escaping (Result<UnfollowResponse, Error>) -> Void) {
+        realProvider.request(.unfollowUser(userId: userId)) { result in
+            switch result {
+            case let .success(response):
+                print(response.description)
+                do {
+                    let decoded = try JSONDecoder().decode(UnfollowResponse.self, from: response.data)
+                    completion(.success(decoded))
+                } catch let error {
+                    completion(.failure(error))
+                }
+            case let .failure(error):
+                completion(.failure(error))
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+   
+
 }

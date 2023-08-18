@@ -210,6 +210,35 @@ final class LoginViewController: UIViewController {
     }
     
     private func addAction() {
+        loginButton.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            viewModel?.divideSignIn(email: self.emailTextField.text!, password: self.passwordTextField.text!, completion: { result in
+                switch result {
+                case .success(let response):
+                    UserDefaultsManager.DIVIDE_TOKEN = response.token
+                    UserDefaultsManager.userId = response.userId
+                    self.getUserPosition { [weak self] userPosition in
+                        guard let self = self else { return }
+                        print("userPosition : \(userPosition)")
+                        self.viewModel?.setUserPositon(userPosition: userPosition) {
+                            self.navigationController?.popViewController(animated: true)
+                            print("=========================================================================")
+                            print("                             로그인 VC pop")
+                            print("=========================================================================")
+
+                            self.navigationController?.pushViewController(TabBarController(), animated: true)
+                            print("=========================================================================")
+                            print("                             탭바 pushed !")
+                            print("=========================================================================")
+
+                        }
+                    }
+                case .failure(let err):
+                    print(err)
+                }
+            })
+        }), for: .touchUpInside)
+        
         kakaoLoginImage.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in

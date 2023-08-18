@@ -114,5 +114,23 @@ final class FollowCollectionViewCell: UICollectionViewCell {
             followButton.setTitle("삭제", for: .normal)
         }
     }
-    
+    public func setData(type : FollowType, info : OtherFollowModel) {
+        profileIndicator.startAnimating()
+        if let imageURL = info.profileImgUrl {
+            self.profileImageView.load(url: imageURL) {
+                DispatchQueue.main.async {
+                    self.profileIndicator.stopAnimating()
+                }
+            }
+        }
+        
+        self.nameLabel.text = info.nickname
+        
+        if type == .FOLLOWING {
+            followButton.setTitle("팔로잉", for: .normal)
+            followButton.setTitle("팔로우", for: .selected)
+        } else {
+            followButton.setTitle("삭제", for: .normal)
+        }
+    }
 }

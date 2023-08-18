@@ -9,6 +9,7 @@ import UIKit
 
 import RxSwift
 import RxCocoa
+import RxGesture
 
 import Then
 import SnapKit
@@ -27,9 +28,11 @@ class OtherProfileViewController: UIViewController {
     private let rightBox                    = UIView()
     private let followingCountLabel         = MainLabel(type: .Point5)
     private let followingLabel              = MainLabel(type: .small3)
+    private let followingTouchBox           = UIView()
     private let rightBoxDivider             = UIView()
     private let followerCountLabel          = MainLabel(type: .Point5)
     private let followerLabel               = MainLabel(type: .small3)
+    private let followerTouchBox            = UIView()
     private let followButton                = MainButton(type: .followAction)
     
     private let feedLabel                   = MainLabel(type: .Basics4)
@@ -139,7 +142,7 @@ class OtherProfileViewController: UIViewController {
         self.view.addSubviews([profileBox, followButton, feedLabel, feedTableView])
         profileBox.addSubviews([leftBox, rightBox])
         leftBox.addSubviews([profileImageView, profileNickname, profileBadge])
-        rightBox.addSubviews([followingCountLabel, followingLabel, rightBoxDivider, followerCountLabel, followerLabel])
+        rightBox.addSubviews([followingCountLabel, followingLabel, rightBoxDivider, followerCountLabel, followerLabel, followingTouchBox, followerTouchBox])
     }
     
     private func setLayout() {
@@ -208,10 +211,21 @@ class OtherProfileViewController: UIViewController {
             $0.height.equalTo(25)
         }
         
+       
         followerLabel.snp.makeConstraints {
             $0.centerX.equalTo(followerCountLabel)
             $0.top.equalTo(followerCountLabel.snp.bottom)
             $0.height.equalTo(14)
+        }
+        
+        followingTouchBox.snp.makeConstraints {
+            $0.top.leading.bottom.equalTo(rightBox)
+            $0.trailing.equalTo(rightBoxDivider.snp.leading)
+        }
+        
+        followerTouchBox.snp.makeConstraints {
+            $0.top.trailing.bottom.equalTo(rightBox)
+            $0.leading.equalTo(rightBoxDivider.snp.trailing)
         }
         
         followButton.snp.makeConstraints {
@@ -245,6 +259,7 @@ class OtherProfileViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let result):
+                
                 self.profileImageView.load(url: result.profileImgUrl!) {
                     self.profileImageIndicator.stopAnimating()
                 }
@@ -253,10 +268,11 @@ class OtherProfileViewController: UIViewController {
                 self.followingCountLabel.text = String(result.followerCount!)
                 self.followerCountLabel.text = String(result.followingCount!)
                 if result.followed! {
-                    DispatchQueue.main.async {
-                        self.followButton.isSelected = false
-                    }
+                    self.followButton.isSelected = true
+                } else {
+                    self.followButton.isSelected = false
                 }
+                
             case .failure(let err):
                 print(err)
             }
@@ -280,6 +296,79 @@ class OtherProfileViewController: UIViewController {
     }
     
     private func addAction() {
+        followButton.addAction(UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            guard let userId = self.userId else { return }
+            
+            if self.followButton.isSelected {
+                viewModel?.unfollowUser(userId: userId, completion: { result in
+                    switch result {
+                    case .success(let response):
+                        
+                        if let result = response.result  {
+                            print(" 유저 \(userId) 언팔로우 성공")
+                        } else {
+                            print(" 유저 \(userId) 언팔로우 실패")
+                        }
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+                    
+                })
+                
+            } else {
+                viewModel?.followUser(userId: userId, completion: { result in
+                    switch result {
+                    case .success(let response):
+                        if let result = response.followId {
+                            print(" 유저 \(result) 팔로우")
+                        } else {
+                            print(" 유저 \(result) 팔로우 실패")
+                        }
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+                    
+                })
+                
+            }
+            self.followButton.isSelected.toggle()
+        }), for: .touchUpInside)
+        
+        followingTouchBox.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                print("팔로잉 목록 보기!")
+                guard let self = self else { return }
+                let destination = FollowViewController()
+                destination.type = .FOLLOWING
+                destination.userId = self.userId
+                destination.isOther = true
+                print(String(describing: self.navigationController))
+                print(String(describing: self.parent))
+                
+                let navCon = UINavigationController(rootViewController: destination)
+                navCon.modalPresentationStyle = .fullScreen
+                navCon.modalTransitionStyle = .flipHorizontal
+                self.present(navCon, animated: true)
+                
+                
+                self.parent?.navigationController?.pushViewController(destination, animated: true)
+            }.disposed(by: disposeBag)
+        
+        followerTouchBox.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                print("팔로우 목록 보기!")
+                guard let self = self else { return }
+                let destination = FollowViewController()
+                destination.type = .FOLLOWER
+                destination.userId = self.userId
+                destination.isOther = true
+                self.navigationController?.pushViewController(destination, animated: true)
+            }.disposed(by: disposeBag)
         
     }
 

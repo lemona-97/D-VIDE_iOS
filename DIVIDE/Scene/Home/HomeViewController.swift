@@ -125,12 +125,12 @@ final class HomeViewController: UIViewController, CLLocationManagerDelegate {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(self.view.snp.top)
         }
-        searchBtn.snp.makeConstraints {
-            $0.width.equalTo(20)
-            $0.height.equalTo(20)
-            $0.top.equalToSuperview().offset(48)
-            $0.trailing.equalToSuperview().offset(-40)
-        }
+//        searchBtn.snp.makeConstraints {
+//            $0.width.equalTo(20)
+//            $0.height.equalTo(20)
+//            $0.top.equalToSuperview().offset(48)
+//            $0.trailing.equalToSuperview().offset(-40)
+//        }
         topMenuCollectionView.snp.makeConstraints {
             $0.height.equalTo(40)
             $0.leading.trailing.equalToSuperview()
