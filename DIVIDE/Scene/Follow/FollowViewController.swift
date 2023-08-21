@@ -111,7 +111,6 @@ final class FollowViewController: UIViewController {
         backButton.addAction(UIAction(handler: {[weak self] _ in
             guard let self = self else { return }
             self.navigationController?.popViewController(animated: true)
-            self.dismiss(animated: true)
         }), for: .touchUpInside)
     }
     

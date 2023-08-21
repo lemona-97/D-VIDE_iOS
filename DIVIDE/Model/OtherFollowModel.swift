@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct OtherFollowResponse : Codable {
-    var data : [OtherFollowModel]
-}
-
 struct OtherFollowModel : Codable {
     var userId          : Int?
     var profileImgUrl   : String?

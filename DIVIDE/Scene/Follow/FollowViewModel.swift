@@ -30,9 +30,7 @@ final class FollowViewModel : FollowBusinessLogic {
     func requestOtherFollowList(relation: FollowType, first: Int?, userId: Int) -> Single<[OtherFollowModel]> {
         realProvider.rx.request(.requestOtherFollow(relation: relation, first: first ?? nil, userId: userId))
             .filterSuccessfulStatusCodes()
-            .map(OtherFollowResponse.self)
-            .flatMap { result in
-                    .just(result.data)
-            }
+            .map(Array<OtherFollowModel>.self)
+            .do()
     }
 }
