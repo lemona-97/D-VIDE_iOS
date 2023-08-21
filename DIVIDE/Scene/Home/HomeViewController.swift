@@ -13,7 +13,7 @@ import RxCocoa
 import RxSwift
 import CoreLocation
 
-final class HomeViewController: UIViewController, CLLocationManagerDelegate {
+final class HomeViewController: DVIDEViewController, CLLocationManagerDelegate {
     private var disposeBag = DisposeBag()
     
     private var viewModel : HomeViewModelBusinessLogic?
@@ -26,7 +26,6 @@ final class HomeViewController: UIViewController, CLLocationManagerDelegate {
     
     private var locationManager = CLLocationManager()
     private var userPosition : UserPosition? = nil
-    private let topTitleView = UIView()
     private let searchBtn = UIButton()
     private let topMenuCollectionView = UICollectionView(frame: .zero, collectionViewLayout: LeftAlignedCollectionViewFlowLayout())
     
@@ -71,13 +70,7 @@ final class HomeViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     private func setAttribute() {
-        view.backgroundColor = .viewBackgroundGray
         
-        topTitleView.do {
-            $0.backgroundColor = .white
-            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
-            $0.layer.addShadow(location: .bottom)
-        }
         searchBtn.do {
             $0.setImage(#imageLiteral(resourceName: "Search.png"), for: .normal)
             $0.imageView?.contentMode = .scaleAspectFill
@@ -111,7 +104,6 @@ final class HomeViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     private func addView() {
-        view.addSubview(topTitleView)
         view.addSubview(searchBtn)
         view.addSubview(topMenuCollectionView)
         
@@ -120,11 +112,6 @@ final class HomeViewController: UIViewController, CLLocationManagerDelegate {
         view.addSubview(DVIDEBtn)
     }
     private func setLayout() {
-        topTitleView.snp.makeConstraints {
-            $0.height.equalTo(113)
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(self.view.snp.top)
-        }
 //        searchBtn.snp.makeConstraints {
 //            $0.width.equalTo(20)
 //            $0.height.equalTo(20)
