@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class PopupViewController: UIViewController {
+final class PopupViewController: UIViewController {
 
     //property
     var dismissListener : (() -> ())?

@@ -9,7 +9,7 @@ import PhotosUI
 import RxSwift
 import RxGesture
 
-class SignUpViewController: DVIDEViewController2, ViewControllerFoundation {
+final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation {
 
     //Outlets
     private let emailLabel                  = MainLabel(type: .Point2)

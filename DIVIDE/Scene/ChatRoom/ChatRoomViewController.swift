@@ -10,7 +10,7 @@ import InputBarAccessoryView
 import PhotosUI
 import FirebaseAuth
 
-class ChatRoomViewController: MessagesViewController, ViewControllerFoundation {
+final class ChatRoomViewController: MessagesViewController, ViewControllerFoundation {
     
     //property
     

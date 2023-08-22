@@ -25,7 +25,7 @@ protocol HomeViewModelBusinessLogic {
 
 }
 
-class HomeViewModel : HomeViewModelBusinessLogic {
+final class HomeViewModel : HomeViewModelBusinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     
     func requestAroundPosts(param: UserPosition) -> Single<[Datum]> {

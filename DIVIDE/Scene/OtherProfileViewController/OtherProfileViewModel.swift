@@ -16,7 +16,7 @@ protocol OtherProfileBusinessLogic {
     
 }
 
-class OtherProfileViewModel : OtherProfileBusinessLogic {
+final class OtherProfileViewModel : OtherProfileBusinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     
     func requestOtherProfile(userId: Int, completion: @escaping (Result<OtherProfileModel, Error>) -> Void) {

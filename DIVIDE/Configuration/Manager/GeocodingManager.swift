@@ -14,7 +14,7 @@ enum GeocodingType {
     case DETAIL
 }
 
-class GeocodingManager {
+final class GeocodingManager {
     // 조회 숫자 제한 기능 필요 소수점 3자리까지..?
     
     /// 리버스 지오코딩 - Using NAVER Maps
@@ -27,7 +27,6 @@ class GeocodingManager {
         let cacheKey = (lng + lat) as NSString
         
         if let cachedCoordinate = CoordinateCacheManager.shared.object(forKey: cacheKey) {
-            
             print("캐시에 있는 좌표입니다. 리버스 지오코딩을 하지 않고 캐시에서 불러옵니다.")
             completion(cachedCoordinate as String)
         }

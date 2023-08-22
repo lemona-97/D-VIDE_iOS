@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-class OtherProfileViewController: UIViewController, ViewControllerFoundation {
+final class OtherProfileViewController: UIViewController, ViewControllerFoundation {
 
     var userId : Int?
     

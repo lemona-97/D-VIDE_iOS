@@ -14,7 +14,7 @@ protocol SignUpBusinessLogic : DIVIDELoginLogic {
     func divideSignIn(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void)
 }
 
-class SignUpViewModel : SignUpBusinessLogic {
+final class SignUpViewModel : SignUpBusinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     
     func requestSignUp(signUpInfo: SignUpModel, imageData : Data, completion: @escaping (Result<SignUpResponse, Error>) -> Void) {

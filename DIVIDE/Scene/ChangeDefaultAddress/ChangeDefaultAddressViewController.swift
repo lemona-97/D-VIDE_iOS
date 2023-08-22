@@ -204,7 +204,6 @@ extension ChangeDefaultAddressViewController : UITextFieldDelegate {
 }
 
 extension ChangeDefaultAddressViewController : NMFMapViewCameraDelegate {
-    
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
         self.titleAddressLabel.text = "위치 검색중"
         self.detailAddressLabel.text = ""

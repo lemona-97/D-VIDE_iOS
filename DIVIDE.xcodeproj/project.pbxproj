@@ -31,7 +31,6 @@
 		FA0AAABD295C04B500783B93 /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0AAABC295C04B500783B93 /* ReviewModel.swift */; };
 		FA0AAAC1295CAB3700783B93 /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0AAAC0295CAB3700783B93 /* ReviewCollectionViewCell.swift */; };
 		FA0AAAC3295CADF500783B93 /* ReviewRecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0AAAC2295CADF500783B93 /* ReviewRecommendTableViewCell.swift */; };
-		FA0C4B6A2A8DF3CA009783FF /* MeasureTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B692A8DF3CA009783FF /* MeasureTime.swift */; };
 		FA0C4B6D2A8DF7BD009783FF /* OtherProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B6C2A8DF7BD009783FF /* OtherProfileViewController.swift */; };
 		FA0C4B6F2A8E0A49009783FF /* OtherProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B6E2A8E0A49009783FF /* OtherProfileViewModel.swift */; };
 		FA0C4B712A8E0A95009783FF /* OtherProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B702A8E0A95009783FF /* OtherProfileModel.swift */; };
@@ -191,7 +190,6 @@
 		FA0AAABC295C04B500783B93 /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		FA0AAAC0295CAB3700783B93 /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA0AAAC2295CADF500783B93 /* ReviewRecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRecommendTableViewCell.swift; sourceTree = "<group>"; };
-		FA0C4B692A8DF3CA009783FF /* MeasureTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureTime.swift; sourceTree = "<group>"; };
 		FA0C4B6C2A8DF7BD009783FF /* OtherProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewController.swift; sourceTree = "<group>"; };
 		FA0C4B6E2A8E0A49009783FF /* OtherProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewModel.swift; sourceTree = "<group>"; };
 		FA0C4B702A8E0A95009783FF /* OtherProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileModel.swift; sourceTree = "<group>"; };
@@ -454,7 +452,6 @@
 		FA0C4B682A8DF3B7009783FF /* Tool */ = {
 			isa = PBXGroup;
 			children = (
-				FA0C4B692A8DF3CA009783FF /* MeasureTime.swift */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -496,9 +493,9 @@
 			children = (
 				FA8D329C2A8240E5003810BA /* FollowType.swift */,
 				FA8D324B2A73464C003810BA /* MenuCategory.swift */,
+				FAEC53282A8CBFE6000DDEDD /* PopupType.swift */,
 				FA8D328C2A81DC57003810BA /* PostStatus.swift */,
 				FA3EDAD02A7209180078AA89 /* SIZE.swift */,
-				FAEC53282A8CBFE6000DDEDD /* PopupType.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -514,8 +511,6 @@
 		FA8D32F12A89D772003810BA /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				FAEC53222A8C4FE3000DDEDD /* SignUp */,
-				FAEC531F2A89F34F000DDEDD /* Popup */,
 				FAEC531E2A89F095000DDEDD /* ChangeDefaultAddress */,
 				FAEC53172A89F03D000DDEDD /* ChatList */,
 				FAEC531D2A89F08B000DDEDD /* ChatRoom */,
@@ -524,13 +519,15 @@
 				FAEC53102A89EFB5000DDEDD /* Login */,
 				FAEC531A2A89F070000DDEDD /* MyOrderHistory */,
 				FAEC531C2A89F082000DDEDD /* MyReview */,
-				FAEC53132A89EFEC000DDEDD /* PostDetail */,
 				FA0C4B6B2A8DF79C009783FF /* OtherProfileViewController */,
+				FAEC531F2A89F34F000DDEDD /* Popup */,
+				FAEC53132A89EFEC000DDEDD /* PostDetail */,
 				FAEC53142A89EFFE000DDEDD /* PostRecruiting */,
 				FAEC53182A89F05A000DDEDD /* PostReview */,
 				FAEC531B2A89F07B000DDEDD /* Profile */,
 				FAEC53152A89F01C000DDEDD /* Review */,
 				FAEC53162A89F02C000DDEDD /* ReviewDetail */,
+				FAEC53222A8C4FE3000DDEDD /* SignUp */,
 				FAEC53112A89EFC6000DDEDD /* TabBar */,
 			);
 			path = Scene;
@@ -597,11 +594,11 @@
 			isa = PBXGroup;
 			children = (
 				FAA412D22A662F380053258D /* CalculateManager.swift */,
-				FA8D324D2A778448003810BA /* ImageCacheManager.swift */,
-				FA8D32562A7A32F2003810BA /* GeocodingManager.swift */,
 				FAEC532A2A8DA237000DDEDD /* CoordinateCacheManager.swift */,
-				FA8D32792A7C9EA5003810BA /* UserDefaultsManager.swift */,
 				FA8D32C42A849477003810BA /* FirebaseStorageManager.swift */,
+				FA8D32562A7A32F2003810BA /* GeocodingManager.swift */,
+				FA8D324D2A778448003810BA /* ImageCacheManager.swift */,
+				FA8D32792A7C9EA5003810BA /* UserDefaultsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -622,13 +619,13 @@
 			isa = PBXGroup;
 			children = (
 				FAAD48FD289ABA1200508C12 /* ButtonClass.swift */,
-				FAAD48FF289ABA1200508C12 /* LeftAlignedClass.swift */,
-				FAAD4901289ABA1200508C12 /* LabelClass.swift */,
-				FAAD4900289ABA1200508C12 /* TextFieldClass.swift */,
-				FAAD48FE289ABA1200508C12 /* ViewClass.swift */,
 				FA633B6D28C202EB00D4BCC9 /* CarouselLayout.swift */,
 				FADD7E312A939DDA001A416A /* DVIDEViewController1.swift */,
 				FA129C8E2A943A89007AFFD2 /* DVIDEViewController2.swift */,
+				FAAD4901289ABA1200508C12 /* LabelClass.swift */,
+				FAAD48FF289ABA1200508C12 /* LeftAlignedClass.swift */,
+				FAAD4900289ABA1200508C12 /* TextFieldClass.swift */,
+				FAAD48FE289ABA1200508C12 /* ViewClass.swift */,
 			);
 			path = CustomClass;
 			sourceTree = "<group>";
@@ -639,6 +636,8 @@
 				FA8A71F4289ABA4700E26196 /* Array.swift */,
 				FA8A71F2289ABA4700E26196 /* CALayer.swift */,
 				FA8A71EE289ABA4700E26196 /* Date.swift */,
+				FA8D32E82A84C492003810BA /* Encodable.swift */,
+				FA8D32DA2A84AD5A003810BA /* NSObject.swift */,
 				FA8A71E9289ABA4700E26196 /* String.swift */,
 				FA8A71EC289ABA4700E26196 /* UIButton.swift */,
 				FA8A71E8289ABA4700E26196 /* UIColor.swift */,
@@ -649,8 +648,6 @@
 				FA8A71F6289ABA4700E26196 /* UITextField.swift */,
 				FA8A71F5289ABA4700E26196 /* UIView.swift */,
 				FA8A71F3289ABA4700E26196 /* UIViewController.swift */,
-				FA8D32DA2A84AD5A003810BA /* NSObject.swift */,
-				FA8D32E82A84C492003810BA /* Encodable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1100,7 +1097,6 @@
 				FA8A71F7289ABA4700E26196 /* UIFont.swift in Sources */,
 				FA8D32A12A83187C003810BA /* FollowListModel.swift in Sources */,
 				FA8A7203289ABA4700E26196 /* UIViewController.swift in Sources */,
-				FA0C4B6A2A8DF3CA009783FF /* MeasureTime.swift in Sources */,
 				FA8D32962A81EA47003810BA /* PostReviewViewModel.swift in Sources */,
 				FA0C4B772A8F0AEF009783FF /* OtherFollowModel.swift in Sources */,
 				32AA8E4C28A4EEE300BA68E3 /* MoyaInterceptor.swift in Sources */,

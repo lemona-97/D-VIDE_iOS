@@ -23,7 +23,7 @@ protocol LoginBusinessLogic : DIVIDELoginLogic {
     func setUserPositon(userPosition : UserPosition, completion : @escaping () -> Void)
 }
 
-class LoginViewModel : LoginBusinessLogic {
+final class LoginViewModel : LoginBusinessLogic {
 
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     // 로그인 자동으로 됨

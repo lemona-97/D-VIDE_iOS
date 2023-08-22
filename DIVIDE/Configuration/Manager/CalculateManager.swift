@@ -8,7 +8,7 @@
 import Foundation
 
 
-class CalculateManager {
+final class CalculateManager {
     class func setAMPM(closingTime: Int) -> String {
         if (closingTime % 86400) / 3600 >= 12 {
             print((closingTime % 86400) / 3600)
