@@ -46,6 +46,7 @@ class ChatFirestoreStream {
         collectionListener?.addDocument(data: message.representation) { error in
             completion?(error)
         }
+        
     }
     
     func removeListener() {

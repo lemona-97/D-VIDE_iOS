@@ -60,6 +60,7 @@ final class PopupViewController: UIViewController {
         popupMessageLabel.do {
             $0.textColor = .gray3
             $0.textAlignment = .center
+            $0.numberOfLines = 2
         }
         
         

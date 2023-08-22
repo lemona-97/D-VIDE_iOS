@@ -67,7 +67,6 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
     private var postUserId : Int?
     
     // bottom sheet
-    // 하단 버튼 누를때 메모리에 적재 하기 위해서 lazy 작성
     private let bottomSheetView                 = UIView()
     private let orderMenuLabel                  = MainLabel(type: .Big2)
     private let orderShopLabel                  = MainLabel(type: .Point4)
@@ -718,7 +717,9 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
                         destination.dismissListener = {
                             self.navigationController?.popViewController(animated: true)
                         }
-                        destination.setPopupMessage(message: "디바이드 참여 완료!", popupType: .ALERT)
+                        destination.setPopupMessage(message: "디바이드 참여 완료! \n 디바이더와 채팅을 시작하세요!", popupType: .ALERT)
+                        // 주문 번호를 가지고 채팅방 id로 사용..?
+                        result.orderId
                         destination.modalPresentationStyle = .overFullScreen
                         self.navigationController?.present(destination, animated: true)
                     case .failure(let err):

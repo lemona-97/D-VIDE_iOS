@@ -46,10 +46,7 @@ final class ChatListViewController: DVIDEViewController1, ViewControllerFoundati
     
     // 채팅 리스트 불러와야함
     internal func setUp() {
-        let dummy = Channel(id: MESSEGING_ID, name: "우섭")
-        let dummy2 = Channel(id: "임우섭", name: "임우섭")
-        channels.append(dummy)
-        channels.append(dummy2)
+        
     }
     
     internal func setAttribute() {
