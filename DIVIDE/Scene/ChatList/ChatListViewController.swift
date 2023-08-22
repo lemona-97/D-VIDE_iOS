@@ -5,18 +5,13 @@
 //  Created by 임우섭 on 2022/08/05.
 //
 
-import UIKit
-import Then
-import SnapKit
 import RxSwift
 import RxCocoa
-
 import FirebaseAuth
 import Firebase
 
-class ChatListViewController: UIViewController {
+class ChatListViewController: DVIDEViewController1, ViewControllerFoundation {
     
-    private let navigationView          = UIView()
     private let navigationLabel         = MainLabel(type: .hopang)
     
     private var channels                = [Channel]()
@@ -42,7 +37,7 @@ class ChatListViewController: UIViewController {
         super.viewDidLoad()
 
         setUp()
-        setAttributes()
+        setAttribute()
         addView()
         setLayout()
         
@@ -50,22 +45,14 @@ class ChatListViewController: UIViewController {
     }
     
     // 채팅 리스트 불러와야함
-    private func setUp() {
+    internal func setUp() {
         let dummy = Channel(id: MESSEGING_ID, name: "우섭")
         let dummy2 = Channel(id: "임우섭", name: "임우섭")
         channels.append(dummy)
         channels.append(dummy2)
     }
     
-    private func setAttributes() {
-        self.view.backgroundColor = .viewBackgroundGray
-        
-        navigationView.do {
-            $0.backgroundColor = .white
-            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
-            $0.layer.addShadow(location: .bottom)
-        }
-        
+    internal func setAttribute() {
         navigationLabel.do {
             $0.text = "D/VIDE 채팅"
             $0.textAlignment = .center
@@ -81,19 +68,13 @@ class ChatListViewController: UIViewController {
         }
     }
     
-    private func addView() {
-        view.addSubview(navigationView)
+    internal func addView() {
         navigationView.addSubview(navigationLabel)
         
         view.addSubview(channelTableView)
     }
     
-    private func setLayout() {
-        navigationView.snp.makeConstraints {
-            $0.height.equalTo(113)
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-        }
+    internal func setLayout() {
         
         navigationLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -105,6 +86,10 @@ class ChatListViewController: UIViewController {
             $0.bottom.equalToSuperview().offset(-100)
             $0.top.equalTo(navigationView.snp.bottom).offset(20)
         }
+    }
+    
+    internal func addAction() {
+        
     }
     private func setupListener() {
         channelStream.subscribe { [weak self] result in

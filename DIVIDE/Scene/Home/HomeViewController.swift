@@ -5,15 +5,14 @@
 //  Created by 임우섭 on 2022/06/28.
 //
 
-import UIKit
-import Then
-import SnapKit
 import Moya
 import RxCocoa
 import RxSwift
 import CoreLocation
 
-final class HomeViewController: DVIDEViewController, CLLocationManagerDelegate {
+final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, CLLocationManagerDelegate {
+   
+    
     private var disposeBag = DisposeBag()
     
     private var viewModel : HomeViewModelBusinessLogic?
@@ -39,25 +38,16 @@ final class HomeViewController: DVIDEViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        topMenuCollectionView.register(HomeTopMenuCollectionViewCell.self, forCellWithReuseIdentifier: HomeTopMenuCollectionViewCell.className)
-        topMenuCollectionView.delegate = self
-        topMenuCollectionView.dataSource = self
-        
         setAttribute()
         addView()
         setLayout()
         setUp()
-        tableView.register(OrderTableViewCell.self, forCellReuseIdentifier: OrderTableViewCell.className)
-        
-        DVIDEBtn.addTarget(self, action: #selector(self.tapDIVIDEBtn), for: .touchUpInside)
-        
-        
         bindToViewModel()
 
     }
     
     
-    private func setUp() {
+    internal func setUp() {
         let viewModel = HomeViewModel()
         self.viewModel = viewModel
         if let userPosition = (UserDefaultsManager.userPosition) {
@@ -69,7 +59,7 @@ final class HomeViewController: DVIDEViewController, CLLocationManagerDelegate {
         //        self.userPosition = UserPosition(longitude: (locationManager.location?.coordinate.longitude), latitude: (locationManager.location?.coordinate.latitude))
         
     }
-    private func setAttribute() {
+    internal func setAttribute() {
         
         searchBtn.do {
             $0.setImage(#imageLiteral(resourceName: "Search.png"), for: .normal)
@@ -86,13 +76,18 @@ final class HomeViewController: DVIDEViewController, CLLocationManagerDelegate {
             $0.contentInset = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 0)
             $0.backgroundColor = .white
             $0.showsHorizontalScrollIndicator = false
-            topMenuCollectionView.collectionViewLayout = flowLayout
+            $0.collectionViewLayout = flowLayout
+            
+            $0.register(HomeTopMenuCollectionViewCell.self, forCellWithReuseIdentifier: HomeTopMenuCollectionViewCell.className)
+            $0.delegate = self
+            $0.dataSource = self
         }
         
         tableView.do {
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.separatorStyle = .none
+            $0.register(OrderTableViewCell.self, forCellReuseIdentifier: OrderTableViewCell.className)
         }
         
         DVIDEBtn.do {
@@ -103,7 +98,7 @@ final class HomeViewController: DVIDEViewController, CLLocationManagerDelegate {
             $0.dateFormat = "H:mm"
         }
     }
-    private func addView() {
+    internal func addView() {
         view.addSubview(searchBtn)
         view.addSubview(topMenuCollectionView)
         
@@ -111,7 +106,7 @@ final class HomeViewController: DVIDEViewController, CLLocationManagerDelegate {
         view.addSubview(tableView)
         view.addSubview(DVIDEBtn)
     }
-    private func setLayout() {
+    internal func setLayout() {
 //        searchBtn.snp.makeConstraints {
 //            $0.width.equalTo(20)
 //            $0.height.equalTo(20)
@@ -121,7 +116,7 @@ final class HomeViewController: DVIDEViewController, CLLocationManagerDelegate {
         topMenuCollectionView.snp.makeConstraints {
             $0.height.equalTo(40)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(topTitleView)
+            $0.bottom.equalTo(navigationView)
         }
         tableView.snp.makeConstraints {
             $0.leading.equalToSuperview()
@@ -140,6 +135,10 @@ final class HomeViewController: DVIDEViewController, CLLocationManagerDelegate {
             $0.leading.equalToSuperview().offset(26)
             $0.bottom.equalToSuperview().offset(-100)
         }
+    }
+    
+    internal func addAction() {
+        DVIDEBtn.addTarget(self, action: #selector(self.tapDIVIDEBtn), for: .touchUpInside)
     }
     
     private func bindToViewModel(){

@@ -5,22 +5,15 @@
 //  Created by wooseob on 2023/08/08.
 //
 
-import UIKit
-import SnapKit
-import Then
 import Cosmos
 import PhotosUI
 import RxGesture
 import RxSwift
 
-final class PostReviewViewController: UIViewController {
+final class PostReviewViewController: DVIDEViewController2, ViewControllerFoundation {
 
     private var postId : Int?
     private var viewModel : PostReviewBesinessLogic?
-    
-    private let navigationView          = UIView()
-    private let navigationLabel         = MainLabel(type: .hopang)
-    private let backButton              = UIButton()
     
     private let storeLabel              = MainLabel(type: .Basics5)
     private let starRatingLabel         = MainLabel(type: .Basics5)
@@ -39,45 +32,31 @@ final class PostReviewViewController: UIViewController {
     
     
     private var disposeBag              = DisposeBag()
-    private var photoConfiguration              = PHPickerConfiguration()
+    private var photoConfiguration      = PHPickerConfiguration()
     private var imageArray: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        setAttributes()
+        setAttribute()
         addView()
         setLayout()
         addAction()
     }
     
-    private func setUp() {
+    internal func setUp() {
         self.viewModel = PostReviewViewModel()
     }
     
-    private func setAttributes(){
-        self.view.backgroundColor = .white
-        
-        navigationView.do {
-            $0.backgroundColor = .white
-            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
-            $0.layer.addShadow(location: .bottom)
-        }
-        
+    internal func setAttribute(){
         navigationLabel.do {
             $0.text = "후기 작성"
-        }
-        
-        backButton.do {
-            $0.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-            $0.tintColor = .gray
         }
         
         storeLabel.do {
             $0.text = "• 가게 이름"
         }
 
-        
         starRatingLabel.do {
             $0.text = "• 별점"
         }
@@ -154,10 +133,7 @@ final class PostReviewViewController: UIViewController {
         }
     }
     
-    private func addView(){
-        view.addSubview(navigationView)
-        navigationView.addSubviews([navigationLabel, backButton])
-        
+    internal func addView(){
         view.addSubviews([storeLabel, starRatingLabel, photoLabel, contentLabel])
         view.addSubviews([storeTextField, ratingBackgroundView, imageStackView, contentTextView])
         
@@ -169,24 +145,7 @@ final class PostReviewViewController: UIViewController {
         view.addSubview(uploadButton)
     }
     
-    private func setLayout(){
-        navigationView.snp.makeConstraints {
-            $0.height.equalTo(100)
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-        }
-        
-        navigationLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(navigationView.snp.bottom).offset(-20)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.centerY.equalTo(navigationLabel)
-            $0.width.height.equalTo(30)
-        }
-        
+    internal func setLayout(){
         storeLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(21)
             $0.top.equalTo(navigationView.snp.bottom).offset(30)
@@ -194,7 +153,6 @@ final class PostReviewViewController: UIViewController {
             $0.height.equalTo(30)
         }
 
-        
         starRatingLabel.snp.makeConstraints {
             $0.leading.equalTo(storeLabel)
             $0.top.equalTo(storeLabel.snp.top).offset(59)
@@ -270,7 +228,7 @@ final class PostReviewViewController: UIViewController {
         }
     }
     
-    private func addAction() {
+    internal func addAction() {
         backButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             self.navigationController?.popViewController(animated: true)

@@ -5,21 +5,13 @@
 //  Created by wooseob on 2023/08/16.
 //
 
-import UIKit
 import PhotosUI
 import RxSwift
 import RxGesture
 
-import Then
-import SnapKit
-
-
-class SignUpViewController: UIViewController {
+class SignUpViewController: DVIDEViewController2, ViewControllerFoundation {
 
     //Outlets
-    private let backButton                  = UIButton()
-    private let titleLabel                  = MainLabel(type: .title)
-    
     private let emailLabel                  = MainLabel(type: .Point2)
     private let emailTextField              = UITextField()
     private let emailWarningLabel           = MainLabel(type: .warning)
@@ -52,19 +44,13 @@ class SignUpViewController: UIViewController {
         setLayout()
         addAction()
     }
-    private func setUp() {
+    internal func setUp() {
         viewModel = SignUpViewModel()
     }
     
-    private func setAttribute() {
-        self.view.backgroundColor = .white
+    internal func setAttribute() {
         
-        backButton.do {
-            $0.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-            $0.tintColor = .black
-        }
-        
-        titleLabel.do {
+        navigationLabel.do {
             $0.text = "디바이더 되기"
             $0.textAlignment = .center
         }
@@ -171,28 +157,14 @@ class SignUpViewController: UIViewController {
         
     }
     
-    private func addView() {
-        self.view.addSubviews([backButton, titleLabel, emailLabel, emailTextField, emailWarningLabel, passwordLabel, passwordTextField, passwordWarningLabel, passwordLabel2, passwordTextField2, passwordWarningLabel2, signUpButton, profileImageLabel , profileImageView, nicknameLabel, nicknameTextField])
+    internal func addView() {
+        self.view.addSubviews([emailLabel, emailTextField, emailWarningLabel, passwordLabel, passwordTextField, passwordWarningLabel, passwordLabel2, passwordTextField2, passwordWarningLabel2, signUpButton, profileImageLabel , profileImageView, nicknameLabel, nicknameTextField])
     }
     
-    private func setLayout() {
-        
-        backButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.top.equalToSuperview().offset(60)
-            $0.width.equalTo(30)
-            $0.height.equalTo(50)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(backButton)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.height.equalTo(50)
-        }
+    internal func setLayout() {
         
         emailTextField.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(50)
+            $0.top.equalTo(navigationLabel.snp.bottom).offset(50)
             $0.leading.equalToSuperview().offset(40)
             $0.trailing.equalToSuperview().offset(-40)
             $0.height.equalTo(30)
@@ -283,7 +255,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    private func addAction() {
+    internal func addAction() {
         profileImageView.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in
@@ -317,11 +289,7 @@ class SignUpViewController: UIViewController {
                 }
             })
         }), for: .touchUpInside)
-        
-        backButton.addAction(UIAction(handler: { [weak self] _ in
-            guard let self = self else { return }
-            self.navigationController?.popViewController(animated: true)
-        }), for: .touchUpInside)
+
     }
     private func getPhoto() {
         photoConfiguration.filter = .any(of: [.images])

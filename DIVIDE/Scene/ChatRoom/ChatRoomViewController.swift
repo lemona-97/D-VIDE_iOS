@@ -5,15 +5,12 @@
 //  Created by wooseob on 2023/08/10.
 //
 
-import UIKit
-import Then
-import SnapKit
-
 import MessageKit
 import InputBarAccessoryView
 import PhotosUI
 import FirebaseAuth
-class ChatRoomViewController: MessagesViewController {
+
+class ChatRoomViewController: MessagesViewController, ViewControllerFoundation {
     
     //property
     
@@ -57,17 +54,17 @@ class ChatRoomViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        setAttributes()
+        setAttribute()
         addAction()
         removeOutgoingMessageAvatars()
         addCameraBarButtonToMessageInputBar()
         listenToMessages()
     }
     
-    private func setUp() {
+    internal func setUp() {
         
     }
-    private func setAttributes() {
+    internal func setAttribute() {
         messagesCollectionView.do {
             $0.messagesDataSource = self
             $0.messagesLayoutDelegate = self
@@ -86,16 +83,14 @@ class ChatRoomViewController: MessagesViewController {
             $0.image = UIImage(systemName: "camera")
         }
     }
-    // Custom VC라 미 작성
-    //    private func addView() {
-    //
-    //    }
-    //
-    //    private func setLayout() {
-    //
-    //    }
+    internal func addView() {
+        
+    }
+    internal func setLayout() {
+        
+    }
     
-    private func addAction() {
+    internal func addAction() {
         cameraBarButtonItem.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             self.photoConfiguration.filter = .any(of: [.images])

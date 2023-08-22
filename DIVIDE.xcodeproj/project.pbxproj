@@ -38,6 +38,8 @@
 		FA0C4B732A8E192D009783FF /* OtherReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B722A8E192D009783FF /* OtherReviewModel.swift */; };
 		FA0C4B752A8EF169009783FF /* FollowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B742A8EF169009783FF /* FollowModel.swift */; };
 		FA0C4B772A8F0AEF009783FF /* OtherFollowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B762A8F0AEF009783FF /* OtherFollowModel.swift */; };
+		FA129C8F2A943A89007AFFD2 /* DVIDEViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA129C8E2A943A89007AFFD2 /* DVIDEViewController2.swift */; };
+		FA129C922A943BA5007AFFD2 /* ViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA129C912A943BA5007AFFD2 /* ViewControllerProtocol.swift */; };
 		FA3EDAC72A6F9DC30078AA89 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */; };
 		FA3EDAD12A7209180078AA89 /* SIZE.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EDAD02A7209180078AA89 /* SIZE.swift */; };
 		FA4967C4288A9E2B000247E4 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4967C3288A9E2B000247E4 /* OrderTableViewCell.swift */; };
@@ -133,7 +135,7 @@
 		FAC4BE7F2920C18500E7F788 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */; };
 		FAD5670029543599007A6904 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD566FF29543599007A6904 /* ReviewViewController.swift */; };
 		FAD5670229543FDA007A6904 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5670129543FDA007A6904 /* ReviewTableViewCell.swift */; };
-		FADD7E322A939DDA001A416A /* DVIDEViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD7E312A939DDA001A416A /* DVIDEViewController.swift */; };
+		FADD7E322A939DDA001A416A /* DVIDEViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD7E312A939DDA001A416A /* DVIDEViewController1.swift */; };
 		FAEC53212A89F368000DDEDD /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53202A89F368000DDEDD /* PopupViewController.swift */; };
 		FAEC53242A8C4FF9000DDEDD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53232A8C4FF9000DDEDD /* SignUpViewController.swift */; };
 		FAEC53262A8C50DD000DDEDD /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53252A8C50DD000DDEDD /* SignUpViewModel.swift */; };
@@ -196,6 +198,8 @@
 		FA0C4B722A8E192D009783FF /* OtherReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherReviewModel.swift; sourceTree = "<group>"; };
 		FA0C4B742A8EF169009783FF /* FollowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowModel.swift; sourceTree = "<group>"; };
 		FA0C4B762A8F0AEF009783FF /* OtherFollowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowModel.swift; sourceTree = "<group>"; };
+		FA129C8E2A943A89007AFFD2 /* DVIDEViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVIDEViewController2.swift; sourceTree = "<group>"; };
+		FA129C912A943BA5007AFFD2 /* ViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProtocol.swift; sourceTree = "<group>"; };
 		FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		FA3EDAD02A7209180078AA89 /* SIZE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIZE.swift; sourceTree = "<group>"; };
 		FA4967C3288A9E2B000247E4 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -288,7 +292,7 @@
 		FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FAD566FF29543599007A6904 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		FAD5670129543FDA007A6904 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
-		FADD7E312A939DDA001A416A /* DVIDEViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVIDEViewController.swift; sourceTree = "<group>"; };
+		FADD7E312A939DDA001A416A /* DVIDEViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVIDEViewController1.swift; sourceTree = "<group>"; };
 		FAEC53202A89F368000DDEDD /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		FAEC53232A8C4FF9000DDEDD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FAEC53252A8C50DD000DDEDD /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -359,6 +363,7 @@
 				FA8D328B2A81DC43003810BA /* Constants */,
 				FAAD48F4289AB99300508C12 /* Configuration */,
 				FA8D32F12A89D772003810BA /* Scene */,
+				FA129C902A943B80007AFFD2 /* Protocol */,
 				FA8D32F32A89D7F5003810BA /* Model */,
 				FA8D32F42A89D90A003810BA /* Stream */,
 				FA8D32752A7B71FE003810BA /* Cell */,
@@ -461,6 +466,14 @@
 				FA0C4B6E2A8E0A49009783FF /* OtherProfileViewModel.swift */,
 			);
 			path = OtherProfileViewController;
+			sourceTree = "<group>";
+		};
+		FA129C902A943B80007AFFD2 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				FA129C912A943BA5007AFFD2 /* ViewControllerProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		FA8D32752A7B71FE003810BA /* Cell */ = {
@@ -614,7 +627,8 @@
 				FAAD4900289ABA1200508C12 /* TextFieldClass.swift */,
 				FAAD48FE289ABA1200508C12 /* ViewClass.swift */,
 				FA633B6D28C202EB00D4BCC9 /* CarouselLayout.swift */,
-				FADD7E312A939DDA001A416A /* DVIDEViewController.swift */,
+				FADD7E312A939DDA001A416A /* DVIDEViewController1.swift */,
+				FA129C8E2A943A89007AFFD2 /* DVIDEViewController2.swift */,
 			);
 			path = CustomClass;
 			sourceTree = "<group>";
@@ -1057,7 +1071,7 @@
 				FAEC53262A8C50DD000DDEDD /* SignUpViewModel.swift in Sources */,
 				FA8D324E2A778448003810BA /* ImageCacheManager.swift in Sources */,
 				FA8A7204289ABA4700E26196 /* Array.swift in Sources */,
-				FADD7E322A939DDA001A416A /* DVIDEViewController.swift in Sources */,
+				FADD7E322A939DDA001A416A /* DVIDEViewController1.swift in Sources */,
 				FAD5670029543599007A6904 /* ReviewViewController.swift in Sources */,
 				FA8D32782A7B9BA2003810BA /* ChangeDefaultAddressViewController.swift in Sources */,
 				FA8D32502A78BA2C003810BA /* Token.swift in Sources */,
@@ -1075,6 +1089,7 @@
 				FA8D324C2A73464C003810BA /* MenuCategory.swift in Sources */,
 				FA59C605288E6A24001ADD50 /* HomeTopMenuCollectionViewCell.swift in Sources */,
 				FA8D32E12A84B43D003810BA /* StreamError.swift in Sources */,
+				FA129C8F2A943A89007AFFD2 /* DVIDEViewController2.swift in Sources */,
 				FA0AAAC3295CADF500783B93 /* ReviewRecommendTableViewCell.swift in Sources */,
 				FAEC53212A89F368000DDEDD /* PopupViewController.swift in Sources */,
 				FA8D32922A81E9D5003810BA /* PostReviewViewController.swift in Sources */,
@@ -1113,6 +1128,7 @@
 				FA8D32A62A83786C003810BA /* JoinOrderModel.swift in Sources */,
 				FA8D32DD2A84B40A003810BA /* DatabaseRepresentaion.swift in Sources */,
 				FA8D32992A824026003810BA /* FollowViewController.swift in Sources */,
+				FA129C922A943BA5007AFFD2 /* ViewControllerProtocol.swift in Sources */,
 				FA3EDAD12A7209180078AA89 /* SIZE.swift in Sources */,
 				FAEC532B2A8DA237000DDEDD /* CoordinateCacheManager.swift in Sources */,
 				FA8D32572A7A32F2003810BA /* GeocodingManager.swift in Sources */,

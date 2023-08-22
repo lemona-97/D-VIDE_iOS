@@ -5,19 +5,12 @@
 //  Created by wooseob on 2023/08/02.
 //
 
-import UIKit
-import SnapKit
-import Then
 import Cosmos
 import RxSwift
 
-final class ReviewDetailViewController: UIViewController {
+final class ReviewDetailViewController: DVIDEViewController2, ViewControllerFoundation {
 
     //Property
-    private let topTitleView = UIView()
-    private let closeButton = UIButton()
-    private let reviewDetailTitleLabel = MainLabel(type: .title)
-    
     private let contentView = UIView()
     
     //content
@@ -50,23 +43,13 @@ final class ReviewDetailViewController: UIViewController {
         bindContent()
         addAction()
     }
-    private func setUp() {
+    internal func setUp() {
         viewModel = ReviewDetailViewModel()
     }
-    private func setAttribute() {
+    internal func setAttribute() {
         self.view.backgroundColor = .viewBackgroundGray
-        topTitleView.do {
-            $0.backgroundColor = .white
-            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
-            $0.layer.addShadow(location: .bottom)
-        }
         
-        closeButton.do {
-            $0.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-            $0.tintColor = .gray4
-        }
-        
-        reviewDetailTitleLabel.do {
+        navigationLabel.do {
             $0.text = "리뷰"
         }
         
@@ -138,9 +121,7 @@ final class ReviewDetailViewController: UIViewController {
         }
         
     }
-    private func addView() {
-        self.view.addSubview(topTitleView)
-        topTitleView.addSubviews([closeButton, reviewDetailTitleLabel])
+    internal func addView() {
         self.view.addSubview(contentView)
         contentView.addSubviews([userImageView,
                                  userImageViewIndicator,
@@ -155,28 +136,10 @@ final class ReviewDetailViewController: UIViewController {
                                  contentTextView,])
         
     }
-    private func setLayout() {
-        topTitleView.snp.makeConstraints {
-            $0.height.equalTo(113)
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalToSuperview()
-        }
-        
-        closeButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.centerY.equalToSuperview().offset(15)
-            $0.height.equalTo(25)
-            $0.width.equalTo(15)
-        }
-        
-        reviewDetailTitleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalTo(closeButton)
-            $0.height.equalTo(30)
-        }
+    internal func setLayout() {
         
         contentView.snp.makeConstraints {
-            $0.top.equalTo(topTitleView.snp.bottom).offset(16)
+            $0.top.equalTo(navigationView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
             $0.bottom.equalToSuperview().offset(-50)
@@ -268,15 +231,9 @@ final class ReviewDetailViewController: UIViewController {
                     self.likeButton.isSelected = true
                 }
             }).disposed(by: self.disposeBag)
-        
-        
     }
     
-    private func addAction() {
-        closeButton.addAction(UIAction(handler: { action in
-            self.navigationController?.popViewController(animated: true)
-        }), for: .touchUpInside)
-        
+    internal func addAction() {
         likeButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             

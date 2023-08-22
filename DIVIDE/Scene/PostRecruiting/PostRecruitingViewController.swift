@@ -6,9 +6,6 @@
 ////
 //
 
-import UIKit
-import Then
-import SnapKit
 import NMapsMap
 import CoreLocation
 import RxSwift
@@ -16,11 +13,7 @@ import RxCocoa
 import RxGesture
 import PhotosUI
 
-final class PostRecruitingViewController: UIViewController, CLLocationManagerDelegate {
-    
-    private let navigationView                  = UIView()
-    private let navigationLabel                 = MainLabel(type: .hopang)
-    private let backButton                      = UIButton()
+final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFoundation, CLLocationManagerDelegate {
 
     private var viewModel : PostRecruitingBusinessLogic?
     var disposeBag = DisposeBag()
@@ -88,7 +81,7 @@ final class PostRecruitingViewController: UIViewController, CLLocationManagerDel
         super.viewDidLoad()
         
         setUp()
-        setAttributes()
+        setAttribute()
         addView()
         setLayout()
         
@@ -100,28 +93,18 @@ final class PostRecruitingViewController: UIViewController, CLLocationManagerDel
         addAction()
     }
     
-    private func setUp() {
+    internal func setUp() {
         self.viewModel = PostRecruitingViewModel()
         self.contentTextView.delegate = self
     }
     
-    private func setAttributes() {
+    internal func setAttribute() {
         view.backgroundColor = .viewBackgroundGray
         
-        // 상단 메뉴 바 설정
-        navigationView.do {
-            $0.backgroundColor = .white
-            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
-            $0.layer.addShadow(location: .bottom)
-        }
+
         navigationLabel.do {
             $0.text = "D/VIDE 모집글 작성"
             $0.numberOfLines = 2
-        }
-        
-        backButton.do {
-            $0.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-            $0.tintColor = .gray
         }
         
         scrollView.do {
@@ -306,12 +289,9 @@ final class PostRecruitingViewController: UIViewController, CLLocationManagerDel
         
     } // then
     
-    private func addView() {
+    internal func addView() {
         view.addSubview(scrollView)
-        view.addSubview(navigationView)
-        
-        navigationView.addSubview(navigationLabel)
-        navigationView.addSubview(backButton)
+
         scrollView.addSubview(scrollContentView)
         
         //UILabel add
@@ -339,21 +319,7 @@ final class PostRecruitingViewController: UIViewController, CLLocationManagerDel
         
         
     } // self.addSubview...
-    private func setLayout() {
-        navigationView.snp.makeConstraints {
-            $0.height.equalTo(100)
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-        }
-        navigationLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(navigationView.snp.bottom).offset(-20)
-        }
-        backButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.centerY.equalTo(navigationLabel)
-            $0.width.height.equalTo(30)
-        }
+    internal func setLayout() {
         // ScrollView
         scrollView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(100)
@@ -522,16 +488,10 @@ final class PostRecruitingViewController: UIViewController, CLLocationManagerDel
             $0.width.equalTo(71)
         }
         
-        
-        
-    } // SnapKit
+    }
     
-    private func addAction() {
-        backButton.addAction(UIAction(handler: {[weak self] _ in
-            guard let self = self else { return }
-            self.navigationController?.popViewController(animated: true)
-        }), for: .touchUpInside)
-        
+    internal func addAction() {
+
         imgForUpload3.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self]  _ in
@@ -604,6 +564,7 @@ final class PostRecruitingViewController: UIViewController, CLLocationManagerDel
         self.present(picker, animated: true, completion: nil)
     }
 }
+
 extension PostRecruitingViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // replacementString : 방금 입력된 문자 하나, 붙여넣기 시에는 붙여넣어진 문자열 전체

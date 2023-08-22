@@ -5,21 +5,16 @@
 //  Created by 임우섭 on 2022/12/22.
 //
 
-import UIKit
 import RxSwift
 import RxCocoa
 
-import SnapKit
-import Then
-
-final class ReviewViewController: UIViewController {
+final class ReviewViewController: DVIDEViewController1, ViewControllerFoundation {
     
     private var disposeBag              = DisposeBag()
     private var viewModel               : ReviewBusinessLogic?
     private let dummyUserPosition       = UserPosition(longitude: 127.030767490, latitude: 37.49015482509)
     
     //상단
-    private let topTitleView            = UIView()
     private let reviewTitleImg          = UIImageView()
     private let reviewSearchBtn         = UIButton()
     
@@ -41,12 +36,12 @@ final class ReviewViewController: UIViewController {
         
     }
     
-    private func setUp() {
+    internal func setUp() {
         self.viewModel = ReviewViewModel()
     }
-    private func setAttribute() {
+    internal func setAttribute() {
         self.view.backgroundColor = .viewBackgroundGray
-        topTitleView.do {
+        navigationView.do {
             $0.backgroundColor = .white
             $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
             $0.layer.addShadow(location: .bottom)
@@ -67,15 +62,15 @@ final class ReviewViewController: UIViewController {
         }
         
     }
-    private func addView() {
-        self.view.addSubview(topTitleView)
-        topTitleView.addSubviews([reviewTitleImg, reviewSearchBtn])
+    internal func addView() {
+        self.view.addSubview(navigationView)
+        navigationView.addSubviews([reviewTitleImg, reviewSearchBtn])
         
         self.view.addSubview(reviewTableView)
     }
-    private func setLayout() {
+    internal func setLayout() {
         
-        topTitleView.snp.makeConstraints {
+        navigationView.snp.makeConstraints {
             $0.height.equalTo(113)
             $0.leading.trailing.equalToSuperview()
             $0.top.equalToSuperview()
@@ -98,7 +93,7 @@ final class ReviewViewController: UIViewController {
         reviewTableView.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
-            $0.top.equalTo(topTitleView.snp.bottom).offset(10)
+            $0.top.equalTo(navigationView.snp.bottom).offset(10)
             $0.bottom.equalToSuperview()
         }
         
@@ -159,6 +154,9 @@ final class ReviewViewController: UIViewController {
             }.disposed(by: disposeBag)
     }
     
+    internal func addAction() {
+        
+    }
 }
 
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource {

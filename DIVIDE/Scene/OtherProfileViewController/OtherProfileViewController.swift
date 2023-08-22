@@ -5,15 +5,11 @@
 //  Created by wooseob on 2023/08/17.
 //
 
-import UIKit
-
 import RxSwift
 import RxCocoa
 import RxGesture
 
-import Then
-import SnapKit
-class OtherProfileViewController: UIViewController {
+class OtherProfileViewController: UIViewController, ViewControllerFoundation {
 
     var userId : Int?
     
@@ -53,7 +49,7 @@ class OtherProfileViewController: UIViewController {
         addAction()
     }
     
-    private func setAttribute() {
+    internal func setAttribute() {
         self.view.backgroundColor = .gray0
         
         leftBox.do {
@@ -138,14 +134,14 @@ class OtherProfileViewController: UIViewController {
         }
     }
     
-    private func addView() {
+    internal func addView() {
         self.view.addSubviews([profileBox, followButton, feedLabel, feedTableView])
         profileBox.addSubviews([leftBox, rightBox])
         leftBox.addSubviews([profileImageView, profileNickname, profileBadge])
         rightBox.addSubviews([followingCountLabel, followingLabel, rightBoxDivider, followerCountLabel, followerLabel, followingTouchBox, followerTouchBox])
     }
     
-    private func setLayout() {
+    internal func setLayout() {
         profileBox.snp.makeConstraints {
             $0.top.equalToSuperview().offset(22)
             $0.leading.equalTo(profileImageView.snp.centerX)
@@ -249,7 +245,7 @@ class OtherProfileViewController: UIViewController {
         }
     }
     
-    private func setUp() {
+    internal func setUp() {
         self.viewModel = OtherProfileViewModel()
     }
     
@@ -295,7 +291,7 @@ class OtherProfileViewController: UIViewController {
             }.disposed(by: disposeBag)
     }
     
-    private func addAction() {
+    internal func addAction() {
         followButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             guard let userId = self.userId else { return }
@@ -371,10 +367,7 @@ class OtherProfileViewController: UIViewController {
             }.disposed(by: disposeBag)
         
     }
-
-
 }
-
 
 extension OtherProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

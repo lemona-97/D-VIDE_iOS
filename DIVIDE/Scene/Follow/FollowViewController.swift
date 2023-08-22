@@ -5,17 +5,10 @@
 //  Created by wooseob on 2023/08/08.
 //
 
-import UIKit
 import RxSwift
 import RxCocoa
 
-import SnapKit
-import Then
-
-final class FollowViewController: UIViewController {
-    private let navigationView                  = UIView()
-    private let navigationLabel                 = MainLabel(type: .hopang)
-    private let backButton                      = UIButton()
+final class FollowViewController: DVIDEViewController2, ViewControllerFoundation {
 
     private let followCollectionView       = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     
@@ -37,17 +30,11 @@ final class FollowViewController: UIViewController {
         bindFollow()
     }
     
-    private func setUp() {
+    internal func setUp() {
         viewModel = FollowViewModel()
     }
     
-    private func setAttribute() {
-        self.view.backgroundColor = .white
-        navigationView.do {
-            $0.backgroundColor = .white
-            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
-            $0.layer.addShadow(location: .bottom)
-        }
+    internal func setAttribute() {
         if type == .FOLLOWER {
             navigationLabel.do {
                 $0.text = "팔로워"
@@ -57,12 +44,6 @@ final class FollowViewController: UIViewController {
                 $0.text = "팔로잉"
             }
         }
-        
-        backButton.do {
-            $0.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-            $0.tintColor = .gray
-        }
-        
         followCollectionView.do {
             let flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
             flowLayout.scrollDirection = .vertical
@@ -74,31 +55,11 @@ final class FollowViewController: UIViewController {
         }
     }
     
-    private func addView() {
-        view.addSubview(navigationView)
-        
-        navigationView.addSubview(navigationLabel)
-        navigationView.addSubview(backButton)
-        
+    internal func addView() {
         view.addSubview(followCollectionView)
     }
     
-    private func setLayout() {
-        navigationView.snp.makeConstraints {
-            $0.height.equalTo(100)
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-        }
-        navigationLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(navigationView.snp.bottom).offset(-20)
-        }
-        backButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.centerY.equalTo(navigationLabel)
-            $0.width.height.equalTo(30)
-        }
-        
+    internal func setLayout() {
         followCollectionView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom).offset(30)
             $0.leading.equalToSuperview().offset(19)
@@ -107,15 +68,11 @@ final class FollowViewController: UIViewController {
         }
     }
     
-    private func addAction() {
-        backButton.addAction(UIAction(handler: {[weak self] _ in
-            guard let self = self else { return }
-            self.navigationController?.popViewController(animated: true)
-        }), for: .touchUpInside)
+    internal func addAction() {
+     
     }
     
     private func bindFollow() {
-        
         guard let type = self.type else { return }
         followCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         

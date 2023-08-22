@@ -5,20 +5,13 @@
 //  Created by wooseob on 2023/08/03.
 //
 
-import UIKit
-import Then
-import SnapKit
 import NMapsMap
 import RxSwift
 import RxGesture
 import Moya
 
-final class ChangeDefaultAddressViewController: UIViewController {
-    
-    private let topTitleView = UIView()
-    private let closeButton = UIButton()
-    private let topTitleLabel = MainLabel(type: .title)
-    
+final class ChangeDefaultAddressViewController: DVIDEViewController2, ViewControllerFoundation {
+        
     private let contentView = UIView()
     lazy var mapView = NMFNaverMapView(frame: view.frame)
     private let cameraPos = NMFCameraPosition()
@@ -42,24 +35,16 @@ final class ChangeDefaultAddressViewController: UIViewController {
         addAction()
     }
     
-    private func setAttribute() {
+    internal func setUp() {
+        
+    }
+    internal func setAttribute() {
         view.backgroundColor = .viewBackgroundGray
-        
-        topTitleView.do {
-            $0.backgroundColor = .white
-            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
-            $0.layer.addShadow(location: .bottom)
-        }
-        
-        topTitleLabel.do {
+
+        navigationLabel.do {
             $0.text = "위치 등록"
         }
-        
-        closeButton.do {
-            $0.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-            $0.tintColor = .gray4
-        }
-        
+
         changeAddressButton.do {
             $0.setTitle("주소 설정 완료", for: .normal)
         }
@@ -67,8 +52,6 @@ final class ChangeDefaultAddressViewController: UIViewController {
         contentView.do {
             $0.backgroundColor = .white
         }
-        
-        
         
         mapView.do {
             if let latlng = getCurrentLocation() {
@@ -110,34 +93,14 @@ final class ChangeDefaultAddressViewController: UIViewController {
         }
     }
     
-    private func addView() {
-        self.view.addSubviews([topTitleView, contentView, changeAddressButton])
-        topTitleView.addSubviews([closeButton, topTitleLabel])
+    internal func addView() {
+        self.view.addSubviews([contentView, changeAddressButton])
         
         contentView.addSubviews([mapView, searchTextField, titleAddressLabel, detailAddressLabel])
         mapView.addSubviews([markerImg])
     }
     
-    private func setLayout() {
-        topTitleView.snp.makeConstraints {
-            $0.height.equalTo(113)
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalToSuperview()
-        }
-        
-        closeButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.centerY.equalToSuperview().offset(15)
-            $0.height.equalTo(25)
-            $0.width.equalTo(15)
-        }
-        
-        topTitleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalTo(closeButton)
-            $0.height.equalTo(30)
-        }
-        
+    internal func setLayout() {
         changeAddressButton.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
@@ -148,7 +111,7 @@ final class ChangeDefaultAddressViewController: UIViewController {
         contentView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
-            $0.top.equalTo(topTitleView.snp.bottom).offset(16)
+            $0.top.equalTo(navigationView.snp.bottom).offset(16)
             $0.bottom.equalTo(changeAddressButton.snp.top).offset(-22)
         }
         
@@ -186,12 +149,7 @@ final class ChangeDefaultAddressViewController: UIViewController {
         }
     }
 
-    private func addAction() {
-        closeButton.addAction(UIAction(handler: { [weak self] _ in
-            guard let self = self else { return }
-            self.navigationController?.popViewController(animated: true)
-        }), for: .touchUpInside)
-        
+    internal func addAction() {
         changeAddressButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             let latitude = self.mapView.mapView.cameraPosition.target.lat

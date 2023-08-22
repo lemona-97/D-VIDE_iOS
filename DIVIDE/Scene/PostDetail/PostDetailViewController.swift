@@ -8,17 +8,14 @@
 import UIKit
 import RxSwift
 import RxGesture
-import SnapKit
-import Then
 import NMapsMap
 import PhotosUI
 
-final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
+final class PostDetailViewController: UIViewController, ViewControllerFoundation, UIScrollViewDelegate {
     
     // MARK: property
     private var imageArray : [UIImage]          = []
     private var photoConfiguration              = PHPickerConfiguration()
-    
     
     private let topBackground                   = UIView()
     private let proposerImage                   = UIImageView()
@@ -45,7 +42,6 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
     private let deliveryAimMoneyLabel           = MainLabel(type: .Point4)
     private let deliveryAimMoney                = MainLabel(type: .Big1)
     private let aimUnitLabel                    = MainLabel(type: .Basics2)
-    
     
     private let presentOrderMoneyLabel          = MainLabel(type: .Point4)
     private let presentOrderMoney               = MainLabel(type: .Big1)
@@ -103,7 +99,7 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
         addAction()
     }
     
-    private func setAttribute() {
+    internal func setAttribute() {
         self.view.backgroundColor = .white
         
         topBackground.do {
@@ -293,7 +289,7 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
         }
         
     }
-    private func addView() {
+    internal func addView() {
         self.view.addSubviews([topBackground, mainScrollView, proposerImage, proposerImageIndicator, proposerNickName, closeButton, bottomSheetView, proposerDetailTouchBox])
         mainScrollView.addSubviews([foodImageView, foodImageIndicator, informationView])
         informationView.addSubviews([titleLabel,
@@ -318,7 +314,7 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
                                      joinButton])
         bottomSheetView.addSubviews([orderMenuLabel, orderShopLabel, orderImageView1, orderImageView2, orderAmountLabel, orderAmountValueTextField, orderAmountFeeLabel, chatWithDIVIDERButton])
     }
-    private func setLayout() {
+    internal func setLayout() {
         // subview of self.view
         topBackground.snp.makeConstraints {
             $0.width.equalToSuperview()
@@ -598,7 +594,7 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    private func setUp() {
+    internal func setUp() {
         self.viewModel = PostDetailViewModel()
         self.orderAmountValueTextField.delegate = self
     }
@@ -646,7 +642,7 @@ final class PostDetailViewController: UIViewController, UIScrollViewDelegate {
     /// addAction은 iOS 14 이상사용 가능
     ///
     /// joinButton 누르면 주문서 작성 bottom sheet 등장
-    private func addAction() {
+    internal func addAction() {
         proposerDetailTouchBox.rx.tapGesture()
             .when(.recognized)
             .bind { [weak self] _ in

@@ -5,21 +5,13 @@
 //  Created by wooseob on 2023/08/03.
 //
 
-import UIKit
 import RxSwift
 import RxCocoa
-import Then
-import SnapKit
 
-final class MyOrderHistoryViewController: UIViewController {
+final class MyOrderHistoryViewController: DVIDEViewController2, ViewControllerFoundation {
     private var disposeBag = DisposeBag()
     
     private var viewModel : MyOrderBusinessLogic?
-    
-    //Property
-    private let topTitleView = UIView()
-    private let closeButton = UIButton()
-    private let topTitleLabel = MainLabel(type: .title)
     
     private let tableView = UITableView()
     private var allDataFromServer = [OrderHistory]()
@@ -30,64 +22,35 @@ final class MyOrderHistoryViewController: UIViewController {
         setAttribute()
         addView()
         setLayout()
-        
-        tableView.register(OrderTableViewCell.self, forCellReuseIdentifier: OrderTableViewCell.className)
         bindToViewModel()
         addAction()
     }
     
-    private func setUp() {
+    internal func setUp() {
         self.viewModel = MyOrderHistoryViewModel()
     }
     
-    private func setAttribute() {
+    internal func setAttribute() {
         view.backgroundColor = .viewBackgroundGray
-
-        topTitleView.do {
-            $0.backgroundColor = .white
-            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
-            $0.layer.addShadow(location: .bottom)
-        }
         
-        topTitleLabel.do {
+        navigationLabel.do {
             $0.text = "주문내역"
-        }
-        
-        closeButton.do {
-            $0.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-            $0.tintColor = .gray4
         }
         tableView.do{
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.separatorStyle  = .none
+            $0.register(OrderTableViewCell.self, forCellReuseIdentifier: OrderTableViewCell.className)
         }
     }
     
-    private func addView() {
-        self.view.addSubview(topTitleView)
-        topTitleView.addSubviews([closeButton, topTitleLabel])
+    internal func addView() {
         self.view.addSubview(tableView)
     }
     
-    private func setLayout() {
-        topTitleView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalToSuperview().offset(10)
-            $0.height.equalTo(100)
-        }
-        closeButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.centerY.equalToSuperview().offset(15)
-            $0.height.equalTo(25)
-            $0.width.equalTo(15)
-        }
-        topTitleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(10)
-        }
+    internal func setLayout() {
         tableView.snp.makeConstraints {
-            $0.top.equalTo(topTitleView.snp.bottom).offset(5)
+            $0.top.equalTo(navigationView.snp.bottom).offset(5)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-20)
         }
@@ -109,11 +72,8 @@ final class MyOrderHistoryViewController: UIViewController {
                 }
             }.disposed(by: disposeBag)
     }
-    private func addAction() {
-        closeButton.addAction(UIAction(handler: { [weak self] _ in
-            guard let self = self else { return }
-            self.navigationController?.popViewController(animated: true)
-        }), for: .touchUpInside)
+    internal func addAction() {
+        
     }
 }
 

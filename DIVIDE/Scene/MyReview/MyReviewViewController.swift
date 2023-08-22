@@ -5,19 +5,14 @@
 //  Created by wooseob on 2023/08/09.
 //
 
-import UIKit
 import RxSwift
 import RxCocoa
-import Then
-import SnapKit
 
-final class MyReviewViewController: UIViewController {
+final class MyReviewViewController: DVIDEViewController2, ViewControllerFoundation {
 
     private var viewModel : MyReviewBusinessLogic?
     private var disposeBag = DisposeBag()
     
-    private let backButton = UIButton()
-    private let topTitleLabel = MainLabel(type: .title)
     
     private let reviewTableView = UITableView()
     private var myReviewData = [ReviewData]()
@@ -35,19 +30,14 @@ final class MyReviewViewController: UIViewController {
     }
   
     
-    private func setUp() {
+    internal func setUp() {
         viewModel = MyReviewViewModel()
     }
     
-    private func setAttribute() {
+    internal func setAttribute() {
         self.view.backgroundColor = .viewBackgroundGray
-        backButton.do {
-            $0.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-            $0.setTitleColor(.gray3, for: .normal)
-            $0.tintColor = .gray3
-        }
-        
-        topTitleLabel.do {
+ 
+        navigationLabel.do {
             $0.text = "내가 쓴 리뷰"
         }
         
@@ -59,21 +49,11 @@ final class MyReviewViewController: UIViewController {
         }
     }
     
-    private func addView() {
-        self.view.addSubviews([backButton, topTitleLabel, reviewTableView])
+    internal func addView() {
+        self.view.addSubview(reviewTableView)
     }
     
-    private func setLayout() {
-        backButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(20)
-            $0.top.equalToSuperview().offset(50)
-            $0.height.equalTo(40)
-            $0.width.equalTo(25)
-        }
-        topTitleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalTo(backButton)
-        }
+    internal func setLayout() {
         reviewTableView.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.trailing.equalToSuperview()
@@ -97,11 +77,8 @@ final class MyReviewViewController: UIViewController {
             }.disposed(by: disposeBag)
     }
 
-    
-    private func addAction() {
-        backButton.addAction(UIAction(handler: { [weak self] _ in
-            self?.navigationController?.popViewController(animated: true)
-        }), for: .touchUpInside)
+    internal func addAction() {
+
     }
 }
 

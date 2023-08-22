@@ -635,8 +635,6 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
                 destination.type = .FOLLOWER
                 self.navigationController?.pushViewController(destination, animated: true)
             }.disposed(by: disposeBag)
-        
-        
     }
 
     // 현재 버전 가져오기

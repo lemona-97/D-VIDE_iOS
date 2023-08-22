@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Then
-import SnapKit
 import RxGesture
 import RxSwift
 
@@ -17,7 +15,7 @@ import KakaoSDKAuth
 import AuthenticationServices
 import CoreLocation
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, ViewControllerFoundation {
     
     private let catchphraseLabel        = MainLabel(type: .Point4)
     private let halfBubbleImageView     = UIImageView()
@@ -45,16 +43,12 @@ final class LoginViewController: UIViewController {
         addAction()
     }
     
-    private func setUp() {
+    internal func setUp() {
         viewModel = LoginViewModel()
         
     }
-    private func getUserPosition(completion : @escaping (UserPosition) -> Void) {
-        guard let lat = locationManager.location?.coordinate.latitude, let lng = locationManager.location?.coordinate.longitude else { return print("유저 위치 정보 못가져왔음") }
-        UserDefaultsManager.userPosition = UserPosition(longitude: lng, latitude: lat)
-        completion(UserPosition(longitude: lng, latitude: lat))
-    }
-    private func setAttribute() {
+    
+    internal func setAttribute() {
         self.view.backgroundColor = .white
         
         catchphraseLabel.do {
@@ -134,12 +128,12 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    private func addView() {
+    internal func addView() {
         self.view.addSubviews([catchphraseLabel, halfBubbleImageView, mainImageView, bottomImageView])
         self.view.addSubviews([emailTextField, passwordTextField, loginButton, kakaoLoginImage, appleLoginImage])
         self.view.addSubview(signupButton)
     }
-    private func setLayout() {
+    internal func setLayout() {
         halfBubbleImageView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(39)
             $0.top.equalToSuperview().offset(120)
@@ -209,7 +203,7 @@ final class LoginViewController: UIViewController {
         }
     }
     
-    private func addAction() {
+    internal func addAction() {
         loginButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             viewModel?.divideSignIn(email: self.emailTextField.text!, password: self.passwordTextField.text!, completion: { result in
@@ -328,6 +322,11 @@ final class LoginViewController: UIViewController {
         }), for: .touchUpInside)
     }
     
+    private func getUserPosition(completion : @escaping (UserPosition) -> Void) {
+        guard let lat = locationManager.location?.coordinate.latitude, let lng = locationManager.location?.coordinate.longitude else { return print("유저 위치 정보 못가져왔음") }
+        UserDefaultsManager.userPosition = UserPosition(longitude: lng, latitude: lat)
+        completion(UserPosition(longitude: lng, latitude: lat))
+    }
     /// 애플 로그인 호출
     private func appleLoginHandler() {
         if let appleUserInfo = UserDefaultsManager.appleUserInfo {
