@@ -9,10 +9,10 @@ import Foundation
 import Moya
 import RxSwift
 
+/// 나의 팔로우, 팔로잉 목록 조회
 protocol FollowBusinessLogic {
     func requestFollowList(type: FollowType, first : Int?) -> Single<[FollowInfo]>
     func requestOtherFollowList(relation : FollowType, first : Int?, userId : Int) -> Single<[OtherFollowModel]>
-
 }
 
 final class FollowViewModel : FollowBusinessLogic {

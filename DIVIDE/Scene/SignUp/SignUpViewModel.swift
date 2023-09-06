@@ -8,11 +8,6 @@
 import Foundation
 import Moya
 
-protocol SignUpBusinessLogic : DIVIDELoginLogic {
-    
-    func requestSignUp(signUpInfo: SignUpModel, imageData : Data, completion: @escaping (Result<SignUpResponse, Error>) -> Void)
-    func divideSignIn(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void)
-}
 
 final class SignUpViewModel : SignUpBusinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])

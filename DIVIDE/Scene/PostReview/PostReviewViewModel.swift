@@ -8,10 +8,6 @@
 import Foundation
 import Moya
 
-protocol PostReviewBesinessLogic {
-    func postReview(postReviewModel: PostReviewModel, img : [Data], completion: @escaping (Result<PostReviewResponse, Error>) -> Void)
-}
-
 final class PostReviewViewModel : PostReviewBesinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
 

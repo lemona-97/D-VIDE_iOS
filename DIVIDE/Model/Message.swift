@@ -12,13 +12,13 @@ import Firebase
 import FirebaseAuth
 
 struct Message: MessageType {
-    
     let id: String?
     var messageId: String {
         return id ?? UUID().uuidString
     }
+    var sentDate: Date
+    
     let content: String
-    let sentDate: Date
     let sender: SenderType
     var kind: MessageKind {
         if let image = image {
@@ -35,17 +35,17 @@ struct Message: MessageType {
     init(user: User, content: String) {
             sender = Sender(senderId: user.uid, displayName: UserDefaultsManager.displayName!)
             self.content = content
-            sentDate = Date()
-            id = nil
+        sentDate = Date()
+        id = nil
         }
         
-        init(user: User, image: UIImage) {
-            sender = Sender(senderId: user.uid, displayName: UserDefaultsManager.displayName!)
-            self.image = image
-            sentDate = Date()
-            content = ""
-            id = nil
-        }
+    init(user: User, image: UIImage) {
+        sender = Sender(senderId: user.uid, displayName: UserDefaultsManager.displayName!)
+        self.image = image
+        sentDate = Date()
+        content = ""
+        id = nil
+    }
     
     init?(document: QueryDocumentSnapshot) {
             let data = document.data()
@@ -66,7 +66,6 @@ struct Message: MessageType {
                 return nil
             }
         }
-    
 }
 
 extension Message: DatabaseRepresentation {

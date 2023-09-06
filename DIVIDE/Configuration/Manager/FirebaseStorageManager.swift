@@ -9,15 +9,15 @@ import FirebaseStorage
 import UIKit
 
 struct FirebaseStorageManager {
-    static func uploadImage(image: UIImage, channel: Channel, completion: @escaping (URL?) -> Void) {
-        guard let channelId = channel.id,
+    static func uploadImage(image: UIImage, chatRoom: ChatRoom, completion: @escaping (URL?) -> Void) {
+        guard let chatRoomId = chatRoom.postId,
               let scaledImage = image.scaledToSafeUploadSize,
               let data = scaledImage.jpegData(compressionQuality: 0.4) else { return completion(nil)}
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
         
         let imageName = UUID().uuidString + String(Date().timeIntervalSince1970)
-        let imageReference = Storage.storage().reference().child("\(channelId)/\(imageName)")
+        let imageReference = Storage.storage().reference().child("\(chatRoomId)/\(imageName)")
         imageReference.putData(data, metadata: metaData) { _, _ in
             imageReference.downloadURL { url, _ in
                 completion(url)

@@ -8,10 +8,6 @@
 import Foundation
 import Moya
 
-protocol PostRecruitingBusinessLogic {
-    func requestpostRecruiting(param: PostRecruitingInput, img: [Data], completion: @escaping (Result<PostRecruitingResponse, Error>) -> Void)
-}
-
 final class PostRecruitingViewModel : PostRecruitingBusinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     

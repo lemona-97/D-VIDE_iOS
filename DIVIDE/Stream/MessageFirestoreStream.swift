@@ -1,35 +1,29 @@
 //
-//  ChatFirestoreStream.swift
+//  MessageFirestoreStream.swift
 //  DIVIDE
 //
-//  Created by wooseob on 2023/08/10.
+//  Created by wooseob on 2023/09/05.
 //
 
-import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseFirestoreSwift
 
-class ChatFirestoreStream {
-    
+class MessageFirestoreStream {
     private let storage = Storage.storage().reference()
-    let firestoreDataBase = Firestore.firestore()
+    let firestoreDatabase = Firestore.firestore()
     var listener: ListenerRegistration?
-    var collectionListener: CollectionReference?
-    
-    func subscribe(id: String, completion: @escaping (Result<[Message], StreamError>) -> Void) {
-        let streamPath = "channels/\(id)/thread"
-        
+    var messageListener: CollectionReference?
+    func subscribe(orderId chatRoomId: Int, completion: @escaping (Result<[Message], StreamError>) -> Void) {
+        let streamPath = "chatRooms/\(chatRoomId)/message"
         removeListener()
-        collectionListener = firestoreDataBase.collection(streamPath)
+        messageListener = firestoreDatabase.collection(streamPath)
         
-        listener = collectionListener?
-            .addSnapshotListener { snapshot, error in
-                guard let snapshot = snapshot else {
+        listener = messageListener?.addSnapshotListener { snaphot, error in
+                guard let snapshot = snaphot else {
                     completion(.failure(StreamError.firestoreError(error)))
                     return
                 }
-                
                 var messages = [Message]()
                 snapshot.documentChanges.forEach { change in
                     if let message = Message(document: change.document) {
@@ -43,12 +37,10 @@ class ChatFirestoreStream {
     }
     
     func save(_ message: Message, completion: ((Error?) -> Void)? = nil) {
-        collectionListener?.addDocument(data: message.representation) { error in
-            completion?(error)
+        messageListener?.addDocument(data: message.representation) { error in
+                completion?(error)
+            }
         }
-        
-    }
-    
     func removeListener() {
         listener?.remove()
     }

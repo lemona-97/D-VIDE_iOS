@@ -9,14 +9,6 @@ import Foundation
 import Moya
 import RxSwift
 
-protocol ProfileBusinessLogic {
-    
-    /// 주변 가게의 리뷰 정보 조회
-    func requestMyProfile() -> Single<ProfileModel>
-    func modifyMyProfile(profile : ModifyProfileModel, img : Data?, completion: @escaping () -> Void)
-    
-}
-
 final class ProfileViewModel : ProfileBusinessLogic {
     
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])

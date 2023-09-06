@@ -13,19 +13,18 @@ import FirebaseAuth
 final class ChatRoomViewController: MessagesViewController, ViewControllerFoundation {
     
     //property
-    
-    let channel: Channel
+    let chatRoom: ChatRoom
     var sender = Sender(senderId: String(UserDefaultsManager.userId!), displayName: "우섭")
     var messages = [Message]()
-    let chatFirestoreStream = ChatFirestoreStream()
+    let chatFirestoreStream = MessageFirestoreStream()
     private let user : User
     
-    init(user: User, channel: Channel) {
-           self.user = user
-           self.channel = channel
-           super.init(nibName: nil, bundle: nil)
-           
-           title = channel.name
+    init(user: User, chatRoom: ChatRoom) {
+        self.user = user
+        self.chatRoom = chatRoom
+        super.init(nibName: nil, bundle: nil)
+
+        
        }
        
        required init?(coder: NSCoder) {
@@ -33,7 +32,7 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
        }
     
     deinit {
-        chatFirestoreStream.removeListener()
+//        chatFirestoreStream.removeListener()
         
     }
     // Photo
@@ -118,21 +117,25 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
     private func insertNewMessage(_ message: Message) {
         messages.append(message)
         messages.sort()
-        
+        print("insert \(message)")
         messagesCollectionView.reloadData()
     }
     
     private func listenToMessages() {
-        guard let id = channel.id else {
+        dump(chatRoom)
+        
+        guard let orderId = self.chatRoom.orderId else {
             navigationController?.popViewController(animated: true)
             return
         }
         
-        chatFirestoreStream.subscribe(id: id) { [weak self] result in
+        chatFirestoreStream.subscribe(orderId: orderId) { [weak self] result in
             switch result {
             case .success(let messages):
+                print("success")
                 self?.loadImageAndUpdateCells(messages)
             case .failure(let error):
+                print("error")
                 print(error)
             }
         }
@@ -204,13 +207,13 @@ extension ChatRoomViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
             let message = Message(user: user, content: text)
             
-            chatFirestoreStream.save(message) { [weak self] error in
-                if let error = error {
-                    print(error)
-                    return
-                }
-                self?.messagesCollectionView.scrollToLastItem()
-            }
+//            chatFirestoreStream.save(message) { [weak self] error in
+//                if let error = error {
+//                    print(error)
+//                    return
+//                }
+//                self?.messagesCollectionView.scrollToLastItem()
+//            }
             inputBar.inputTextView.text.removeAll()
         }
 }
@@ -237,13 +240,13 @@ extension ChatRoomViewController: PHPickerViewControllerDelegate {
     
     private func sendPhoto(_ image: UIImage) {
            isSendingPhoto = true
-           FirebaseStorageManager.uploadImage(image: image, channel: channel) { [weak self] url in
+           FirebaseStorageManager.uploadImage(image: image, chatRoom:  chatRoom) { [weak self] url in
                self?.isSendingPhoto = false
                guard let user = self?.user, let url = url else { return }
                
                var message = Message(user: user, image: image)
                message.downloadURL = url
-               self?.chatFirestoreStream.save(message)
+//               self?.chatFirestoreStream.save(message)
                self?.messagesCollectionView.scrollToLastItem()
            }
        }

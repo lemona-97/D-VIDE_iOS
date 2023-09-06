@@ -9,12 +9,6 @@ import Foundation
 import RxSwift
 import Moya
 
-protocol PostDetailBusinessLogic {
-    /// 게시글 상세 정보 조회
-    func requestPostDetail(postId : Int) -> Single<PostDetailModel>
-    
-    func joinOrder(joinOrder : JoinOrderModel, images : [Data], completion: @escaping (Result<JoinOrderResponse, Error>) -> Void)
-}
 
 final class PostDetailViewModel : PostDetailBusinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])

@@ -9,10 +9,6 @@ import Foundation
 import Moya
 import RxSwift
 
-protocol MyReviewBusinessLogic {
-    func requestMyReview(first : Int?) -> Single<[ReviewData]>
-}
-
 final class MyReviewViewModel : MyReviewBusinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
 

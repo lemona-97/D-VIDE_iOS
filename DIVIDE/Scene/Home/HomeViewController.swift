@@ -42,8 +42,8 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
         addView()
         setLayout()
         setUp()
+        addAction()
         bindToViewModel()
-
     }
     
     
@@ -56,7 +56,6 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
             print("유저 위치 확인 안됨.")
             self.userPosition = dummyUserPosition
         }
-        //        self.userPosition = UserPosition(longitude: (locationManager.location?.coordinate.longitude), latitude: (locationManager.location?.coordinate.latitude))
         
     }
     internal func setAttribute() {
@@ -138,7 +137,10 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
     }
     
     internal func addAction() {
-        DVIDEBtn.addTarget(self, action: #selector(self.tapDIVIDEBtn), for: .touchUpInside)
+        DVIDEBtn.addAction(UIAction(handler: { _ in
+            let destination = PostRecruitingViewController()
+            self.navigationController?.pushViewController(destination, animated: true)
+        }), for: .touchUpInside)
     }
     
     private func bindToViewModel(){
@@ -161,10 +163,7 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
             }.disposed(by: disposeBag)
     }
     
-    @objc func tapDIVIDEBtn() {
-        let view = PostRecruitingViewController()
-        self.navigationController?.pushViewController(view, animated: true)
-    }
+
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {

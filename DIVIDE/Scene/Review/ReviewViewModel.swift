@@ -9,22 +9,7 @@ import Foundation
 import Moya
 import RxSwift
 
-protocol reviewLikeLogic {
-    func requestReviewLike(reviewId : Int, completion : @escaping (Result<ReviewLikeResponse, Error>) -> Void)
-    func requestReviewUnLike(reviewId : Int, completion : @escaping (Result<ReviewUnLikeResponse, Error>) -> Void)
-}
-protocol ReviewBusinessLogic : reviewLikeLogic {
-    
-    /// 주변 가게의 리뷰 정보 조회
-    func requestAroundReviews(param: UserPosition) -> Single<[ReviewData]>
-    
-    /// 리뷰 좋아요 누르기
-    
-
-}
-
 final class ReviewViewModel : ReviewBusinessLogic {
-    
     
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     

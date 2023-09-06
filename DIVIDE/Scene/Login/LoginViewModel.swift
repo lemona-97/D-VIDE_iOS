@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import RxSwift
 import Moya
 
 protocol DIVIDELoginLogic {
     func divideSignIn(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void)
 }
-protocol LoginBusinessLogic : DIVIDELoginLogic {
+protocol LoginBusinessLogic : DIVIDELoginLogic, ProfileBusinessLogic {
     /// 카카오 로그인 시 서버에서 자동으로 회원 가입 후 ->  토큰 & userId 제공
     func kakaoSignUp(accessToken : String, completion: @escaping (Result<LoginResponse, Error>) -> Void)
     
@@ -24,6 +25,16 @@ protocol LoginBusinessLogic : DIVIDELoginLogic {
 }
 
 final class LoginViewModel : LoginBusinessLogic {
+    func requestMyProfile() -> Single<ProfileModel> {
+        realProvider.rx.request(.requestMyProfile)
+            .filterSuccessfulStatusCodes()
+            .map(ProfileModel.self)
+    }
+    
+    func modifyMyProfile(profile: ModifyProfileModel, img: Data?, completion: @escaping () -> Void) {
+        
+    }
+    
 
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     // 로그인 자동으로 됨

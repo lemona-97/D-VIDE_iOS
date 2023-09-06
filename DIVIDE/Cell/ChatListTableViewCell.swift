@@ -46,12 +46,12 @@ final class ChatListTableViewCell: UITableViewCell {
 
         }
         titleLabel.do {
-            $0.text = "삼첩분식 드실 분 ~"
+            $0.text = "타이틀 나올 곳"
             $0.textColor = .black
         }
         
         lastTextLabel.do {
-            $0.text = "넹 좋아요"
+            $0.text = "내용 나올 곳"
             $0.textColor = .gray2
         }
         
@@ -117,8 +117,20 @@ final class ChatListTableViewCell: UITableViewCell {
     }
 
 
-    public func setData(channel : Channel) {
-        self.titleLabel.text = channel.id
+    public func setData(chatRoom : ChatRoom) {
+        dump(chatRoom)
+        self.titleLabel.text = chatRoom.title
+        if let foodImgUrl = chatRoom.foodImgUrl {
+            self.menuImg.load(url: foodImgUrl) {
+                print("엘렐레")
+            }
+        }
+        if let lastMessage = chatRoom.lastMessage {
+            self.lastTextLabel.text = lastMessage[0] as? String
+            self.timeLabel.text = lastMessage[2] as? String
+        }
+        
+//
     }
 
     override func awakeFromNib() {

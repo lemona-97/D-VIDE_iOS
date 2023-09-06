@@ -16,7 +16,9 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
     // MARK: property
     private var imageArray : [UIImage]          = []
     private var photoConfiguration              = PHPickerConfiguration()
-    
+    private let chatRoomStream                  = ChatRoomFirestoreStream()
+
+    // MARK: components
     private let topBackground                   = UIView()
     private let proposerImage                   = UIImageView()
     private let proposerImageIndicator          = UIActivityIndicatorView()
@@ -63,9 +65,12 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
     private let joinButton                      = MainButton(type: .mainAction)
     
     
+    // 주문 생성에 필요
     var postId : Int?
     private var postUserId : Int?
-    
+    private var postTitle  : String?
+    private var postImgUrl : String?
+    private var otherNickname : String?
     // bottom sheet
     private let bottomSheetView                 = UIView()
     private let orderMenuLabel                  = MainLabel(type: .Big2)
@@ -613,6 +618,7 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
                 self.proposerNickName.text = postDetailData.data?.user?.nickname
                 
                 if let foodImageUrl = postDetailData.data?.postDetail?.postImgUrls {
+                    self.postImgUrl = foodImageUrl[0]
                     //우선은 첫번째 사진만 로드...
                     self.foodImageView.load(url: foodImageUrl[0].addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {
                             self.foodImageIndicator.stopAnimating()
@@ -635,6 +641,8 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
                 
                 self.orderShopLabel.text = postDetailData.data?.postDetail?.storeName
                 self.postUserId = postDetailData.data?.user?.id
+                self.postTitle = postDetailData.data?.postDetail?.title
+                self.otherNickname = postDetailData.data?.user?.nickname
             }).disposed(by: self.disposeBag)
     }
     
@@ -719,7 +727,14 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
                         }
                         destination.setPopupMessage(message: "디바이드 참여 완료! \n 디바이더와 채팅을 시작하세요!", popupType: .ALERT)
                         // 주문 번호를 가지고 채팅방 id로 사용..?
-                        result.orderId
+                        
+                        chatRoomStream.createChatRoom(postId: postId,
+                                                      title: self.postTitle!,
+                                                      foodImgUrl: self.postImgUrl!,
+                                                      divider: self.postUserId!,
+                                                      me: UserDefaultsManager.userId!,
+                                                      userNickname: self.otherNickname!,
+                                                      orderId: result.orderId)
                         destination.modalPresentationStyle = .overFullScreen
                         self.navigationController?.present(destination, animated: true)
                     case .failure(let err):

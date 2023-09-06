@@ -14,14 +14,14 @@ final class ChatListViewController: DVIDEViewController1, ViewControllerFoundati
     
     private let navigationLabel         = MainLabel(type: .hopang)
     
-    private var channels                = [Channel]()
+    private var chatRooms               = [ChatRoom]()
     private var disposeBag              = DisposeBag()
     //    private var viewModel               =
     
-    lazy var   currentUser             = Auth.auth().currentUser!
+    lazy var   currentUser              = Auth.auth().currentUser!
     init() {
         super.init(nibName: nil, bundle: nil)
-        title = "Channels"
+       
     }
     
     required init?(coder: NSCoder) {
@@ -29,10 +29,10 @@ final class ChatListViewController: DVIDEViewController1, ViewControllerFoundati
     }
 
     deinit {
-        channelStream.removeListener()
+        chatRoomStream.removeListener()
     }
-    private let channelTableView         = UITableView()
-    private let channelStream            = ChannelFirestoreStream()
+    private let chatRoomTableView         = UITableView()
+    private let chatRoomStream            = ChatRoomFirestoreStream()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,7 +44,6 @@ final class ChatListViewController: DVIDEViewController1, ViewControllerFoundati
         setupListener()
     }
     
-    // 채팅 리스트 불러와야함
     internal func setUp() {
         
     }
@@ -55,7 +54,7 @@ final class ChatListViewController: DVIDEViewController1, ViewControllerFoundati
             $0.textAlignment = .center
         }
         
-        channelTableView.do {
+        chatRoomTableView.do {
             $0.register(ChatListTableViewCell.self, forCellReuseIdentifier: ChatListTableViewCell.className)
             $0.dataSource = self
             $0.delegate = self
@@ -68,7 +67,7 @@ final class ChatListViewController: DVIDEViewController1, ViewControllerFoundati
     internal func addView() {
         navigationView.addSubview(navigationLabel)
         
-        view.addSubview(channelTableView)
+        view.addSubview(chatRoomTableView)
     }
     
     internal func setLayout() {
@@ -78,7 +77,7 @@ final class ChatListViewController: DVIDEViewController1, ViewControllerFoundati
             $0.bottom.equalTo(navigationView.snp.bottom).offset(-20)
         }
         
-        channelTableView.snp.makeConstraints {
+        chatRoomTableView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().offset(-100)
             $0.top.equalTo(navigationView.snp.bottom).offset(20)
@@ -89,7 +88,7 @@ final class ChatListViewController: DVIDEViewController1, ViewControllerFoundati
         
     }
     private func setupListener() {
-        channelStream.subscribe { [weak self] result in
+        chatRoomStream.subscribe { [weak self] result in
             switch result {
             case .success(let data):
                 self?.updateCell(to: data)
@@ -99,50 +98,55 @@ final class ChatListViewController: DVIDEViewController1, ViewControllerFoundati
         }
     }
     
-    private func updateCell(to data: [(Channel, DocumentChangeType)]) {
-        data.forEach { (channel, documentChangeType) in
+    private func updateCell(to data: [(ChatRoom, DocumentChangeType)]) {
+        data.forEach { (chatRoom, documentChangeType) in
             switch documentChangeType {
             case .added:
-                addChannelToTable(channel)
+                addChatRoomToTable(chatRoom)
             case .modified:
-                updateChannelInTable(channel)
+                updateChatRoomInTable(chatRoom)
             case .removed:
-                removeChannelFromTable(channel)
+                removeChatRoomFromTable(chatRoom)
             }
         }
     }
     
-    private func addChannelToTable(_ channel: Channel) {
-        guard channels.contains(channel) == false else { return }
+    private func addChatRoomToTable(_ chatRoom: ChatRoom) {
+        print("add Chat Room")
+        guard chatRooms.contains(chatRoom) == false else { print("add failed.", chatRoom); return }
         
-        channels.append(channel)
-        channels.sort()
+        chatRooms.append(chatRoom)
+        chatRooms.sort()
         
-        guard let index = channels.firstIndex(of: channel) else { return }
-        channelTableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        guard let index = chatRooms.firstIndex(of: chatRoom) else { return }
+        chatRoomTableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        print("chat Room list : ", chatRooms)
     }
     
-    private func updateChannelInTable(_ channel: Channel) {
-        guard let index = channels.firstIndex(of: channel) else { return }
-        channels[index] = channel
-        channelTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+    private func updateChatRoomInTable(_ chatRoom: ChatRoom) {
+        print("update Chat Room")
+        guard let index = chatRooms.firstIndex(of: chatRoom) else { return }
+        chatRooms[index] = chatRoom
+        chatRoomTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        print("chat Room list : ", chatRooms)
     }
     
-    private func removeChannelFromTable(_ channel: Channel) {
-        guard let index = channels.firstIndex(of: channel) else { return }
-        channels.remove(at: index)
-        channelTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+    private func removeChatRoomFromTable(_ chatRoom: ChatRoom) {
+        print("remove Chat Room")
+        guard let index = chatRooms.firstIndex(of: chatRoom) else { return }
+        chatRooms.remove(at: index)
+        chatRoomTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
     }
 }
 
 extension ChatListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return channels.count
+        return chatRooms.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChatListTableViewCell.className, for: indexPath) as! ChatListTableViewCell
-        cell.setData(channel: channels[indexPath.row])
+        cell.setData(chatRoom: chatRooms[indexPath.row])
         return cell
     }
     
@@ -151,8 +155,8 @@ extension ChatListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let channel = channels[indexPath.row]
-        let viewController = ChatRoomViewController(user: currentUser, channel: channel)
+        let chatRoom = chatRooms[indexPath.row]
+        let viewController = ChatRoomViewController(user: currentUser, chatRoom: chatRoom)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

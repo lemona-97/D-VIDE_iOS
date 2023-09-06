@@ -224,8 +224,15 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
                             print("=========================================================================")
                             print("                             탭바 pushed !")
                             print("=========================================================================")
-
+                            
                         }
+                        self.viewModel?.requestMyProfile()
+                            .asObservable()
+                            .bind(onNext: { profileModel in
+                                UserDefaultsManager.displayName = profileModel.nickname
+                                UserDefaultsManager.userId = profileModel.userId
+                            
+                            }).disposed(by: disposeBag)
                     }
                 case .failure(let err):
                     print(err)
@@ -269,7 +276,6 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
                                     print("                         loginWithKakaoTalk() success.")
                                     print("=========================================================================")
                                     UserDefaultsManager.userId = response.userId
-                                    
                                     print("=========================================================================")
                                     UserApi.shared.me { user, error in
                                         print("              사용자 이메일",user?.kakaoAccount?.email, "로 firebase 가입")
@@ -293,7 +299,13 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
 
                                         }
                                     }
-                                    
+                                    self.viewModel?.requestMyProfile()
+                                        .asObservable()
+                                        .bind(onNext: { profileModel in
+                                            UserDefaultsManager.displayName = profileModel.nickname
+                                            UserDefaultsManager.userId = profileModel.userId
+                                        
+                                        }).disposed(by: disposeBag)
                                 case .failure(let err):
                                     print(err)
                                 }
@@ -336,6 +348,7 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
                 case .success(let response):
                     UserDefaultsManager.DIVIDE_TOKEN = response.token
                     UserDefaultsManager.userId = response.userId
+                    UserDefaultsManager.displayName = "디바이더" + String(Int.random(in: 1...100))
                 case .failure(let err):
                     print(err)
                 }

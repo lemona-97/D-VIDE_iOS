@@ -38,7 +38,7 @@
 		FA0C4B752A8EF169009783FF /* FollowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B742A8EF169009783FF /* FollowModel.swift */; };
 		FA0C4B772A8F0AEF009783FF /* OtherFollowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C4B762A8F0AEF009783FF /* OtherFollowModel.swift */; };
 		FA129C8F2A943A89007AFFD2 /* DVIDEViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA129C8E2A943A89007AFFD2 /* DVIDEViewController2.swift */; };
-		FA129C922A943BA5007AFFD2 /* ViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA129C912A943BA5007AFFD2 /* ViewControllerProtocol.swift */; };
+		FA129C922A943BA5007AFFD2 /* protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA129C912A943BA5007AFFD2 /* protocol.swift */; };
 		FA3EDAC72A6F9DC30078AA89 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */; };
 		FA3EDAD12A7209180078AA89 /* SIZE.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EDAD02A7209180078AA89 /* SIZE.swift */; };
 		FA4967C4288A9E2B000247E4 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4967C3288A9E2B000247E4 /* OrderTableViewCell.swift */; };
@@ -95,7 +95,6 @@
 		FA8D32A92A839381003810BA /* MyReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32A82A839381003810BA /* MyReviewViewController.swift */; };
 		FA8D32AD2A83939F003810BA /* MyReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32AC2A83939F003810BA /* MyReviewViewModel.swift */; };
 		FA8D32B42A846DF7003810BA /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32B32A846DF7003810BA /* ChatRoomViewController.swift */; };
-		FA8D32B82A84719D003810BA /* ChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32B72A84719D003810BA /* ChatListViewModel.swift */; };
 		FA8D32BA2A847B6E003810BA /* ChatListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32B92A847B6E003810BA /* ChatListModel.swift */; };
 		FA8D32C52A849477003810BA /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32C42A849477003810BA /* FirebaseStorageManager.swift */; };
 		FA8D32C82A849509003810BA /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FA8D32C72A849509003810BA /* FirebaseAnalytics */; };
@@ -104,14 +103,12 @@
 		FA8D32CE2A849509003810BA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA8D32CD2A849509003810BA /* FirebaseFirestoreSwift */; };
 		FA8D32D02A849509003810BA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FA8D32CF2A849509003810BA /* FirebaseStorage */; };
 		FA8D32D32A849876003810BA /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = FA8D32D22A849876003810BA /* MessageKit */; };
-		FA8D32D52A84AA00003810BA /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32D42A84A9FF003810BA /* Channel.swift */; };
+		FA8D32D52A84AA00003810BA /* ChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32D42A84A9FF003810BA /* ChatRoom.swift */; };
 		FA8D32D72A84AA1C003810BA /* ImageMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32D62A84AA1C003810BA /* ImageMediaItem.swift */; };
 		FA8D32D92A84AA42003810BA /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32D82A84AA42003810BA /* Message.swift */; };
 		FA8D32DB2A84AD5A003810BA /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32DA2A84AD5A003810BA /* NSObject.swift */; };
 		FA8D32DD2A84B40A003810BA /* DatabaseRepresentaion.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32DC2A84B40A003810BA /* DatabaseRepresentaion.swift */; };
-		FA8D32DF2A84B42C003810BA /* ChatFirestoreStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32DE2A84B42C003810BA /* ChatFirestoreStream.swift */; };
 		FA8D32E12A84B43D003810BA /* StreamError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32E02A84B43D003810BA /* StreamError.swift */; };
-		FA8D32E32A84B4C1003810BA /* ChannelFirestoreStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32E22A84B4C1003810BA /* ChannelFirestoreStream.swift */; };
 		FA8D32E52A84B80C003810BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA8D32E42A84B80C003810BA /* GoogleService-Info.plist */; };
 		FA8D32E72A84C417003810BA /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32E62A84C417003810BA /* Firebase.swift */; };
 		FA8D32E92A84C492003810BA /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D32E82A84C492003810BA /* Encodable.swift */; };
@@ -134,6 +131,8 @@
 		FAC4BE7F2920C18500E7F788 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */; };
 		FAD5670029543599007A6904 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD566FF29543599007A6904 /* ReviewViewController.swift */; };
 		FAD5670229543FDA007A6904 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5670129543FDA007A6904 /* ReviewTableViewCell.swift */; };
+		FAD9FB942AA5ABC300E23189 /* ChatRoomFirestoreStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9FB932AA5ABC300E23189 /* ChatRoomFirestoreStream.swift */; };
+		FAD9FB962AA6CA5900E23189 /* MessageFirestoreStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9FB952AA6CA5900E23189 /* MessageFirestoreStream.swift */; };
 		FADD7E322A939DDA001A416A /* DVIDEViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD7E312A939DDA001A416A /* DVIDEViewController1.swift */; };
 		FAEC53212A89F368000DDEDD /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53202A89F368000DDEDD /* PopupViewController.swift */; };
 		FAEC53242A8C4FF9000DDEDD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC53232A8C4FF9000DDEDD /* SignUpViewController.swift */; };
@@ -197,7 +196,7 @@
 		FA0C4B742A8EF169009783FF /* FollowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowModel.swift; sourceTree = "<group>"; };
 		FA0C4B762A8F0AEF009783FF /* OtherFollowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherFollowModel.swift; sourceTree = "<group>"; };
 		FA129C8E2A943A89007AFFD2 /* DVIDEViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVIDEViewController2.swift; sourceTree = "<group>"; };
-		FA129C912A943BA5007AFFD2 /* ViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProtocol.swift; sourceTree = "<group>"; };
+		FA129C912A943BA5007AFFD2 /* protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocol.swift; sourceTree = "<group>"; };
 		FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		FA3EDAD02A7209180078AA89 /* SIZE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIZE.swift; sourceTree = "<group>"; };
 		FA4967C3288A9E2B000247E4 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -255,17 +254,14 @@
 		FA8D32A82A839381003810BA /* MyReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewViewController.swift; sourceTree = "<group>"; };
 		FA8D32AC2A83939F003810BA /* MyReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReviewViewModel.swift; sourceTree = "<group>"; };
 		FA8D32B32A846DF7003810BA /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
-		FA8D32B72A84719D003810BA /* ChatListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewModel.swift; sourceTree = "<group>"; };
 		FA8D32B92A847B6E003810BA /* ChatListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListModel.swift; sourceTree = "<group>"; };
 		FA8D32C42A849477003810BA /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
-		FA8D32D42A84A9FF003810BA /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		FA8D32D42A84A9FF003810BA /* ChatRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoom.swift; sourceTree = "<group>"; };
 		FA8D32D62A84AA1C003810BA /* ImageMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMediaItem.swift; sourceTree = "<group>"; };
 		FA8D32D82A84AA42003810BA /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		FA8D32DA2A84AD5A003810BA /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		FA8D32DC2A84B40A003810BA /* DatabaseRepresentaion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRepresentaion.swift; sourceTree = "<group>"; };
-		FA8D32DE2A84B42C003810BA /* ChatFirestoreStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatFirestoreStream.swift; sourceTree = "<group>"; };
 		FA8D32E02A84B43D003810BA /* StreamError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamError.swift; sourceTree = "<group>"; };
-		FA8D32E22A84B4C1003810BA /* ChannelFirestoreStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelFirestoreStream.swift; sourceTree = "<group>"; };
 		FA8D32E42A84B80C003810BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA8D32E62A84C417003810BA /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		FA8D32E82A84C492003810BA /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
@@ -290,6 +286,8 @@
 		FAC4BE7E2920C18500E7F788 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FAD566FF29543599007A6904 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		FAD5670129543FDA007A6904 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
+		FAD9FB932AA5ABC300E23189 /* ChatRoomFirestoreStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomFirestoreStream.swift; sourceTree = "<group>"; };
+		FAD9FB952AA6CA5900E23189 /* MessageFirestoreStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFirestoreStream.swift; sourceTree = "<group>"; };
 		FADD7E312A939DDA001A416A /* DVIDEViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DVIDEViewController1.swift; sourceTree = "<group>"; };
 		FAEC53202A89F368000DDEDD /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		FAEC53232A8C4FF9000DDEDD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -468,7 +466,7 @@
 		FA129C902A943B80007AFFD2 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				FA129C912A943BA5007AFFD2 /* ViewControllerProtocol.swift */,
+				FA129C912A943BA5007AFFD2 /* protocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -537,7 +535,7 @@
 			isa = PBXGroup;
 			children = (
 				FA8D32812A8076CC003810BA /* AppleLoginInfo.swift */,
-				FA8D32D42A84A9FF003810BA /* Channel.swift */,
+				FA8D32D42A84A9FF003810BA /* ChatRoom.swift */,
 				FA8D32B92A847B6E003810BA /* ChatListModel.swift */,
 				FA8D32DC2A84B40A003810BA /* DatabaseRepresentaion.swift */,
 				FA8D32A02A83187C003810BA /* FollowListModel.swift */,
@@ -567,8 +565,8 @@
 		FA8D32F42A89D90A003810BA /* Stream */ = {
 			isa = PBXGroup;
 			children = (
-				FA8D32E22A84B4C1003810BA /* ChannelFirestoreStream.swift */,
-				FA8D32DE2A84B42C003810BA /* ChatFirestoreStream.swift */,
+				FAD9FB932AA5ABC300E23189 /* ChatRoomFirestoreStream.swift */,
+				FAD9FB952AA6CA5900E23189 /* MessageFirestoreStream.swift */,
 			);
 			path = Stream;
 			sourceTree = "<group>";
@@ -718,7 +716,6 @@
 			isa = PBXGroup;
 			children = (
 				3294CDA9289D07E800FF14AD /* ChatListViewController.swift */,
-				FA8D32B72A84719D003810BA /* ChatListViewModel.swift */,
 			);
 			path = ChatList;
 			sourceTree = "<group>";
@@ -1077,7 +1074,6 @@
 				FAAD4904289ABA1200508C12 /* ViewClass.swift in Sources */,
 				FA59C63728911DD2001ADD50 /* TabBarController.swift in Sources */,
 				FA8D329D2A8240E5003810BA /* FollowType.swift in Sources */,
-				FA8D32E32A84B4C1003810BA /* ChannelFirestoreStream.swift in Sources */,
 				FAEC53242A8C4FF9000DDEDD /* SignUpViewController.swift in Sources */,
 				FA8D32702A7B56E1003810BA /* UserPostModel.swift in Sources */,
 				FA8D32D72A84AA1C003810BA /* ImageMediaItem.swift in Sources */,
@@ -1090,7 +1086,6 @@
 				FA0AAAC3295CADF500783B93 /* ReviewRecommendTableViewCell.swift in Sources */,
 				FAEC53212A89F368000DDEDD /* PopupViewController.swift in Sources */,
 				FA8D32922A81E9D5003810BA /* PostReviewViewController.swift in Sources */,
-				FA8D32B82A84719D003810BA /* ChatListViewModel.swift in Sources */,
 				FA8D325D2A7A53AC003810BA /* ReviewDetailViewController.swift in Sources */,
 				FAA412D72A6632C70053258D /* PostDetailViewModel.swift in Sources */,
 				FA8A71FB289ABA4700E26196 /* UIImage.swift in Sources */,
@@ -1102,7 +1097,6 @@
 				32AA8E4C28A4EEE300BA68E3 /* MoyaInterceptor.swift in Sources */,
 				FA8D32A32A833699003810BA /* FollowCollectionViewCell.swift in Sources */,
 				FA8A7206289ABA4700E26196 /* UITextField.swift in Sources */,
-				FA8D32DF2A84B42C003810BA /* ChatFirestoreStream.swift in Sources */,
 				FA8D32A92A839381003810BA /* MyReviewViewController.swift in Sources */,
 				FAD5670229543FDA007A6904 /* ReviewTableViewCell.swift in Sources */,
 				FAAD4903289ABA1200508C12 /* ButtonClass.swift in Sources */,
@@ -1111,10 +1105,11 @@
 				FA8D32822A8076CC003810BA /* AppleLoginInfo.swift in Sources */,
 				FA8D32D92A84AA42003810BA /* Message.swift in Sources */,
 				FA633B6E28C202EB00D4BCC9 /* CarouselLayout.swift in Sources */,
-				FA8D32D52A84AA00003810BA /* Channel.swift in Sources */,
+				FA8D32D52A84AA00003810BA /* ChatRoom.swift in Sources */,
 				FAAD4907289ABA1200508C12 /* LabelClass.swift in Sources */,
 				FA9DFB9428B37A6A0036B106 /* HomeViewModel.swift in Sources */,
 				FAA412D32A662F380053258D /* CalculateManager.swift in Sources */,
+				FAD9FB962AA6CA5900E23189 /* MessageFirestoreStream.swift in Sources */,
 				FA8D32AD2A83939F003810BA /* MyReviewViewModel.swift in Sources */,
 				FA8D325F2A7A55D9003810BA /* ReviewDetailViewModel.swift in Sources */,
 				FA633B7028C21A3B00D4BCC9 /* CarouselCell.swift in Sources */,
@@ -1124,7 +1119,7 @@
 				FA8D32A62A83786C003810BA /* JoinOrderModel.swift in Sources */,
 				FA8D32DD2A84B40A003810BA /* DatabaseRepresentaion.swift in Sources */,
 				FA8D32992A824026003810BA /* FollowViewController.swift in Sources */,
-				FA129C922A943BA5007AFFD2 /* ViewControllerProtocol.swift in Sources */,
+				FA129C922A943BA5007AFFD2 /* protocol.swift in Sources */,
 				FA3EDAD12A7209180078AA89 /* SIZE.swift in Sources */,
 				FAEC532B2A8DA237000DDEDD /* CoordinateCacheManager.swift in Sources */,
 				FA8D32572A7A32F2003810BA /* GeocodingManager.swift in Sources */,
@@ -1146,6 +1141,7 @@
 				FA0AAAB92954567C00783B93 /* ReviewViewModel.swift in Sources */,
 				FA8D32722A7B5754003810BA /* MyOrderHistoryModel.swift in Sources */,
 				FA8A7202289ABA4700E26196 /* CALayer.swift in Sources */,
+				FAD9FB942AA5ABC300E23189 /* ChatRoomFirestoreStream.swift in Sources */,
 				FA4967C4288A9E2B000247E4 /* OrderTableViewCell.swift in Sources */,
 				FA8D32ED2A84DB01003810BA /* AppController.swift in Sources */,
 			);
