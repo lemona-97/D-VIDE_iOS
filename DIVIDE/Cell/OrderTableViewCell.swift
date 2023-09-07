@@ -14,7 +14,7 @@ import SwiftyJSON
 // 추후 주문내역 VC에 있을떄 후기 작성 기능 & UI 적용 예정
 final class OrderTableViewCell: UITableViewCell {
     private let contentBox = UIView()
-    
+    var remainEpochTime : Int?
     
     //MARK: - conponents
     // info
@@ -446,14 +446,15 @@ final class OrderTableViewCell: UITableViewCell {
         self.profileImage.load(url: data.user.profileImgUrl) {
             self.profileIndicator.stopAnimating()
         }
-        
+        let mediateTime =  data.post.targetTime + 10800
+        remainEpochTime = data.post.targetTime + 10800
         self.nickNameLabel.text = data.user.nickname
         self.userId = data.user.id
-        self.remainTimeUnderOneHour.text = CalculateManager.calculatedRemainTime(targetTime: data.post.targetTime)
-        self.AMPMLabel.text = CalculateManager.setAMPM(closingTime: data.post.targetTime)
+        self.remainTimeUnderOneHour.text = CalculateManager.calculatedRemainTime(targetTime: mediateTime)
+        self.AMPMLabel.text = CalculateManager.setAMPM(closingTime: mediateTime)
         self.title.text = data.post.title
         self.postId = data.post.id
-        self.closingTimeValue.text = dateFormatter.string(from: Date(timeIntervalSince1970: Double(data.post.targetTime)))
+        self.closingTimeValue.text = dateFormatter.string(from: Date(timeIntervalSince1970: Double(mediateTime)))
         self.insufficientChargeValueLabel.text = String(data.post.targetPrice).insertComma
         
         

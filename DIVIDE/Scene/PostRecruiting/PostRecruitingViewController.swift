@@ -196,7 +196,6 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
         }
         dueTimeTextField.do {
             $0.textFieldTextChanged($0)
-            $0.inputView = datePicker
             $0.resignFirstResponder()
             $0.textColor = .mainOrange1
         }
@@ -283,7 +282,7 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
             $0.minuteInterval = 5
             $0.datePickerMode = .time
             $0.locale = Locale(identifier: "ko-KR")
-            $0.timeZone = .autoupdatingCurrent
+            $0.timeZone = .current
             $0.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
         }
         
@@ -504,7 +503,7 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "a h 시 m 분"
         let dateString = dateFormatter.string(from: sender.date)
-        milliseconds = Int(sender.date.timeIntervalSince1970) + 32400
+        milliseconds = Int(sender.date.timeIntervalSince1970) + 32400 //왠지 모르겠지만 9시간이 빠진채로 보내짐...
         self.dueTimeTextField.text = dateString
         self.dueTimeTextField.resignFirstResponder()
     }
@@ -542,7 +541,7 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
                     let destination = PopupViewController()
                     destination.dismissListener = { self?.navigationController?.popViewController(animated: true) }
                     destination.modalPresentationStyle = .overFullScreen
-                    destination.setPopupMessage(message: UserDefaultsManager.displayName! + "님의 글이 업로드 되었어요!\n 채팅을 확인해 보세요", popupType: .ALERT)
+                    destination.setPopupMessage(message: UserDefaultsManager.displayName! + "님의 글이 업로드 되었어요! \n 채팅을 확인해 보세요", popupType: .ALERT)
                     
                     self?.navigationController?.present(destination, animated: false)
                     
@@ -566,6 +565,14 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
 }
 
 extension PostRecruitingViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.scrollContentView.rx.tapGesture()
+            .when(.recognized)
+            .bind { _ in
+                textField.resignFirstResponder()
+            }.disposed(by: disposeBag)
+    }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // replacementString : 방금 입력된 문자 하나, 붙여넣기 시에는 붙여넣어진 문자열 전체
         // return -> 텍스트가 바뀌어야 한다면 true, 아니라면 false
@@ -694,3 +701,4 @@ extension PostRecruitingViewController : UITextViewDelegate {
     }
     
 }
+

@@ -93,7 +93,7 @@ final class PopupViewController: UIViewController {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
             $0.top.equalTo(popupImageView.snp.bottom).offset(17)
-            $0.bottom.equalToSuperview().offset(-32)
+            $0.bottom.equalToSuperview().offset(-12)
         }
         
         closeButton.snp.makeConstraints {

@@ -152,7 +152,6 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
                 guard let self = self else { return }
                 self.allDataFromServer.append(item)
                 cell.setData(data: item)
-                
                 GeocodingManager.reverseGeocoding(lat: item.post.latitude, lng: item.post.longitude, completion: { location in
                     DispatchQueue.main.async {
                         cell.setLocation(location: location)
@@ -225,12 +224,15 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
         return 168
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let destinationVC = PostDetailViewController()
-        destinationVC.setPostId(postId: allDataFromServer[indexPath.row].post.id)
-        
-        self.navigationController?.pushViewController(destinationVC, animated: true)
-        
+        let cell = tableView.cellForRow(at: indexPath) as? OrderTableViewCell
+        guard let remaintime = cell?.remainEpochTime else { print(cell?.remainEpochTime); return }
+        if remaintime > Int(Date().timeIntervalSince1970) {
+            let destinationVC = PostDetailViewController()
+            destinationVC.setPostId(postId: allDataFromServer[indexPath.row].post.id)
+            
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        }
+       
         
     }
     

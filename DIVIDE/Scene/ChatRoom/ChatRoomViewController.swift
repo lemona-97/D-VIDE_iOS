@@ -14,42 +14,44 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
     
     //property
     let chatRoom: ChatRoom
-    var sender = Sender(senderId: String(UserDefaultsManager.userId!), displayName: "우섭")
+    var sender = Sender(senderId: String(UserDefaultsManager.userId!), displayName: UserDefaultsManager.displayName!)
     var messages = [Message]()
     let chatFirestoreStream = MessageFirestoreStream()
     private let user : User
+    
+    let navBar = UINavigationBar(frame: CGRect(x: 0, y: 40, width: UIScreen.main.bounds.width, height: 44))
     
     init(user: User, chatRoom: ChatRoom) {
         self.user = user
         self.chatRoom = chatRoom
         super.init(nibName: nil, bundle: nil)
-
         
-       }
-       
-       required init?(coder: NSCoder) {
-           fatalError()
-       }
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
     
     deinit {
-//        chatFirestoreStream.removeListener()
+        chatFirestoreStream.removeListener()
         
     }
     // Photo
     private let cameraBarButtonItem = InputBarButtonItem(type: .system)
     private var photoConfiguration  = PHPickerConfiguration()
     private var isSendingPhoto = false {
-          didSet {
+        didSet {
             messageInputBar.leftStackViewItems.forEach { item in
-              guard let item = item as? InputBarButtonItem else {
-                return
-              }
+                guard let item = item as? InputBarButtonItem else {
+                    return
+                }
                 DispatchQueue.main.async {
                     item.isEnabled = !self.isSendingPhoto
                 }
             }
-          }
         }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
@@ -64,26 +66,42 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
         
     }
     internal func setAttribute() {
+        
         messagesCollectionView.do {
             $0.messagesDataSource = self
             $0.messagesLayoutDelegate = self
             $0.messagesDisplayDelegate = self
+            $0.backgroundColor = .viewBackgroundGray
         }
         
+  
+
         messageInputBar.do {
             $0.delegate = self
             $0.inputTextView.tintColor = .mainOrange1
             $0.sendButton.setTitleColor(.mainOrange1, for: .normal)
-            $0.inputTextView.placeholder = "Aa"
+            $0.sendButton.setTitleColor(.white, for: .normal)
+            $0.sendButton.roundCorner(corners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner], cornerRadius: 15)
+            $0.inputTextView.placeholder = "메시지를 입력하세요"
+            $0.inputTextView.backgroundColor = .gray1
+            $0.inputTextView.roundCorner(corners: [.layerMinXMinYCorner, .layerMinXMaxYCorner], cornerRadius: 15)
+            $0.leftStackView.backgroundColor = .viewBackgroundGray
+            $0.contentView.backgroundColor = .mainOrange1
+            $0.contentView.roundCorner(corners: [.layerMinXMaxYCorner, .layerMinXMinYCorner], cornerRadius: 15)
+            $0.backgroundView.backgroundColor = .viewBackgroundGray
         }
-        
+        // 카메라는 나중에...!
         cameraBarButtonItem.do {
             $0.tintColor = .mainOrange1
             $0.image = UIImage(systemName: "camera")
+            $0.isHidden = true
+            
         }
+        setUpNavBar()
+        
     }
     internal func addView() {
-        
+        self.view.addSubview(navBar)
     }
     internal func setLayout() {
         
@@ -99,7 +117,14 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
             self.present(picker, animated: true, completion: nil)
         }), for: .touchUpInside)
     }
-    
+    private func setUpNavBar() {
+        navBar.items?.append(UINavigationItem(title: "XXXX"))
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(onCancel))
+        backButton.tintColor = .black
+        
+        navBar.topItem?.leftBarButtonItem = backButton
+        navBar.barTintColor = .mainOrange1
+    }
     private func removeOutgoingMessageAvatars() {
         guard let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout else { return }
         layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
@@ -122,8 +147,6 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
     }
     
     private func listenToMessages() {
-        dump(chatRoom)
-        
         guard let orderId = self.chatRoom.orderId else {
             navigationController?.popViewController(animated: true)
             return
@@ -132,10 +155,8 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
         chatFirestoreStream.subscribe(orderId: orderId) { [weak self] result in
             switch result {
             case .success(let messages):
-                print("success")
                 self?.loadImageAndUpdateCells(messages)
             case .failure(let error):
-                print("error")
                 print(error)
             }
         }
@@ -155,6 +176,12 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
             }
         }
     }
+    
+    @objc
+    func onCancel() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 extension ChatRoomViewController : MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
@@ -205,17 +232,17 @@ extension ChatRoomViewController : MessagesDataSource, MessagesLayoutDelegate, M
 
 extension ChatRoomViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
-            let message = Message(user: user, content: text)
-            
-//            chatFirestoreStream.save(message) { [weak self] error in
-//                if let error = error {
-//                    print(error)
-//                    return
-//                }
-//                self?.messagesCollectionView.scrollToLastItem()
-//            }
-            inputBar.inputTextView.text.removeAll()
+        let message = Message(user: user, content: text)
+        
+        chatFirestoreStream.save(message) { [weak self] error in
+            if let error = error {
+                print(error)
+                return
+            }
+            self?.messagesCollectionView.scrollToLastItem()
         }
+        inputBar.inputTextView.text.removeAll()
+    }
 }
 
 
@@ -223,7 +250,7 @@ extension ChatRoomViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         // picker 닫고
         picker.dismiss(animated: true)
-
+        
         results.forEach { result in
             if result.itemProvider.canLoadObject(ofClass: UIImage.self) { // 3
                 result.itemProvider.loadObject(ofClass: UIImage.self) { (newImage, error) in // 4
@@ -239,15 +266,15 @@ extension ChatRoomViewController: PHPickerViewControllerDelegate {
     }
     
     private func sendPhoto(_ image: UIImage) {
-           isSendingPhoto = true
-           FirebaseStorageManager.uploadImage(image: image, chatRoom:  chatRoom) { [weak self] url in
-               self?.isSendingPhoto = false
-               guard let user = self?.user, let url = url else { return }
-               
-               var message = Message(user: user, image: image)
-               message.downloadURL = url
-//               self?.chatFirestoreStream.save(message)
-               self?.messagesCollectionView.scrollToLastItem()
-           }
-       }
+        isSendingPhoto = true
+        FirebaseStorageManager.uploadImage(image: image, chatRoom:  chatRoom) { [weak self] url in
+            self?.isSendingPhoto = false
+            guard let user = self?.user, let url = url else { return }
+            
+            var message = Message(user: user, image: image)
+            message.downloadURL = url
+            //               self?.chatFirestoreStream.save(message)
+            self?.messagesCollectionView.scrollToLastItem()
+        }
+    }
 }

@@ -244,6 +244,7 @@ final class ReviewDetailViewController: DVIDEViewController2, ViewControllerFoun
                         case .success(let response):
                             print("취소된 리뷰 ID : \(response.reviewId)")
                             self.likeCountLabel.text = String(Int(self.likeCountLabel.text ?? "0")! - 1)
+                            self.likeButton.isSelected = false
                         case .failure(let err):
                             print(err)
                         }
@@ -257,6 +258,7 @@ final class ReviewDetailViewController: DVIDEViewController2, ViewControllerFoun
                         case .success(let response):
                             print("리뷰 좋아요 ID : \(response.reviewLikeId)")
                             self.likeCountLabel.text = String(Int(self.likeCountLabel.text ?? "0")! + 1)
+                            self.likeButton.isSelected = true
                         case .failure(let err):
                             print(err)
                         }

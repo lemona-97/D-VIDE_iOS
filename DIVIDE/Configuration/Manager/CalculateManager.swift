@@ -25,7 +25,7 @@ final class CalculateManager {
         } else if remainTime > 3600 {
             return String(remainTime / 3600) + " 시간 " + String(remainTime % 3600 / 60) + "분 후 주문 예정"
         } else if remainTime > 0 {
-            return String(remainTime / 60)
+            return String(remainTime / 60) + "분 후 주문 예정"
         } else {
             return "주문 시간이 지났습니다"
         }
