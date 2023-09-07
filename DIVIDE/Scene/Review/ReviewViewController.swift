@@ -51,6 +51,7 @@ final class ReviewViewController: DVIDEViewController1, ViewControllerFoundation
         }
         reviewSearchBtn.do {
             $0.setImage(UIImage(named: "Search.png"), for: .normal)
+            $0.isHidden = true
         }
         
         
