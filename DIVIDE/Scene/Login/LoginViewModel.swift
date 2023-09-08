@@ -22,9 +22,14 @@ protocol LoginBusinessLogic : DIVIDELoginLogic, ProfileBusinessLogic {
     ///  자체 로그인
     func divideSignIn(email: String, password: String, completion: @escaping (Result<LoginResponse, Error>) -> Void)
     func setUserPositon(userPosition : UserPosition, completion : @escaping () -> Void)
+    
+    ///  fcm토큰 서버저장
+    func saveFCMToken(token: String)
 }
 
 final class LoginViewModel : LoginBusinessLogic {
+
+    
     func requestMyProfile() -> Single<ProfileModel> {
         realProvider.rx.request(.requestMyProfile)
             .filterSuccessfulStatusCodes()
@@ -104,6 +109,22 @@ final class LoginViewModel : LoginBusinessLogic {
                 print(error.localizedDescription)
             }
             print("=========================================================================")
+        }
+    }
+    
+    func saveFCMToken(token: String) {
+        realProvider.request(.saveFCM(token: token)) { result in
+            print("=========================================================================")
+            switch result {
+            case let .success(reponse):
+                print("                          fcm 토큰 저장 성공")
+                print(reponse)
+            case let .failure(error):
+                print("                          fcm 토큰 저장 실패")
+                print(error.localizedDescription)
+            }
+            print("=========================================================================")
+
         }
     }
 }

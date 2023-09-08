@@ -278,9 +278,15 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
                                     UserDefaultsManager.userId = response.userId
                                     print("=========================================================================")
                                     UserApi.shared.me { user, error in
-                                        print("              사용자 이메일",user?.kakaoAccount?.email, "로 firebase 가입")
+                                        // 파이어 베이스 정보가 없다면~
                                         // 카카오 이메일로 파이어베이스 가입 (채팅에 필요)
-                                        Auth.auth().createUser(withEmail: (user?.kakaoAccount?.email)!, password: (user?.kakaoAccount?.email)! + "kakaoLogin")
+                                        if UserDefaultsManager.FirebaseEmail == nil || UserDefaultsManager.FirebasePassword == nil {
+                                            Auth.auth().createUser(withEmail: (user?.kakaoAccount?.email)!, password: (user?.kakaoAccount?.email)! + "kakaoLogin")
+                                            print("              사용자 이메일",user?.kakaoAccount?.email, "로 firebase 가입")
+                                            UserDefaultsManager.FirebaseEmail = user?.kakaoAccount?.email
+                                            UserDefaultsManager.FirebasePassword = (user?.kakaoAccount?.email)! + "kakaoLogin"
+                                        }
+                                        
                                     }
                                     print("=========================================================================")
                                     self.getUserPosition { [weak self] userPosition in
@@ -334,6 +340,7 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
         }), for: .touchUpInside)
     }
     
+    
     private func getUserPosition(completion : @escaping (UserPosition) -> Void) {
         guard let lat = locationManager.location?.coordinate.latitude, let lng = locationManager.location?.coordinate.longitude else { return print("유저 위치 정보 못가져왔음") }
         UserDefaultsManager.userPosition = UserPosition(longitude: lng, latitude: lat)
@@ -384,8 +391,12 @@ extension LoginViewController : ASAuthorizationControllerDelegate {
                 print("✉️ \(email)")
                 
                 // 애플 privacy 이메일로 파이어베이스 가입 (채팅에 필요)
-                Auth.auth().createUser(withEmail: email, password: email + "appleLogin")
-                
+                if UserDefaultsManager.FirebaseEmail == nil || UserDefaultsManager.FirebasePassword == nil {
+                    Auth.auth().createUser(withEmail: email, password: email + "appleLogin")
+                    UserDefaultsManager.FirebaseEmail = email
+                    UserDefaultsManager.FirebasePassword = email + "appleLogin"
+                    Auth.auth().signIn(withEmail: UserDefaultsManager.FirebaseEmail!, password: UserDefaultsManager.FirebasePassword!)
+                }
                 // 자체 로그인 서비스로 가입 진행
                 let signUpImage = UIImage(named: "loginMainImage")!
                 let signUpImageData = signUpImage.jpegData(compressionQuality: 0.5)!
@@ -396,7 +407,7 @@ extension LoginViewController : ASAuthorizationControllerDelegate {
                         // userId 저장 해주고
                         UserDefaultsManager.userId = response.userId
                         
-                        // 해당 정보로 로그인 바로 해줌 ㅎㅎ
+                        // 해당 정보로 로그인 진행
                         self.viewModel?.divideSignIn(email: email, password: email+"appleLogin", completion: { result in
                             switch result {
                             case .success(let response):

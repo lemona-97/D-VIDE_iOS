@@ -50,7 +50,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
                     UserDefaultsManager.userId = response.userId
                     initialViewController = UINavigationController(rootViewController: TabBarController())
                     
-                    
                 case .failure(let err):
                     print(err)
                     initialViewController = UINavigationController(rootViewController: LoginViewController())

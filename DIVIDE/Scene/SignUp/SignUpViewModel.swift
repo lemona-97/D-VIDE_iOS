@@ -8,7 +8,6 @@
 import Foundation
 import Moya
 
-
 final class SignUpViewModel : SignUpBusinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     
@@ -36,6 +35,7 @@ final class SignUpViewModel : SignUpBusinessLogic {
                 print(response.description)
                 do {
                     let decoded = try JSONDecoder().decode(LoginResponse.self, from: response.data)
+                    
                     completion(.success(decoded))
                 } catch let error {
                     completion(.failure(error))

@@ -8,6 +8,8 @@
 import PhotosUI
 import RxSwift
 import RxGesture
+import Firebase
+import FirebaseAuth
 
 final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation {
 
@@ -284,6 +286,12 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
                             print(loginErr)
                         }
                     })
+
+                    if UserDefaultsManager.FirebaseEmail == nil || UserDefaultsManager.FirebasePassword == nil {
+                        UserDefaultsManager.FirebaseEmail = email
+                        UserDefaultsManager.FirebasePassword = email + "appleLogin"
+                        Auth.auth().createUser(withEmail: email, password: email)
+                    }
                 case .failure(let err):
                     print(err)
                 }

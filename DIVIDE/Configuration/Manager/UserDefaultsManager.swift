@@ -20,6 +20,10 @@ struct UserDefaultsManager {
     static var displayName : String?
     @UserDefaultWrapper(key: "ReverseGeocoding", defaultValue: nil)
     static var coordinates : [UserPosition]?
+    @UserDefaultWrapper(key: "FirebaseEmail", defaultValue: nil)
+    static var FirebaseEmail : String?
+    @UserDefaultWrapper(key: "FirebasePassword", defaultValue: nil)
+    static var FirebasePassword : String?
 }
 
 @propertyWrapper
@@ -74,6 +78,17 @@ struct UserDefaultWrapper<T: Codable> {
                 if key == "DisplayName" {
                     print("=========================================================================")
                     print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue as Any)
+                    print("=========================================================================")
+                }
+                if key == "FirebaseEmail" {
+                    print("=========================================================================")
+                    print("              Firebase Email 저장 완료", newValue as Any)
+                    print("=========================================================================")
+                }
+                
+                if key == "FirebasePassword" {
+                    print("=========================================================================")
+                    print("              Firebase Password 저장 완료", newValue as Any)
                     print("=========================================================================")
                 }
             }

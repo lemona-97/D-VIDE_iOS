@@ -19,8 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NMFAuthManager.shared().clientId = naverMapClientID
         KakaoSDK.initSDK(appKey: KAKAO_APP_KEY)
         FirebaseApp.configure()
-        Auth.auth().signInAnonymously()
-        UserDefaultsManager.displayName = "우섭"
+        
+//        if let email = UserDefaultsManager.FirebaseEmail, let password = UserDefaultsManager.FirebasePassword {
+//            Auth.auth().signIn(withEmail: email, password: password)
+//            print("파이어베이이스 로그인 ")
+//        }
 //        Thread.sleep(forTimeInterval: 2.0)
         return true
     }

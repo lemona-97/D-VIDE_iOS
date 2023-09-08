@@ -73,8 +73,6 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
             $0.messagesDisplayDelegate = self
             $0.backgroundColor = .viewBackgroundGray
         }
-        
-  
 
         messageInputBar.do {
             $0.delegate = self
@@ -101,7 +99,7 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
         
     }
     internal func addView() {
-        self.view.addSubview(navBar)
+        
     }
     internal func setLayout() {
         
@@ -118,7 +116,8 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
         }), for: .touchUpInside)
     }
     private func setUpNavBar() {
-        navBar.items?.append(UINavigationItem(title: "XXXX"))
+        self.view.addSubview(navBar)
+        navBar.items?.append(UINavigationItem(title: ""))
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(onCancel))
         backButton.tintColor = .black
         
@@ -273,7 +272,7 @@ extension ChatRoomViewController: PHPickerViewControllerDelegate {
             
             var message = Message(user: user, image: image)
             message.downloadURL = url
-            //               self?.chatFirestoreStream.save(message)
+            self?.chatFirestoreStream.save(message)
             self?.messagesCollectionView.scrollToLastItem()
         }
     }
