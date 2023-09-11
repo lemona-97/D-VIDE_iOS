@@ -67,28 +67,28 @@ struct UserDefaultWrapper<T: Codable> {
                 }
                 if key == "DIVIDETOKEN" {
                     print("=========================================================================")
-                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue as Any)
+                    print("              디바이드 토큰 저장 : ", newValue as Any)
                     print("=========================================================================")
                 }
                 if key == "userId" {
                     print("=========================================================================")
-                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue as Any)
+                    print("              userId : ", newValue as Any)
                     print("=========================================================================")
                 }
                 if key == "DisplayName" {
                     print("=========================================================================")
-                    print("              Apple User Info : 애플 로그인 정보 수정 완료", newValue as Any)
+                    print("              Display Name : ", newValue as Any)
                     print("=========================================================================")
                 }
                 if key == "FirebaseEmail" {
                     print("=========================================================================")
-                    print("              Firebase Email 저장 완료", newValue as Any)
+                    print("              Firebase Email 저장 :", newValue as Any)
                     print("=========================================================================")
                 }
                 
                 if key == "FirebasePassword" {
                     print("=========================================================================")
-                    print("              Firebase Password 저장 완료", newValue as Any)
+                    print("              Firebase Password 저장 :", newValue as Any)
                     print("=========================================================================")
                 }
             }

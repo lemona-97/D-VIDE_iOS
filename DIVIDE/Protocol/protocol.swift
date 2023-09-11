@@ -56,7 +56,8 @@ protocol ProfileBusinessLogic {
     func requestMyProfile() -> Single<ProfileModel>
     /// 프로필 수정 요청
     func modifyMyProfile(profile : ModifyProfileModel, img : Data?, completion: @escaping () -> Void)
-    
+    /// 회원 탈퇴
+//    func withdrawal(userId : )
 }
 
 /// 리뷰 작성

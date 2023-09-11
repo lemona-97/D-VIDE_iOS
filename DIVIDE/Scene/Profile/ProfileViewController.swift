@@ -26,7 +26,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
     private let userNickName                    = UITextField()
     private let userNickNameModifyBtn           = UIButton()
     private let logOutLabel                     = MainLabel(type: .Basics2)
-    
+    private let withdrawalButton                = MainLabel(type: .Basics2)
     private let followingCount                  = MainLabel(type: .Big2)
     private let followingLabel                  = MainLabel(type: .Basics2)
     private let mainProfileDivideBar            = UIView()
@@ -76,6 +76,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
         allComponents.append(seeMyOrderHistoryButton)
         allComponents.append(seeMyReviewsButton)
         allComponents.append(logOutLabel)
+        allComponents.append(withdrawalButton)
         allComponents.append(serviceCenterButton)
         allComponents.append(changeDefaultAddressButton)
         allComponents.append(followingCount)
@@ -163,6 +164,14 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
             $0.textAlignment = .center
         }
         
+        withdrawalButton.do {
+            $0.text = "회원탈퇴"
+            $0.textColor = .black
+            $0.cornerRadius = 10
+            $0.borderColor = .mainOrange2
+            $0.borderWidth = 1
+            $0.textAlignment = .center
+        }
         followingCount.do {
             $0.textAlignment = .center
             $0.text = "0"
@@ -302,7 +311,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
     }
     private func addView() {
         view.addSubview(mainProfile)
-        view.addSubview(settingBtn)
+        view.addSubview(withdrawalButton)
         view.addSubview(mainProfileImageView)
         view.addSubview(mainProfileImageIndicator)
         view.addSubview(mainProfileImgGrayTint)
@@ -318,7 +327,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
         view.addSubview(changeDefaultAddressButton)
         
         mainProfile.addSubviews([mainProfileTag,
-                                 followingCount, followingLabel, mainProfileDivideBar, followerCount, followerLabel])
+                                 followingCount, followingLabel, mainProfileDivideBar, followerCount, followerLabel, settingBtn])
         
         retrenchView.addSubviews([retrenchCO2Label, retrenchDeliveryFeeLabel, retrenchViewDivideHorizontal, retrenchCO2Value, retrenchCO2Gram, retrenchViewDivideVertical, retrenchDeliveryFeeValue, retrenchDeliveryFeeWon])
     }
@@ -333,8 +342,8 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
         
         settingBtn.snp.makeConstraints {
             $0.width.height.equalTo(23)
-            $0.top.equalToSuperview().offset(71)
-            $0.trailing.equalToSuperview().offset(-43)
+            $0.top.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().offset(-10)
         }
         
         mainProfileImageView.snp.makeConstraints {
@@ -385,6 +394,13 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
             $0.leading.equalTo(mainProfile).offset(10)
             $0.height.equalTo(20)
             $0.trailing.equalTo(mainProfileImageView.snp.leading).offset(-5)
+            $0.bottom.equalTo(mainProfile.snp.top).offset(-10)
+        }
+        
+        withdrawalButton.snp.makeConstraints {
+            $0.height.equalTo(20)
+            $0.leading.equalTo(mainProfileImageView.snp.trailing).offset(10)
+            $0.trailing.equalTo(mainProfile.snp.trailing).offset(-5)
             $0.bottom.equalTo(mainProfile.snp.top).offset(-10)
         }
         
@@ -534,6 +550,9 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
                     UserDefaultsManager.userPosition = nil
                     UserDefaultsManager.appleUserInfo = nil
                     UserDefaultsManager.userId = nil
+                    UserDefaultsManager.FirebaseEmail = nil
+                    UserDefaultsManager.FirebasePassword = nil
+                    UserDefaultsManager.coordinates = nil
                     guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
                     guard let firstWindow = window.windows.first else { return }
                     
@@ -548,7 +567,35 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
 
             }.disposed(by: disposeBag)
         
+        withdrawalButton.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _  in
+                guard let self = self else { return }
+                let destination = PopupViewController()
+                destination.confirmListener = {
+//                    회원 탈퇴~
+//                    UserDefaultsManager.DIVIDE_TOKEN = nil
+//                    UserDefaultsManager.displayName = nil
+//                    UserDefaultsManager.userPosition = nil
+//                    UserDefaultsManager.appleUserInfo = nil
+//                    UserDefaultsManager.userId = nil
+//                    UserDefaultsManager.FirebaseEmail = nil
+//                    UserDefaultsManager.FirebasePassword = nil
+//                    UserDefaultsManager.coordinates = nil
+                    
+                    guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+                    guard let firstWindow = window.windows.first else { return }
+                    
+                    self.navigationController?.popToRootViewController(animated: false)
+                    
+                    firstWindow.rootViewController = UINavigationController(rootViewController: LoginViewController())
+                }
+                destination.dismissListener = nil
+                destination.setPopupMessage(message: "회원 탈퇴를 하시겠습니까?", popupType: .SELECT)
+                destination.modalPresentationStyle = .overFullScreen
+                self.navigationController?.present(destination, animated: false)
 
+            }.disposed(by: disposeBag)
         
         
         seeMyOrderHistoryButton.addAction(UIAction(handler: { [weak self] action in

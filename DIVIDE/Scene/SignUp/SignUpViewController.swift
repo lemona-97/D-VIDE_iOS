@@ -38,6 +38,10 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
     private var viewModel                   : SignUpBusinessLogic?
     private var disposeBag                  = DisposeBag()
     
+    private var policyCheck                 = UIImageView()
+    private var isChecked                   = false
+    private var policyLabel                 = MainLabel(type: .Basics3)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
@@ -154,19 +158,29 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
         
         signUpButton.do {
             $0.setTitle("회원가입 하기", for: .normal)
+            $0.backgroundColor = .gray4
         }
         
+        policyCheck.do {
+            $0.image = UIImage(systemName: "checkmark.square")
+        }
+        
+        policyLabel.do {
+            $0.textAlignment = .natural
+            $0.numberOfLines = 0
+            $0.text = "DIVIDE는 배달 공동 주문 중개 플랫폼으로 개인간의 거래에 일체의 책임을 지지 않습니다. "
+        }
         
     }
     
     internal func addView() {
-        self.view.addSubviews([emailLabel, emailTextField, emailWarningLabel, passwordLabel, passwordTextField, passwordWarningLabel, passwordLabel2, passwordTextField2, passwordWarningLabel2, signUpButton, profileImageLabel , profileImageView, nicknameLabel, nicknameTextField])
+        self.view.addSubviews([emailLabel, emailTextField, emailWarningLabel, passwordLabel, passwordTextField, passwordWarningLabel, passwordLabel2, passwordTextField2, passwordWarningLabel2, signUpButton, profileImageLabel , profileImageView, nicknameLabel, nicknameTextField, policyCheck, policyLabel])
     }
     
     internal func setLayout() {
         
         emailTextField.snp.makeConstraints {
-            $0.top.equalTo(navigationLabel.snp.bottom).offset(50)
+            $0.top.equalTo(navigationLabel.snp.bottom).offset(60)
             $0.leading.equalToSuperview().offset(40)
             $0.trailing.equalToSuperview().offset(-40)
             $0.height.equalTo(30)
@@ -255,6 +269,19 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
             $0.bottom.equalToSuperview().offset(-50)
             $0.height.equalTo(50)
         }
+        
+        policyCheck.snp.makeConstraints {
+            $0.leading.equalTo(nicknameLabel)
+            $0.centerY.equalTo(policyLabel)
+            $0.width.height.equalTo(30)
+        }
+        
+        policyLabel.snp.makeConstraints {
+            $0.leading.equalTo(policyCheck.snp.trailing).offset(5)
+            $0.top.equalTo(nicknameTextField.snp.bottom).offset(10)
+            $0.trailing.equalTo(nicknameTextField)
+            $0.bottom.equalTo(signUpButton.snp.top).offset(-10)
+        }
     }
     
     internal func addAction() {
@@ -298,6 +325,20 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
             })
         }), for: .touchUpInside)
 
+        policyCheck.rx.tapGesture()
+            .when(.recognized)
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                if self.isChecked == false {
+                    self.isChecked = true
+                    policyCheck.image = UIImage(systemName: "checkmark.square.fill")
+                    self.setSignUp()
+                } else {
+                    self.isChecked = false
+                    policyCheck.image = UIImage(systemName: "checkmark.square")
+                    self.setSignUp()
+                }
+            }.disposed(by: disposeBag)
     }
     private func getPhoto() {
         photoConfiguration.filter = .any(of: [.images])
@@ -329,6 +370,16 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
     
     private func hidePasswordWarning2() {
         self.passwordWarningLabel2.isHidden = true
+    }
+    
+    private func setSignUp() {
+        if self.emailTextField.text != "" && self.passwordTextField.text != "" && self.passwordTextField2.text != "" && self.profileImageView.image != nil && self.nicknameTextField.text != "" && isChecked == true {
+            self.signUpButton.isEnabled = true
+            self.signUpButton.backgroundColor = .mainOrange1
+        } else {
+            self.signUpButton.isEnabled = false
+            self.signUpButton.backgroundColor = .gray4
+        }
     }
 }
 
@@ -376,6 +427,7 @@ extension SignUpViewController : UITextFieldDelegate {
         }
         textField.borderColor = .gray3
         textField.deleteRightButton()
+        
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
