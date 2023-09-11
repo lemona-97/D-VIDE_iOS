@@ -2,7 +2,7 @@
 D/VIDE iOS 개발
 
 ---
-TDD 일부 적용
+POP
 <br>
 MVVM 
 <br>
