@@ -163,6 +163,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
         
         policyCheck.do {
             $0.image = UIImage(systemName: "checkmark.square")
+            $0.tintColor = .gray4
         }
         
         policyLabel.do {
@@ -332,10 +333,12 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
                 if self.isChecked == false {
                     self.isChecked = true
                     policyCheck.image = UIImage(systemName: "checkmark.square.fill")
+                    policyCheck.tintColor = .black
                     self.setSignUp()
                 } else {
                     self.isChecked = false
                     policyCheck.image = UIImage(systemName: "checkmark.square")
+                    policyCheck.tintColor = .gray4
                     self.setSignUp()
                 }
             }.disposed(by: disposeBag)
