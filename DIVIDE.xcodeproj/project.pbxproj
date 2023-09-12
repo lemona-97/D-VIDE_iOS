@@ -119,7 +119,7 @@
 		FAA412BC2A6608AD0053258D /* DIVIDETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA412BB2A6608AD0053258D /* DIVIDETests.swift */; };
 		FAA412C92A6608B70053258D /* DIVIDEUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA412C82A6608B70053258D /* DIVIDEUITests.swift */; };
 		FAA412CB2A6608B70053258D /* DIVIDEUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA412CA2A6608B70053258D /* DIVIDEUITestsLaunchTests.swift */; };
-		FAA412D32A662F380053258D /* CalculateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA412D22A662F380053258D /* CalculateManager.swift */; };
+		FAA412D32A662F380053258D /* Calculater.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA412D22A662F380053258D /* Calculater.swift */; };
 		FAA412D72A6632C70053258D /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA412D62A6632C70053258D /* PostDetailViewModel.swift */; };
 		FAA412D92A6632D00053258D /* PostDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA412D82A6632D00053258D /* PostDetailModel.swift */; };
 		FAAD48F3289AB85300508C12 /* PostRecruitingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAD48F1289AB85300508C12 /* PostRecruitingViewController.swift */; };
@@ -274,7 +274,7 @@
 		FAA412C62A6608B70053258D /* DIVIDEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DIVIDEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA412C82A6608B70053258D /* DIVIDEUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIVIDEUITests.swift; sourceTree = "<group>"; };
 		FAA412CA2A6608B70053258D /* DIVIDEUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIVIDEUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		FAA412D22A662F380053258D /* CalculateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateManager.swift; sourceTree = "<group>"; };
+		FAA412D22A662F380053258D /* Calculater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculater.swift; sourceTree = "<group>"; };
 		FAA412D62A6632C70053258D /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		FAA412D82A6632D00053258D /* PostDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailModel.swift; sourceTree = "<group>"; };
 		FAAD48F1289AB85300508C12 /* PostRecruitingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostRecruitingViewController.swift; sourceTree = "<group>"; };
@@ -591,7 +591,7 @@
 		FAA412D12A662F230053258D /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				FAA412D22A662F380053258D /* CalculateManager.swift */,
+				FAA412D22A662F380053258D /* Calculater.swift */,
 				FAEC532A2A8DA237000DDEDD /* CoordinateCacheManager.swift */,
 				FA8D32C42A849477003810BA /* FirebaseStorageManager.swift */,
 				FA8D32562A7A32F2003810BA /* GeocodingManager.swift */,
@@ -1108,7 +1108,7 @@
 				FA8D32D52A84AA00003810BA /* ChatRoom.swift in Sources */,
 				FAAD4907289ABA1200508C12 /* LabelClass.swift in Sources */,
 				FA9DFB9428B37A6A0036B106 /* HomeViewModel.swift in Sources */,
-				FAA412D32A662F380053258D /* CalculateManager.swift in Sources */,
+				FAA412D32A662F380053258D /* Calculater.swift in Sources */,
 				FAD9FB962AA6CA5900E23189 /* MessageFirestoreStream.swift in Sources */,
 				FA8D32AD2A83939F003810BA /* MyReviewViewModel.swift in Sources */,
 				FA8D325F2A7A55D9003810BA /* ReviewDetailViewModel.swift in Sources */,

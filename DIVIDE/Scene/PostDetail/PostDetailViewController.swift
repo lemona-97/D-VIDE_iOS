@@ -641,7 +641,7 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "h:mm"
                 self.dueTime.text = dateFormatter.string(from: Date(timeIntervalSince1970: Double((postDetailData.data?.postDetail?.targetTime)! + 10800))) //설정값이 3시간 조정필요
-                self.AMPM.text = CalculateManager.setAMPM(closingTime: (postDetailData.data?.postDetail?.targetTime)! + 10800)
+                self.AMPM.text = Calculater.setAMPM(closingTime: (postDetailData.data?.postDetail?.targetTime)! + 10800)
                 self.orderShopLabel.text = postDetailData.data?.postDetail?.storeName
                 self.postUserId = postDetailData.data?.user?.id
                 self.postTitle = postDetailData.data?.postDetail?.title

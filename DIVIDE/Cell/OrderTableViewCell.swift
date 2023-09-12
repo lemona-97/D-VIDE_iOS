@@ -450,8 +450,8 @@ final class OrderTableViewCell: UITableViewCell {
         remainEpochTime = data.post.targetTime + 10800
         self.nickNameLabel.text = data.user.nickname
         self.userId = data.user.id
-        self.remainTimeUnderOneHour.text = CalculateManager.calculatedRemainTime(targetTime: mediateTime)
-        self.AMPMLabel.text = CalculateManager.setAMPM(closingTime: mediateTime)
+        self.remainTimeUnderOneHour.text = Calculater.calculatedRemainTime(targetTime: mediateTime)
+        self.AMPMLabel.text = Calculater.setAMPM(closingTime: mediateTime)
         self.title.text = data.post.title
         self.postId = data.post.id
         self.closingTimeValue.text = dateFormatter.string(from: Date(timeIntervalSince1970: Double(mediateTime)))
