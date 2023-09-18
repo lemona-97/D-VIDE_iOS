@@ -388,7 +388,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
 
 extension SignUpViewController : UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == nicknameTextField {
+        if textField == nicknameTextField && self.view.frame.origin.y == 0{
             self.view.frame.origin.y -= 200
             
         }
@@ -417,7 +417,7 @@ extension SignUpViewController : UITextFieldDelegate {
                 self.hidePasswordWarning()
             }
         }
-        if textField == nicknameTextField {
+        if textField == nicknameTextField && self.view.frame.origin.y == -200 {
             self.view.frame.origin.y += 200
         }
         
@@ -439,6 +439,13 @@ extension SignUpViewController : UITextFieldDelegate {
         } else {
             textField.addRightClearButton()
         }
+        if textField == nicknameTextField {
+            guard let text = textField.text else { return }
+            if text.count > 8 {
+                textField.text = String(text.dropLast(1))
+            }
+        }
+
     }
 }
 

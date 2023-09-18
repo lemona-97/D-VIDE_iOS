@@ -307,8 +307,8 @@ final class OrderTableViewCell: UITableViewCell {
         }
         
         timeBubble.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(-12)
-            $0.width.equalTo(120)
+            $0.trailing.equalToSuperview().offset(-5)
+            $0.leading.equalTo(userLocation.snp.trailing).offset(2)
             $0.height.equalTo(25)
             $0.top.equalTo(userLocation)
         }

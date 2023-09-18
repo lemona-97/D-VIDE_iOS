@@ -147,6 +147,7 @@ extension ChatListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChatListTableViewCell.className, for: indexPath) as! ChatListTableViewCell
         cell.setData(chatRoom: chatRooms[indexPath.row])
+        cell.selectionStyle = .none
         return cell
     }
     

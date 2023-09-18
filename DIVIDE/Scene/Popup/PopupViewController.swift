@@ -19,7 +19,7 @@ final class PopupViewController: UIViewController {
     
     private let popupView = UIView()
     private let popupImageView = UIImageView()
-    private let popupMessageLabel = MainLabel(type: .Point2)
+    private let popupMessageLabel = MainLabel(type: .small1)
     private let closeButton       = UIButton(configuration: .borderless())
     
     private let cancelButton      = UIButton()
@@ -63,7 +63,6 @@ final class PopupViewController: UIViewController {
             $0.numberOfLines = 2
         }
         
-        
         closeButton.do {
             $0.setImage(UIImage(systemName: "xmark"), for: .normal)
             $0.tintColor = .black
@@ -92,8 +91,8 @@ final class PopupViewController: UIViewController {
         popupMessageLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
-            $0.top.equalTo(popupImageView.snp.bottom).offset(17)
-            $0.bottom.equalToSuperview().offset(-12)
+            $0.top.equalTo(popupImageView.snp.bottom).offset(5)
+            $0.bottom.equalToSuperview().offset(-5)
         }
         
         closeButton.snp.makeConstraints {
@@ -173,8 +172,8 @@ final class PopupViewController: UIViewController {
         popupMessageLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
-            $0.top.equalTo(popupImageView.snp.bottom).offset(17)
-            $0.height.equalTo(20)
+            $0.top.equalTo(popupImageView.snp.bottom).offset(5)
+            $0.bottom.equalTo(cancelButton.snp.top).offset(-5)
         }
         
         closeButton.snp.makeConstraints {

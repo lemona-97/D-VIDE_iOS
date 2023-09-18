@@ -96,6 +96,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
     
     private func setUp() {
         self.viewModel = ProfileViewModel()
+        userNickName.delegate = self
     }
     
     private func setAttribute() {
@@ -573,7 +574,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
                 guard let self = self else { return }
                 let destination = PopupViewController()
                 destination.confirmListener = {
-//                    회원 탈퇴~
+//                    회원 탈퇴
 //                    UserDefaultsManager.DIVIDE_TOKEN = nil
 //                    UserDefaultsManager.displayName = nil
 //                    UserDefaultsManager.userPosition = nil
@@ -819,7 +820,7 @@ extension ProfileViewController: UINavigationControllerDelegate {
             newImage = possibleImage                    // 원본 이미지가 있을 경우
         }
         
-        self.mainProfileImageView.image = newImage            // 받아온 이미지를 update
+        self.mainProfileImageView.image = newImage      // 받아온 이미지를 update
         self.isImageChanged = true                      // 프로필 수정에 필요
         picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
 
@@ -829,5 +830,14 @@ extension ProfileViewController: UINavigationControllerDelegate {
 extension ProfileViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ProfileViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        if text.count > 8 {
+            textField.text = String(text.dropLast(1))
+        }
     }
 }

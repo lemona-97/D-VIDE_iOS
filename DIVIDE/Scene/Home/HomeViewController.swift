@@ -198,15 +198,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 guard let self = self else { return }
                 self.allDataFromServer.append(item)
                 cell.setData(data: item)
-                DispatchQueue.global().async {
-                    GeocodingManager.reverseGeocoding(lat: item.post.latitude, lng: item.post.longitude, completion: { location in
+                GeocodingManager.reverseGeocoding(lat: item.post.latitude, lng: item.post.longitude, completion: { location in
                         cell.setLocation(location: location)
-                    })
-                }
+                })
             }.disposed(by: disposeBag)
     }
-    
-    
 }
 
 //테이블 - post
@@ -225,7 +221,7 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as? OrderTableViewCell
-        guard let remaintime = cell?.remainEpochTime else { print(cell?.remainEpochTime); return }
+        guard let remaintime = cell?.remainEpochTime else { return }
         if remaintime > Int(Date().timeIntervalSince1970) {
             let destinationVC = PostDetailViewController()
             destinationVC.setPostId(postId: allDataFromServer[indexPath.row].post.id)
