@@ -46,6 +46,9 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
         bindToViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     
     internal func setUp() {
         let viewModel = HomeViewModel()
@@ -80,6 +83,7 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
             $0.register(HomeTopMenuCollectionViewCell.self, forCellWithReuseIdentifier: HomeTopMenuCollectionViewCell.className)
             $0.delegate = self
             $0.dataSource = self
+            
         }
         
         tableView.do {
@@ -179,7 +183,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { //diffable 컬렉션뷰 + modern collectionView 적용해보기?
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //TODO: -diffable 컬렉션뷰 + modern collectionView 적용해보기?
         
         self.tableView.delegate = nil
         self.tableView.dataSource = nil
@@ -208,7 +213,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 //테이블 - post
 extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return 10
     }
     
@@ -228,11 +232,7 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
             
             self.navigationController?.pushViewController(destinationVC, animated: true)
         }
-       
-        
     }
-    
-    
 }
 
 
