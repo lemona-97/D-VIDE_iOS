@@ -11,7 +11,9 @@ import Then
 import RxSwift
 import RxGesture
 import MessageUI
-
+import FirebaseAuth
+import KakaoSDKUser
+import KakaoSDKAuth
 final class ProfileViewController: UIViewController, UIImagePickerControllerDelegate {
     private var allComponents                   = [UIView()]
     
@@ -545,7 +547,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
             .bind{ [weak self] _ in
                 guard let self = self else { return }
                 let destination = PopupViewController()
-                destination.confirmListener = { 
+                destination.confirmListener = {
                     UserDefaultsManager.DIVIDE_TOKEN = nil
                     UserDefaultsManager.displayName = nil
                     UserDefaultsManager.userPosition = nil
@@ -554,12 +556,33 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
                     UserDefaultsManager.FirebaseEmail = nil
                     UserDefaultsManager.FirebasePassword = nil
                     UserDefaultsManager.coordinates = nil
+                    
                     guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
                     guard let firstWindow = window.windows.first else { return }
                     
                     self.navigationController?.popToRootViewController(animated: false)
                     
                     firstWindow.rootViewController = UINavigationController(rootViewController: LoginViewController())
+                    do {
+                        try Auth.auth().signOut()
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                    if AuthApi.hasToken() {
+                        print("========================")
+                        print("     카카오 로그인 상태")
+                        print("========================")
+                        UserApi.shared.logout { error in
+                            if let error = error {
+                                print(error)
+                            } else {
+                                print("========================")
+                                print("카카오 로그아웃 성공")
+                                print("========================")
+                            }
+                        }
+                    }
+                    
                 }
                 destination.dismissListener = nil
                 destination.setPopupMessage(message: "로그아웃 하시겠습니까?", popupType: .SELECT)

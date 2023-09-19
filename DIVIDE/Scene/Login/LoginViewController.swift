@@ -280,13 +280,26 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
                                     UserApi.shared.me { user, error in
                                         // 파이어 베이스 정보가 없다면~
                                         // 카카오 이메일로 파이어베이스 가입 (채팅에 필요)
-                                        if UserDefaultsManager.FirebaseEmail == nil || UserDefaultsManager.FirebasePassword == nil {
-                                            Auth.auth().createUser(withEmail: (user?.kakaoAccount?.email)!, password: (user?.kakaoAccount?.email)! + "kakaoLogin")
-                                            print("              사용자 이메일",user?.kakaoAccount?.email, "로 firebase 가입")
-                                            UserDefaultsManager.FirebaseEmail = user?.kakaoAccount?.email
-                                            UserDefaultsManager.FirebasePassword = (user?.kakaoAccount?.email)! + "kakaoLogin"
+                                        Auth.auth().signIn(withEmail: UserDefaultsManager.FirebaseEmail!, password: UserDefaultsManager.FirebasePassword!) { result , error in
+                                            if result != nil {
+                                                print("파이어베이스 로그인 성공")
+                                            } else {
+                                                print("파이어베이스 로그인 실패")
+                                                print(error?.localizedDescription)
+                                                print("파이어베이스 회원 가입")
+                                                Auth.auth().createUser(withEmail: (user?.kakaoAccount?.email)!, password: (user?.kakaoAccount?.email)! + "kakaoLogin")
+                                                print("              사용자 이메일",user?.kakaoAccount?.email, "로 firebase 가입")
+                                                UserDefaultsManager.FirebaseEmail = user?.kakaoAccount?.email
+                                                UserDefaultsManager.FirebasePassword = (user?.kakaoAccount?.email)! + "kakaoLogin"
+                                                Auth.auth().signIn(withEmail: UserDefaultsManager.FirebaseEmail!, password: UserDefaultsManager.FirebasePassword!) { loginResult, error in
+                                                    if loginResult != nil {
+                                                        print("파이어베이스 로그인 성공")
+                                                    } else {
+                                                        print("파이어베이스 로그인 실패")
+                                                    }
+                                                }
+                                            }
                                         }
-                                        
                                     }
                                     print("=========================================================================")
                                     self.getUserPosition { [weak self] userPosition in
@@ -350,16 +363,28 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
     private func appleLoginHandler() {
         if let appleUserInfo = UserDefaultsManager.appleUserInfo {
             
-            viewModel?.divideSignIn(email: appleUserInfo.email!, password: appleUserInfo.email! + "appleLogin", completion: { result in
-                switch result {
-                case .success(let response):
-                    UserDefaultsManager.DIVIDE_TOKEN = response.token
-                    UserDefaultsManager.userId = response.userId
-                    UserDefaultsManager.displayName = "디바이더" + String(Int.random(in: 1...100))
-                case .failure(let err):
-                    print(err)
-                }
-            })
+//            viewModel?.divideSignIn(email: appleUserInfo.email!, password: appleUserInfo.email! + "appleLogin", completion: { result in
+//                switch result {
+//                case .success(let response):
+//                    UserDefaultsManager.DIVIDE_TOKEN = response.token
+//                    UserDefaultsManager.userId = response.userId
+//                    UserDefaultsManager.displayName = "디바이더" + String(Int.random(in: 1...100))
+//
+//
+//                    Auth.auth().signIn(withEmail: appleUserInfo.email!, password: appleUserInfo.email!+"appleLogin") { firebaseResult, error in
+//                        if firebaseResult != nil {
+//                            print("애플로그인 - 자체로그인 성공 - 파이어베이스 로그인 성공")
+//                            UserDefaultsManager.FirebasePassword = appleUserInfo.email!
+//                            UserDefaultsManager.FirebasePassword = appleUserInfo.email!+"appleLogin"
+//                        } else {
+//                            print("애플로그인 - 자체로그인 성공 - 파이어베이스 로그인 실패")
+//                        }
+//                    }
+//                case .failure(let err):
+//                    print("애플로그인 - 자체로그인 실패")
+//                    print(err.localizedDescription)
+//                }
+//            })
             
         } else {
             let request = ASAuthorizationAppleIDProvider().createRequest()
@@ -381,6 +406,7 @@ extension LoginViewController : ASAuthorizationControllerDelegate {
             print("👨‍🍳 \(user)")
             
             //로그인 정보 있으면 넘어가~
+           
             if let info = UserDefaultsManager.appleUserInfo {
                 return
             }
@@ -390,57 +416,118 @@ extension LoginViewController : ASAuthorizationControllerDelegate {
                 print("애플 유저 이메일")
                 print("✉️ \(email)")
                 
-                // 애플 privacy 이메일로 파이어베이스 가입 (채팅에 필요)
-                if UserDefaultsManager.FirebaseEmail == nil || UserDefaultsManager.FirebasePassword == nil {
-                    Auth.auth().createUser(withEmail: email, password: email + "appleLogin")
-                    UserDefaultsManager.FirebaseEmail = email
-                    UserDefaultsManager.FirebasePassword = email + "appleLogin"
-                    Auth.auth().signIn(withEmail: UserDefaultsManager.FirebaseEmail!, password: UserDefaultsManager.FirebasePassword!)
-                }
-                // 자체 로그인 서비스로 가입 진행
-                let signUpImage = UIImage(named: "loginMainImage")!
-                let signUpImageData = signUpImage.jpegData(compressionQuality: 0.5)!
-                viewModel?.divideSignUp(signUpInfo: SignUpModel(email: email, password: email+"appleLogin", nickname: email), img: signUpImageData, completion: { [weak self] result in
-                    guard let self = self else { return }
-                    switch result {
+                self.viewModel?.divideSignIn(email: email, password: email+"appleLogin", completion: { firstLogin in
+                    switch firstLogin {
                     case .success(let response):
-                        // userId 저장 해주고
-                        UserDefaultsManager.userId = response.userId
+                        UserDefaultsManager.DIVIDE_TOKEN = response.token
+                        UserDefaultsManager.userId       = response.userId
                         
-                        // 해당 정보로 로그인 진행
-                        self.viewModel?.divideSignIn(email: email, password: email+"appleLogin", completion: { result in
-                            switch result {
-                            case .success(let response):
-                                UserDefaultsManager.DIVIDE_TOKEN = response.token
-                                UserDefaultsManager.userId = response.userId
-                                self.getUserPosition { userPosition in
-                                    print("userPosition : \(userPosition)")
-                                    self.viewModel?.setUserPositon(userPosition: userPosition) {
-                                        self.navigationController?.popViewController(animated: true)
-                                        print("=========================================================================")
-                                        print("                             로그인 VC pop")
-                                        print("=========================================================================")
+                        self.getUserPosition { userPosition in
+                            print("userPosition : \(userPosition)")
+                            self.viewModel?.setUserPositon(userPosition: userPosition) {
+                                self.navigationController?.popViewController(animated: true)
+                                print("=========================================================================")
+                                print("                             로그인 VC pop")
+                                print("=========================================================================")
 
-                                        self.navigationController?.pushViewController(TabBarController(), animated: true)
-                                        print("=========================================================================")
-                                        print("                             탭바 pushed !")
-                                        print("=========================================================================")
+                                self.navigationController?.pushViewController(TabBarController(), animated: true)
+                                print("=========================================================================")
+                                print("                             탭바 pushed !")
+                                print("=========================================================================")
 
+                            }
+                        }
+                        Auth.auth().signIn(withEmail: email, password: email+"a") { firebaseResult, error in
+                            if firebaseResult != nil {
+                                print("애플로그인 - 파이어베이스 로그인 성공")
+                                print("로그인 id(email) : \(email)")
+                                print("비밀번호          : \(email)appleLogin")
+                            } else {
+                                print("애플로그인 - 파이어베이스 회원가입 진행")
+                                Auth.auth().createUser(withEmail: email, password: email + "appleLogin")
+                                UserDefaultsManager.FirebaseEmail = email
+                                UserDefaultsManager.FirebasePassword = email + "appleLogin"
+                                Auth.auth().signIn(withEmail: email, password: email + "appleLogin") { firebaseResult2, error2 in
+                                    if firebaseResult2 != nil {
+                                        print("애플로그인 - 파이어베이스 로그인 성공")
+                                        print("로그인 id(email) : \(email)")
+                                        print("비밀번호          : \(email)appleLogin")
+                                    } else {
+                                        
                                     }
                                 }
+                            }
+                        }
+                    case .failure( _):
+                        // 자체 로그인 서비스로 가입 진행
+                        let signUpImage = UIImage(named: "loginMainImage")!
+                        let signUpImageData = signUpImage.jpegData(compressionQuality: 0.5)!
+                        self.viewModel?.divideSignUp(signUpInfo: SignUpModel(email: email, password: email+"appleLogin", nickname: "디바이더" + String(Int.random(in: 1...100))), img: signUpImageData, completion: { [weak self] result in
+                            guard let self = self else { return }
+                            switch result {
+                            case .success(let response):
+                                // userId 저장 해주고
+                                UserDefaultsManager.userId = response.userId
+                                
+                                // 해당 정보로 로그인 진행
+                                self.viewModel?.divideSignIn(email: email, password: email+"appleLogin", completion: { result in
+                                    switch result {
+                                    case .success(let response):
+                                        UserDefaultsManager.DIVIDE_TOKEN = response.token
+                                        UserDefaultsManager.userId = response.userId
+                                        self.getUserPosition { userPosition in
+                                            print("userPosition : \(userPosition)")
+                                            self.viewModel?.setUserPositon(userPosition: userPosition) {
+                                                self.navigationController?.popViewController(animated: true)
+                                                print("=========================================================================")
+                                                print("                             로그인 VC pop")
+                                                print("=========================================================================")
+
+                                                self.navigationController?.pushViewController(TabBarController(), animated: true)
+                                                print("=========================================================================")
+                                                print("                             탭바 pushed !")
+                                                print("=========================================================================")
+
+                                            }
+                                        }
+                                        // 애플 privacy 이메일로 파이어베이스 가입 (채팅에 필요)
+                                        Auth.auth().signIn(withEmail: UserDefaultsManager.FirebaseEmail!, password: UserDefaultsManager.FirebasePassword!) { firebaseResult, error in
+                                            if firebaseResult != nil {
+                                                print("애플로그인 - 파이어베이스 로그인 성공")
+                                                print("로그인 id(email) : \(email)")
+                                                print("비밀번호          : \(email)appleLogin")
+                                            } else {
+                                                print("애플로그인 - 파이어베이스 회원가입 진행")
+                                                Auth.auth().createUser(withEmail: email, password: email + "appleLogin")
+                                                UserDefaultsManager.FirebaseEmail = email
+                                                UserDefaultsManager.FirebasePassword = email + "appleLogin"
+                                                Auth.auth().signIn(withEmail: email, password: email + "appleLogin") { firebaseResult2, error2 in
+                                                    if firebaseResult2 != nil {
+                                                        print("애플로그인 - 파이어베이스 로그인 성공")
+                                                        print("로그인 id(email) : \(email)")
+                                                        print("비밀번호          : \(email)appleLogin")
+                                                    } else {
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+            
+                                        
+                                    case .failure(let err):
+                                        print(err)
+                                    }
+                                })
                             case .failure(let err):
                                 print(err)
                             }
                         })
-                    case .failure(let err):
-                        print(err)
                     }
                 })
-                
-                info.email = email
-                UserDefaultsManager.appleUserInfo = info
+
             }
-            
+            info.email = credential.email
+            UserDefaultsManager.appleUserInfo = info
    
         }
     }
