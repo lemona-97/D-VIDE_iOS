@@ -280,7 +280,7 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
                                     UserApi.shared.me { user, error in
                                         // 파이어 베이스 정보가 없다면~
                                         // 카카오 이메일로 파이어베이스 가입 (채팅에 필요)
-                                        Auth.auth().signIn(withEmail: UserDefaultsManager.FirebaseEmail!, password: UserDefaultsManager.FirebasePassword!) { result , error in
+                                        Auth.auth().signIn(withEmail: (user?.kakaoAccount?.email)!, password: (user?.kakaoAccount?.email)!+"KakaoLogin") { result , error in
                                             if result != nil {
                                                 print("파이어베이스 로그인 성공")
                                             } else {

@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 import FirebaseAuth
 import Firebase
-
+import FirebaseCore
 final class ChatListViewController: DVIDEViewController1, ViewControllerFoundation {
     
     private let navigationLabel         = MainLabel(type: .hopang)

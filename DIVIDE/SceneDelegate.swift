@@ -10,6 +10,7 @@ import KakaoSDKAuth
 import CoreLocation
 import Firebase
 import FirebaseAuth
+import FirebaseCore
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelegate {
 
@@ -25,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
 
         getUserLocation()
         
-        if AuthApi.hasToken() == false && UserDefaultsManager.appleUserInfo == nil && UserDefaultsManager.DIVIDE_TOKEN == nil {
+        if AuthApi.hasToken() == false && UserDefaultsManager.DIVIDE_TOKEN == nil {
             print("========================================================")
             print("                 비 로그인 상태")
             print("========================================================")
@@ -37,30 +38,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
             print("========================================================")
             print("                 Kakao  - 로그인 상태")
             print("========================================================")
+            
             initialViewController = UINavigationController(rootViewController: TabBarController())
             window?.rootViewController = initialViewController
             window?.makeKeyAndVisible()
             
-        } else if UserDefaultsManager.appleUserInfo != nil {
-            LoginViewModel().divideSignIn(email: (UserDefaultsManager.appleUserInfo?.email)!, password: (UserDefaultsManager.appleUserInfo?.email)! + "appleLogin") { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let response):
-                    UserDefaultsManager.DIVIDE_TOKEN = response.token
-                    UserDefaultsManager.userId = response.userId
-                    initialViewController = UINavigationController(rootViewController: TabBarController())
-                    
-                case .failure(let err):
-                    print(err)
-                    initialViewController = UINavigationController(rootViewController: LoginViewController())
-                    
-                }
-                self.window?.rootViewController = initialViewController
-                self.window?.makeKeyAndVisible()
-            }
         } else if UserDefaultsManager.DIVIDE_TOKEN != nil {
             print("========================================================")
-            print("                 DIVIDE - 자체 로그인 상태")
+            print("                 DIVIDE - 자체 로그인 상태 (apple 포함)")
             print("========================================================")
             initialViewController = UINavigationController(rootViewController: TabBarController())
             window?.rootViewController = initialViewController
