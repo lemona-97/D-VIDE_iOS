@@ -8,12 +8,19 @@
 import Foundation
 import FirebaseFirestore
 
+/// 채팅방 정보
 struct ChatRoom {
+    /// 음식 이미지 URL
     let foodImgUrl : String?
+    /// 최근 메시지
     let lastMessage : [Any]?
+    /// 참여자 목록
     let participants : [Int]?
+    /// 제목
     let title: String?
+    /// 연관된 post의 ID
     let postId: Int?
+    /// post에 속하는 주문의 ID
     let orderId : Int?
 
     init(foodImgUrl: String? = nil, lastMessage: [Any]? = nil, participants: [Int]? = nil, title: String? = nil, postId: Int? = nil, orderId : Int) {

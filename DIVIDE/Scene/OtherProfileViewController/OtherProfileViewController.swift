@@ -301,7 +301,7 @@ final class OtherProfileViewController: UIViewController, ViewControllerFoundati
                     switch result {
                     case .success(let response):
                         
-                        if let result = response.result  {
+                        if let _ = response.result  {
                             print(" 유저 \(userId) 언팔로우 성공")
                         } else {
                             print(" 유저 \(userId) 언팔로우 실패")

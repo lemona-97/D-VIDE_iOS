@@ -4,7 +4,7 @@
 //
 //  Created by 임우섭 on 2022/12/29.
 //
-//  추후 구현 예정
+
 import UIKit
 
 final class ReviewRecommendTableViewCell: UITableViewCell {

@@ -13,10 +13,12 @@ struct LoginResponse : Decodable {
     var userId      : Int
 }
 
+/// 회원가입 모델 (추후에 payload로 변경예정)
+///
+/// 프로필 이미지는 multifpart로 보냄
 struct SignUpModel : Encodable {
     var email       : String
     var password    : String
-    //프로필 이미지는 multifpart로
     var nickname    : String
 }
 
