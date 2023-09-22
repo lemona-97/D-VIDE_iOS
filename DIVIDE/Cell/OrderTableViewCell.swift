@@ -69,6 +69,7 @@ final class OrderTableViewCell: UITableViewCell {
     private let orderedPriceValueLabel = MainLabel(type: .Basics4)
     private let orderedPriceUnitLabel = MainLabel(type: .Basics1)
     
+    private let pastLabel = UILabel()
     
     let dateFormatter = DateFormatter()
     
@@ -249,6 +250,16 @@ final class OrderTableViewCell: UITableViewCell {
             $0.text = "원"
             $0.textColor = .gray2
         }
+        
+        pastLabel.do {
+            $0.text = "주문 불가"
+            $0.font = .AppleSDGothicNeo(.medium, size: 20)
+            $0.textColor = .red
+            $0.textAlignment = .center
+            $0.baselineAdjustment = .alignCenters
+            $0.isHidden = true
+            $0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        }
     }
     
     private func addView() {
@@ -257,7 +268,7 @@ final class OrderTableViewCell: UITableViewCell {
         
         contentView.addSubview(contentBox)
         
-        contentBox.addSubviews([foodImageView, foodImageIndicator, title, progressView, detailBox, orderHistoryBox])
+        contentBox.addSubviews([foodImageView, foodImageIndicator, title, progressView, detailBox, orderHistoryBox, pastLabel])
         
         detailBox.addSubviews([closingTimeTitle, AMPMLabel, closingTimeValue, separateMiddleView, insufficientChargeTitle, insufficientChargeValueLabel, currency])
         
@@ -437,7 +448,9 @@ final class OrderTableViewCell: UITableViewCell {
             $0.trailing.equalTo(orderedPriceUnitLabel.snp.leading).offset(-5)
         }
         
-            
+        pastLabel.snp.makeConstraints {
+            $0.leading.trailing.top.bottom.equalToSuperview()
+        }
     }
     
     public func setData(data : Datum) {
@@ -451,6 +464,11 @@ final class OrderTableViewCell: UITableViewCell {
         self.nickNameLabel.text = data.user.nickname
         self.userId = data.user.id
         self.remainTimeUnderOneHour.text = Calculater.calculatedRemainTime(targetTime: mediateTime)
+        if self.remainTimeUnderOneHour.text == "주문 시간이 지났습니다" {
+            pastLabel.isHidden = false
+        } else {
+            pastLabel.isHidden = true
+        }
         self.AMPMLabel.text = Calculater.setAMPM(closingTime: mediateTime)
         self.title.text = data.post.title
         self.postId = data.post.id

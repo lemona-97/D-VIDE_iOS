@@ -88,7 +88,7 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
             $0.contentView.roundCorner(corners: [.layerMinXMaxYCorner, .layerMinXMinYCorner], cornerRadius: 15)
             $0.backgroundView.backgroundColor = .viewBackgroundGray
         }
-        // 카메라는 나중에...!
+        
         cameraBarButtonItem.do {
             $0.tintColor = .mainOrange1
             $0.image = UIImage(systemName: "camera")
