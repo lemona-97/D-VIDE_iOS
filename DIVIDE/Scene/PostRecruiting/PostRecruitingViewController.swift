@@ -541,7 +541,7 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
                     let destination = PopupViewController()
                     destination.dismissListener = { self?.navigationController?.popViewController(animated: true) }
                     destination.modalPresentationStyle = .overFullScreen
-                    destination.setPopupMessage(message: UserDefaultsManager.displayName! + "님의 글이 업로드 되었어요! \n 채팅을 확인해 보세요", popupType: .ALERT)
+                    destination.setPopupMessage(message: "글이 업로드 되었어요! \n 채팅을 확인해 보세요", popupType: .ALERT)
                     
                     self?.navigationController?.present(destination, animated: false)
                     

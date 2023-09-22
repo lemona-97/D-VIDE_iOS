@@ -44,12 +44,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
             window?.makeKeyAndVisible()
             
         } else if UserDefaultsManager.DIVIDE_TOKEN != nil {
-            print("========================================================")
-            print("                 DIVIDE - 자체 로그인 상태 (apple 포함)")
-            print("========================================================")
-            initialViewController = UINavigationController(rootViewController: TabBarController())
-            window?.rootViewController = initialViewController
-            window?.makeKeyAndVisible()
+
+            if Auth.auth().currentUser == nil {
+               
+                Auth.auth().signIn(withEmail: UserDefaultsManager.FirebaseEmail!, password: UserDefaultsManager.FirebasePassword!)
+                print("email : ", UserDefaultsManager.FirebaseEmail, "password : ", UserDefaultsManager.FirebasePassword)
+                print("                         파이어 베이스 로그인")
+                print("========================================================")
+                print("                 DIVIDE - 자체 로그인 상태 (apple 포함)")
+                print("========================================================")
+                initialViewController = UINavigationController(rootViewController: TabBarController())
+                window?.rootViewController = initialViewController
+                window?.makeKeyAndVisible()
+            } else {
+                print("========================================================")
+                print("                 DIVIDE - 자체 로그인 상태 (apple 포함)")
+                print("========================================================")
+                initialViewController = UINavigationController(rootViewController: TabBarController())
+                window?.rootViewController = initialViewController
+                window?.makeKeyAndVisible()
+            }
+            
         }
       }
     

@@ -317,8 +317,8 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
 
                     if UserDefaultsManager.FirebaseEmail == nil || UserDefaultsManager.FirebasePassword == nil {
                         UserDefaultsManager.FirebaseEmail = email
-                        UserDefaultsManager.FirebasePassword = email + "appleLogin"
-                        Auth.auth().createUser(withEmail: email, password: email)
+                        UserDefaultsManager.FirebasePassword = password
+                        Auth.auth().createUser(withEmail: email, password: password)
                     }
                 case .failure(let err):
                     print(err)

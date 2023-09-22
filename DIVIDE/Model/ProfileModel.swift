@@ -17,7 +17,7 @@ struct ProfileModel : Codable {
     var followerCount       : Int
     var followingCount      : Int
     var savedPrice          : Int
-    var location            : UserPosition
+    var location            : UserPosition?
 }
 
 struct Badge : Codable {

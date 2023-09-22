@@ -211,6 +211,8 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
                 case .success(let response):
                     UserDefaultsManager.DIVIDE_TOKEN = response.token
                     UserDefaultsManager.userId = response.userId
+                    UserDefaultsManager.FirebaseEmail = self.emailTextField.text!
+                    UserDefaultsManager.FirebasePassword = self.passwordTextField.text!
                     self.getUserPosition { [weak self] userPosition in
                         guard let self = self else { return }
                         print("userPosition : \(userPosition)")
@@ -226,6 +228,24 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
                             print("=========================================================================")
                             
                         }
+                        
+                        Auth.auth().signIn(withEmail: UserDefaultsManager.FirebaseEmail!, password: UserDefaultsManager.FirebasePassword!) { loginResult, error in
+                            if loginResult != nil {
+                                print("파이어베이스 로그인 성공")
+                            } else {
+                                print("파이어베이스 로그인 실패")
+                                Auth.auth().createUser(withEmail: (UserDefaultsManager.FirebaseEmail)!, password: (UserDefaultsManager.FirebasePassword)!)
+                                Auth.auth().signIn(withEmail: UserDefaultsManager.FirebaseEmail!, password: UserDefaultsManager.FirebasePassword!) { loginResult, error in
+                                    if loginResult != nil {
+                                        print("파이어베이스 로그인 성공")
+                                    } else {
+                                        print(error)
+                                        print("파이어베이스 로그인 실패")
+                                    }
+                                }
+                            }
+                        }
+                        
                         self.viewModel?.requestMyProfile()
                             .asObservable()
                             .bind(onNext: { profileModel in
@@ -287,14 +307,15 @@ final class LoginViewController: UIViewController, ViewControllerFoundation {
                                                 print("파이어베이스 로그인 실패")
                                                 print(error?.localizedDescription)
                                                 print("파이어베이스 회원 가입")
-                                                Auth.auth().createUser(withEmail: (user?.kakaoAccount?.email)!, password: (user?.kakaoAccount?.email)! + "kakaoLogin")
+                                                Auth.auth().createUser(withEmail: (user?.kakaoAccount?.email)!, password: (user?.kakaoAccount?.email)! + "KakaoLogin")
                                                 print("              사용자 이메일",user?.kakaoAccount?.email, "로 firebase 가입")
                                                 UserDefaultsManager.FirebaseEmail = user?.kakaoAccount?.email
-                                                UserDefaultsManager.FirebasePassword = (user?.kakaoAccount?.email)! + "kakaoLogin"
+                                                UserDefaultsManager.FirebasePassword = (user?.kakaoAccount?.email)! + "KakaoLogin"
                                                 Auth.auth().signIn(withEmail: UserDefaultsManager.FirebaseEmail!, password: UserDefaultsManager.FirebasePassword!) { loginResult, error in
                                                     if loginResult != nil {
                                                         print("파이어베이스 로그인 성공")
                                                     } else {
+                                                        print(error)
                                                         print("파이어베이스 로그인 실패")
                                                     }
                                                 }

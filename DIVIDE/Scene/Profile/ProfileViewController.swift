@@ -141,14 +141,14 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
         }
         
         mainProfileTag.do {
-            $0.text = "디바이드 공식 돼지"
+            $0.text = ""
             $0.textAlignment = .center
             $0.textColor = .mainOrange1
         }
         
         userNickName.do {
             $0.textAlignment = .center
-            $0.text = "룡룡"
+            $0.text = ""
             $0.textColor = .black
             $0.isEnabled = false
         }
@@ -565,6 +565,8 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
                     firstWindow.rootViewController = UINavigationController(rootViewController: LoginViewController())
                     do {
                         try Auth.auth().signOut()
+                        print("파이어베이스 로그아웃")
+                        print(Auth.auth().currentUser)
                     } catch {
                         print(error.localizedDescription)
                     }
@@ -791,10 +793,13 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
                 self.followerCount.text = String(profileModel.followerCount)
                 self.retrenchDeliveryFeeValue.text = String(profileModel.savedPrice)
                 UserDefaultsManager.userPosition = profileModel.location
-                self.beforeProfile = ModifyProfileModel(nickname: profileModel.nickname,
-                                                        badgeName: profileModel.badge.name,
-                                                        latitude: profileModel.location.latitude,
-                                                        longitude: profileModel.location.longitude)
+                if let location = profileModel.location {
+                    self.beforeProfile = ModifyProfileModel(nickname: profileModel.nickname,
+                                                            badgeName: profileModel.badge.name,
+                                                            latitude: location.latitude,
+                                                            longitude: location.longitude)
+                }
+                
             }).disposed(by: disposeBag)
     }
     private func modifyMyProfileIfChanged() {

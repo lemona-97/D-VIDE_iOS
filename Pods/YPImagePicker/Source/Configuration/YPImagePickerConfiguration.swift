@@ -141,43 +141,43 @@ public struct YPImagePickerConfiguration {
     
     /// Migration
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "video.compression")
+    @available(iOS, renamed: "video.compression")
     public var videoCompression: String = AVAssetExportPresetHighestQuality
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "video.fileType")
+    @available(iOS, renamed: "video.fileType")
     public var videoExtension: AVFileType = .mov
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "video.recordingTimeLimit")
+    @available(iOS, renamed: "video.recordingTimeLimit")
     public var videoRecordingTimeLimit: TimeInterval = 60.0
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "video.libraryTimeLimit")
+    @available(iOS, renamed: "video.libraryTimeLimit")
     public var videoFromLibraryTimeLimit: TimeInterval = 60.0
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "video.minimumTimeLimit")
+    @available(iOS, renamed: "video.minimumTimeLimit")
     public var videoMinimumTimeLimit: TimeInterval = 3.0
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "video.trimmerMaxDuration")
+    @available(iOS, renamed: "video.trimmerMaxDuration")
     public var trimmerMaxDuration: Double = 60.0
 
-    @available(iOS, obsoleted: 3.0.0, renamed: "video.trimmerMinDuration")
+    @available(iOS, renamed: "video.trimmerMinDuration")
     public var trimmerMinDuration: Double = 3.0
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "library.onlySquare")
+    @available(iOS, renamed: "library.onlySquare")
     public var onlySquareImagesFromLibrary = false
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "library.onlySquare")
+    @available(iOS, renamed: "library.onlySquare")
     public var onlySquareFromLibrary = false
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "targetImageSize")
+    @available(iOS, renamed: "targetImageSize")
     public var libraryTargetImageSize = YPImageSize.original
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "library.mediaType")
+    @available(iOS, renamed: "library.mediaType")
     public var showsVideoInLibrary = false
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "library.mediaType")
+    @available(iOS, renamed: "library.mediaType")
     public var libraryMediaType = YPlibraryMediaType.photo
     
-    @available(iOS, obsoleted: 3.0.0, renamed: "library.maxNumberOfItems")
+    @available(iOS, renamed: "library.maxNumberOfItems")
     public var maxNumberOfItems = 1
     
 }
