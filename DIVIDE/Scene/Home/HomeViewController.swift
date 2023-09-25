@@ -225,13 +225,22 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as? OrderTableViewCell
-        guard let remaintime = cell?.remainEpochTime else { return }
-        if remaintime > Int(Date().timeIntervalSince1970) {
-            let destinationVC = PostDetailViewController()
-            destinationVC.setPostId(postId: allDataFromServer[indexPath.row].post.id)
-            
-            self.navigationController?.pushViewController(destinationVC, animated: true)
+        if cell?.userId == nil {
+            let destination = PopupViewController()
+            destination.dismissListener = { }
+            destination.modalPresentationStyle = .overFullScreen
+            destination.setPopupMessage(message: "탈퇴한 사용자의 글 입니다.", popupType: .ALERT)
+            self.navigationController?.present(destination, animated: false)
+        } else {
+            guard let remaintime = cell?.remainEpochTime else { return }
+            if remaintime > Int(Date().timeIntervalSince1970) {
+                let destinationVC = PostDetailViewController()
+                destinationVC.setPostId(postId: allDataFromServer[indexPath.row].post.id)
+                
+                self.navigationController?.pushViewController(destinationVC, animated: true)
+            }
         }
+        
     }
 }
 

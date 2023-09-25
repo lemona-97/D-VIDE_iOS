@@ -18,7 +18,7 @@ final class ReviewTableViewCell: UITableViewCell {
     private let detailContentsView = UIView()
     private let userImageView = UIImageView()
     private let userImageViewIndicator = UIActivityIndicatorView()
-    private let userID = MainLabel(type: .Basics3)
+    private let userNickName = MainLabel(type: .Basics3)
     private let userLocation = MainLabel(type: .small1)
     let reviewLikeCount = MainLabel(type: .small1)
     let likeButton = UIButton()
@@ -62,6 +62,7 @@ final class ReviewTableViewCell: UITableViewCell {
         }
         
         userImageView.do {
+            $0.image = UIImage(resource: .basicProfileImg)
             $0.contentMode = .scaleAspectFill
             $0.clipsToBounds = true
             $0.cornerRadius = 14
@@ -71,8 +72,8 @@ final class ReviewTableViewCell: UITableViewCell {
             $0.color = .mainOrange1
         }
         
-        userID.do {
-            $0.text = "ID 불러오는중"
+        userNickName.do {
+            $0.text = "닉네임 불러오는중"
         }
         
         userLocation.do {
@@ -124,7 +125,7 @@ final class ReviewTableViewCell: UITableViewCell {
     
     private func addView() {
         contentView.addSubview(detailContentsView)
-        detailContentsView.addSubviews([userImageView, userImageViewIndicator, userID, userLocation, reviewLikeCount, likeButton])
+        detailContentsView.addSubviews([userImageView, userImageViewIndicator, userNickName, userLocation, reviewLikeCount, likeButton])
         detailContentsView.addSubviews([foodImageView, foodImageViewIndicator, storeNameTag, contentTextView, cosmosView])
     }
     
@@ -145,7 +146,7 @@ final class ReviewTableViewCell: UITableViewCell {
             $0.center.equalTo(userImageView)
             $0.width.height.equalTo(userImageView.snp.width)
         }
-        userID.snp.makeConstraints {
+        userNickName.snp.makeConstraints {
             $0.leading.equalTo(userImageView.snp.trailing).offset(10)
             $0.top.equalToSuperview().offset(14)
             $0.height.equalTo(21)
@@ -241,11 +242,22 @@ final class ReviewTableViewCell: UITableViewCell {
     
     func setData(reviewData : ReviewData) {
         showIndicator(indicator: self.foodImageViewIndicator)
-        self.userImageView.load(url: reviewData.user.profileImgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {
+        if let profileImgUrl = reviewData.user.profileImgUrl {
+            self.userImageView.load(url: profileImgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {
+                self.stopIndicator(indicator: self.userImageViewIndicator)
+            }
+        } else {
             self.stopIndicator(indicator: self.userImageViewIndicator)
         }
-        
-        self.userID.text = reviewData.user.nickname
+            
+        if let nickName = reviewData.user.nickname {
+            if nickName == "null" {
+                self.userNickName.text = "탈퇴한 사용자 입니다"
+            } else {
+                self.userNickName.text = reviewData.user.nickname
+            }
+        }
+       
         self.reviewLikeCount.text = String(Int(reviewData.review.likeCount))
         showIndicator(indicator: self.foodImageViewIndicator)
         self.foodImageView.load(url: reviewData.review.reviewImgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {
@@ -264,7 +276,7 @@ final class ReviewTableViewCell: UITableViewCell {
         self.stopIndicator(indicator: self.userImageViewIndicator)
         
         
-        self.userID.text = nickname
+        self.userNickName.text = nickname
         self.reviewLikeCount.text = String(Int(review.likeCount))
         showIndicator(indicator: self.foodImageViewIndicator)
         self.foodImageView.load(url: review.reviewImgUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {

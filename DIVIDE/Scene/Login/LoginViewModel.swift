@@ -28,6 +28,10 @@ protocol LoginBusinessLogic : DIVIDELoginLogic, ProfileBusinessLogic {
 }
 
 final class LoginViewModel : LoginBusinessLogic {
+    func withDraw() {
+        
+    }
+    
 
     
     func requestMyProfile() -> Single<ProfileModel> {

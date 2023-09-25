@@ -69,7 +69,7 @@ protocol ProfileBusinessLogic {
     /// 프로필 수정 요청
     func modifyMyProfile(profile : ModifyProfileModel, img : Data?, completion: @escaping () -> Void)
     /// 회원 탈퇴
-//    func withdrawal(userId : )
+    func withDraw()
 }
 
 /// 리뷰 작성

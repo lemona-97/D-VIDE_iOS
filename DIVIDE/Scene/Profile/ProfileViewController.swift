@@ -600,14 +600,15 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
                 let destination = PopupViewController()
                 destination.confirmListener = {
 //                    회원 탈퇴
-//                    UserDefaultsManager.DIVIDE_TOKEN = nil
-//                    UserDefaultsManager.displayName = nil
-//                    UserDefaultsManager.userPosition = nil
-//                    UserDefaultsManager.appleUserInfo = nil
-//                    UserDefaultsManager.userId = nil
-//                    UserDefaultsManager.FirebaseEmail = nil
-//                    UserDefaultsManager.FirebasePassword = nil
-//                    UserDefaultsManager.coordinates = nil
+                    self.viewModel?.withDraw()
+                    UserDefaultsManager.DIVIDE_TOKEN = nil
+                    UserDefaultsManager.displayName = nil
+                    UserDefaultsManager.userPosition = nil
+                    UserDefaultsManager.appleUserInfo = nil
+                    UserDefaultsManager.userId = nil
+                    UserDefaultsManager.FirebaseEmail = nil
+                    UserDefaultsManager.FirebasePassword = nil
+                    UserDefaultsManager.coordinates = nil
                     
                     guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
                     guard let firstWindow = window.windows.first else { return }

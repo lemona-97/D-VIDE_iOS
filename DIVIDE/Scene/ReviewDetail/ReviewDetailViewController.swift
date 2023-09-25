@@ -210,10 +210,14 @@ final class ReviewDetailViewController: DVIDEViewController2, ViewControllerFoun
             .asObservable()
             .bind(onNext: { [weak self] reviewDetailData in
                 guard let self = self else { return }
-                
-                self.userImageView.load(url: reviewDetailData.data.user.profileImgUrl) {
+                if let profileImgUrl = reviewDetailData.data.user.profileImgUrl {
+                    self.userImageView.load(url: profileImgUrl) {
+                        self.stopIndicator(indicator: self.userImageViewIndicator)
+                    }
+                } else {
                     self.stopIndicator(indicator: self.userImageViewIndicator)
                 }
+                
                 self.userNickname.text = reviewDetailData.data.user.nickname
                 GeocodingManager.reverseGeocoding(lat: reviewDetailData.data.reviewDetail.latitude, lng: reviewDetailData.data.reviewDetail.longitude) { location in
                     DispatchQueue.main.async {

@@ -32,7 +32,7 @@ final class OrderTableViewCell: UITableViewCell {
         }
     }
     
-    private var userId    : Int?
+    var userId    : Int?
     private var storeName : String?
     private var longitude : Double?
     private var latitude  : Double?
@@ -106,6 +106,7 @@ final class OrderTableViewCell: UITableViewCell {
         }
         
         profileImage.do{
+            $0.image = UIImage(resource: .basicProfileImg)
             $0.contentMode = .scaleAspectFill
             $0.clipsToBounds = true
             $0.cornerRadius = 14
@@ -456,13 +457,26 @@ final class OrderTableViewCell: UITableViewCell {
     public func setData(data : Datum) {
         dateFormatter.dateFormat = "h:mm"
         profileIndicator.startAnimating()
-        self.profileImage.load(url: data.user.profileImgUrl) {
+        if let profileImgUrl = data.user.profileImgUrl {
+            self.profileImage.load(url: profileImgUrl) {
+                self.profileIndicator.stopAnimating()
+            }
+        } else {
             self.profileIndicator.stopAnimating()
         }
+        
         let mediateTime =  data.post.targetTime + 10800
         remainEpochTime = data.post.targetTime + 10800
-        self.nickNameLabel.text = data.user.nickname
-        self.userId = data.user.id
+        if let nickName = data.user.nickname {
+            self.nickNameLabel.text = nickName
+        } else {
+            self.nickNameLabel.text = "탈퇴한 사용자"
+        }
+        
+        if let id = data.user.id {
+            self.userId = id
+        }
+        
         self.remainTimeUnderOneHour.text = Calculater.calculatedRemainTime(targetTime: mediateTime)
         if self.remainTimeUnderOneHour.text == "주문 시간이 지났습니다" {
             pastLabel.isHidden = false

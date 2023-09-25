@@ -11,6 +11,8 @@ import RxSwift
 
 final class ProfileViewModel : ProfileBusinessLogic {
     
+    
+    
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     
     //    var postsFromServer = PublishSubject<[Datum]>()
@@ -33,5 +35,16 @@ final class ProfileViewModel : ProfileBusinessLogic {
         }
     }
     
+    func withDraw() {
+        realProvider.request(.withDraw) { result in
+            switch result {
+            case .success(_):
+                print("회원 탈퇴 완료")
+                
+            case .failure(_):
+                print("회원 탈퇴 실패")
+            }
+        }
+    }
 }
 

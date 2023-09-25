@@ -36,8 +36,8 @@ struct Post: Codable {
 
 // MARK: - User
 struct UserInfo: Codable {
-    var id              : Int
-    var nickname        : String
-    var profileImgUrl   : String
+    var id              : Int?
+    var nickname        : String?
+    var profileImgUrl   : String?
   
 }
