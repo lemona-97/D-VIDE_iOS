@@ -608,7 +608,7 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
         self.foodImageIndicator.startAnimating()
         viewModel?.requestPostDetail(postId: postId)
             .asObservable()
-            .bind(onNext: { [weak self] postDetailData in
+            .subscribe(onNext: { [weak self] postDetailData in
                 guard let self = self else { return }
                 if let proposerImageUrl = postDetailData.data?.user?.profileImgUrl {
                         self.proposerImage.load(url: proposerImageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) {
@@ -646,6 +646,11 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
                 self.postUserId = postDetailData.data?.user?.id
                 self.postTitle = postDetailData.data?.postDetail?.title
                 self.otherNickname = postDetailData.data?.user?.nickname
+            }, onError: { error in
+                print("========================")
+                print("     구독 에러 발생")
+                print(error.localizedDescription)
+                print("========================")
             }).disposed(by: self.disposeBag)
     }
     

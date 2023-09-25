@@ -118,6 +118,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, CLLocationManagerDelega
             if CLLocationManager.locationServicesEnabled() {
                 locationManager.startUpdatingLocation()
                 print("위치 정보 가져오기")
+                print(locationManager.location?.coordinate as Any)
             }
             else {
                 print("위치 서비스 허용 off")

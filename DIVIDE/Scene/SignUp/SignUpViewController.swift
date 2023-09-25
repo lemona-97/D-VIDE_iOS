@@ -138,6 +138,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
             $0.cornerRadius = 75
             $0.image = UIImage(named: "카메라")
             $0.contentMode = .center
+            
         }
 
         nicknameLabel.do {
@@ -291,6 +292,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
             .bind { [weak self] _ in
                 guard let self = self else { return }
                 self.getPhoto()
+                
             }.disposed(by: disposeBag)
         
         signUpButton.addAction(UIAction(handler: { [weak self] _ in
@@ -320,6 +322,13 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
                         UserDefaultsManager.FirebasePassword = password
                         Auth.auth().createUser(withEmail: email, password: password)
                     }
+                    
+                    let destination = PopupViewController()
+                    destination.dismissListener = { self.navigationController?.popViewController(animated: true) }
+                    destination.modalPresentationStyle = .overFullScreen
+                    destination.setPopupMessage(message: "회원가입 완료!", popupType: .ALERT)
+                    
+                    self.navigationController?.present(destination, animated: false)
                 case .failure(let err):
                     print(err)
                 }
@@ -349,6 +358,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
         let picker = PHPickerViewController(configuration: photoConfiguration)
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
+
     }
     
     private func showEmailWarning() {
@@ -453,7 +463,7 @@ extension SignUpViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         // picker 닫고
         picker.dismiss(animated: true)
-
+        
         results.forEach { result in
             if result.itemProvider.canLoadObject(ofClass: UIImage.self) { // 3
                 result.itemProvider.loadObject(ofClass: UIImage.self) { (newImage, error) in // 4
@@ -462,6 +472,7 @@ extension SignUpViewController: PHPickerViewControllerDelegate {
                         self.profileImageView.image = newImage
                     }
                 }
+                self.profileImageView.contentMode = .scaleAspectFill
             } else {
                 // TODO: Handle empty results or item provider not being able load UIImage
                 print("가져온 사진이 없음")
