@@ -41,6 +41,7 @@
 		FA129C922A943BA5007AFFD2 /* protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA129C912A943BA5007AFFD2 /* protocol.swift */; };
 		FA3EDAC72A6F9DC30078AA89 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */; };
 		FA3EDAD12A7209180078AA89 /* SIZE.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3EDAD02A7209180078AA89 /* SIZE.swift */; };
+		FA4683222AC284F300C55967 /* BadgesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4683212AC284F300C55967 /* BadgesModel.swift */; };
 		FA4967C4288A9E2B000247E4 /* OrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4967C3288A9E2B000247E4 /* OrderTableViewCell.swift */; };
 		FA59C605288E6A24001ADD50 /* HomeTopMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59C604288E6A24001ADD50 /* HomeTopMenuCollectionViewCell.swift */; };
 		FA59C63728911DD2001ADD50 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA59C63628911DD2001ADD50 /* TabBarController.swift */; };
@@ -199,6 +200,7 @@
 		FA129C912A943BA5007AFFD2 /* protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = protocol.swift; sourceTree = "<group>"; };
 		FA3EDAC62A6F9DC30078AA89 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		FA3EDAD02A7209180078AA89 /* SIZE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SIZE.swift; sourceTree = "<group>"; };
+		FA4683212AC284F300C55967 /* BadgesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesModel.swift; sourceTree = "<group>"; };
 		FA4967C3288A9E2B000247E4 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
 		FA59C604288E6A24001ADD50 /* HomeTopMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA59C63628911DD2001ADD50 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 				FA8D32E02A84B43D003810BA /* StreamError.swift */,
 				FA9DFB9028B375D10036B106 /* UserPosition.swift */,
 				FA8D326F2A7B56E1003810BA /* UserPostModel.swift */,
+				FA4683212AC284F300C55967 /* BadgesModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -874,7 +877,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					324C3437286AF32A0057286A = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -1059,6 +1062,7 @@
 				FAA412D92A6632D00053258D /* PostDetailModel.swift in Sources */,
 				FA0C4B732A8E192D009783FF /* OtherReviewModel.swift in Sources */,
 				FA8D32882A809FB5003810BA /* LoginModel.swift in Sources */,
+				FA4683222AC284F300C55967 /* BadgesModel.swift in Sources */,
 				FA8D32672A7B4A4F003810BA /* ProfileViewModel.swift in Sources */,
 				FA0C4B6F2A8E0A49009783FF /* OtherProfileViewModel.swift in Sources */,
 				FA8D327A2A7C9EA5003810BA /* UserDefaultsManager.swift in Sources */,
@@ -1216,6 +1220,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1276,6 +1281,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1384,6 +1390,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = WJVGRM2SN6;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1410,6 +1417,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = WJVGRM2SN6;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

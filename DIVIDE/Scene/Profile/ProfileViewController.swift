@@ -566,7 +566,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
                     do {
                         try Auth.auth().signOut()
                         print("파이어베이스 로그아웃")
-                        print(Auth.auth().currentUser)
+                        print(Auth.auth().currentUser as Any)
                     } catch {
                         print(error.localizedDescription)
                     }
@@ -718,6 +718,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
         return version
     }
     @objc func setProfile() {
+
         // 수정 후 제출
         if settingBtn.isSelected == true {
             settingBtn.isSelected = false

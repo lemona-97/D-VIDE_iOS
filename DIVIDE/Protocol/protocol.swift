@@ -17,7 +17,7 @@ protocol ViewControllerFoundation {
     func addAction()
 }
 
-protocol HomeViewModelBusinessLogic {
+protocol HomeViewModelBusinessLogic: AnyObject {
     /// 주변 500m내의 게시글 조회
     ///
     /// 카테고리에 상관없음
@@ -45,7 +45,7 @@ protocol ReviewDetailBusinessLogic : reviewLikeLogic {
 }
 
 /// 리뷰 좋아요 + 좋아요 취소
-protocol reviewLikeLogic {
+protocol reviewLikeLogic: AnyObject {
     func requestReviewLike(reviewId : Int, completion : @escaping (Result<ReviewLikeResponse, Error>) -> Void)
     func requestReviewUnLike(reviewId : Int, completion : @escaping (Result<ReviewUnLikeResponse, Error>) -> Void)
 }
@@ -63,13 +63,15 @@ protocol ReviewBusinessLogic : reviewLikeLogic {
 }
 
 /// 프로필 VC에서 사용
-protocol ProfileBusinessLogic {
+protocol ProfileBusinessLogic: AnyObject {
     /// 주변 가게의 리뷰 정보 조회
     func requestMyProfile() -> Single<ProfileModel>
     /// 프로필 수정 요청
     func modifyMyProfile(profile : ModifyProfileModel, img : Data?, completion: @escaping () -> Void)
     /// 회원 탈퇴
     func withDraw()
+    /// 뱃지 리스트 조회
+    func requestMyBadges() -> Single<BadgesModel>
 }
 
 /// 리뷰 작성

@@ -263,6 +263,7 @@ final class OtherProfileViewController: UIViewController, ViewControllerFoundati
                 self.profileBadge.text  = result.badge?.name
                 self.followingCountLabel.text = String(result.followerCount!)
                 self.followerCountLabel.text = String(result.followingCount!)
+                self.feedLabel.text = "• " + String(result.nickname!) + "님의 피드"
                 if result.followed! {
                     self.followButton.isSelected = true
                 } else {
@@ -303,6 +304,9 @@ final class OtherProfileViewController: UIViewController, ViewControllerFoundati
                         
                         if let _ = response.result  {
                             print(" 유저 \(userId) 언팔로우 성공")
+                            var before = Int(self.followerCountLabel.text!)
+                            var after = before! - 1
+                            self.followerCountLabel.text = String(after)
                         } else {
                             print(" 유저 \(userId) 언팔로우 실패")
                         }
@@ -319,6 +323,10 @@ final class OtherProfileViewController: UIViewController, ViewControllerFoundati
                     case .success(let response):
                         if let result = response.followId {
                             print(" 유저 \(result) 팔로우")
+                            var before = Int(self.followerCountLabel.text!)
+                            var after = before! + 1
+                            self.followerCountLabel.text = String(after)
+                            
                         } else {
                             print(" 유저 \(result) 팔로우 실패")
                         }

@@ -119,11 +119,9 @@ final class ChatListTableViewCell: UITableViewCell {
 
 
     public func setData(chatRoom : ChatRoom) {
-        dump(chatRoom)
         self.titleLabel.text = chatRoom.title
         if let foodImgUrl = chatRoom.foodImgUrl {
             self.menuImg.load(url: foodImgUrl) {
-                print("엘렐레")
             }
         }
         if let lastMessage = chatRoom.lastMessage {

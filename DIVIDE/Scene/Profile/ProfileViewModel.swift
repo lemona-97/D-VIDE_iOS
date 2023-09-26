@@ -10,9 +10,6 @@ import Moya
 import RxSwift
 
 final class ProfileViewModel : ProfileBusinessLogic {
-    
-    
-    
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     
     //    var postsFromServer = PublishSubject<[Datum]>()
@@ -46,5 +43,12 @@ final class ProfileViewModel : ProfileBusinessLogic {
             }
         }
     }
+    
+    func requestMyBadges() -> Single<BadgesModel>  {
+        realProvider.rx.request(.requestMyBadges)
+            .filterSuccessfulStatusCodes()
+            .map(BadgesModel.self)
+    }
+    
 }
 

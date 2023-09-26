@@ -260,6 +260,7 @@ final class OrderTableViewCell: UITableViewCell {
             $0.baselineAdjustment = .alignCenters
             $0.isHidden = true
             $0.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+            $0.roundCorner(corners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], cornerRadius: 26)
         }
     }
     

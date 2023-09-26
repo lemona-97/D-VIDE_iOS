@@ -21,7 +21,6 @@ final class FollowCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print(self.contentView.bounds.size)
         setAttribute()
         addView()
         setLayout()
@@ -87,7 +86,7 @@ final class FollowCollectionViewCell: UICollectionViewCell {
         
         nameLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalTo(profileImageView.snp.trailing)
+            $0.leading.equalTo(profileImageView.snp.trailing).offset(5)
             $0.trailing.equalTo(buttonBox.snp.leading)
             $0.height.equalToSuperview()
         }

@@ -669,17 +669,29 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
         self.joinButton.addAction(UIAction(handler: { [weak self] action in
             guard let self = self else { return }
 
-            self.bottomSheetView.snp.removeConstraints()
-            self.informationView.layer.opacity = 0.4
-            
-            
-            UIView.animate(withDuration: 0.3) {
-                self.bottomSheetView.snp.updateConstraints {
-                    $0.leading.trailing.equalToSuperview()
-                    $0.bottom.equalToSuperview()
-                    $0.height.equalTo(587)
+            if let postUserId = self.postUserId {
+                if postUserId == UserDefaultsManager.userId! {
+                    let destination = PopupViewController()
+                    destination.dismissListener = {
+                        
+                    }
+                    destination.setPopupMessage(message: "내가 쓴 글은 참여 할 수 없습니다.", popupType: .ALERT)
+                    destination.modalPresentationStyle = .overFullScreen
+                    self.navigationController?.present(destination, animated: false)
+                } else {
+                    self.bottomSheetView.snp.removeConstraints()
+                    self.informationView.layer.opacity = 0.4
+                    UIView.animate(withDuration: 0.3) {
+                        self.bottomSheetView.snp.updateConstraints {
+                            $0.leading.trailing.equalToSuperview()
+                            $0.bottom.equalToSuperview()
+                            $0.height.equalTo(587)
+                        }
+                    }
                 }
+                
             }
+            
         }), for: .touchUpInside)
         
         self.closeButton.addAction(UIAction(handler: { [weak self] action in
