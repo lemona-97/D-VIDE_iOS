@@ -66,6 +66,7 @@ final class ChatListTableViewCell: UITableViewCell {
         msgNumLabel.do {
             $0.text = "5"
             $0.textColor = .white
+            $0.isHidden = true
         }
     }
     

@@ -58,7 +58,7 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
         setAttribute()
         addAction()
         removeOutgoingMessageAvatars()
-        addCameraBarButtonToMessageInputBar()
+//        addCameraBarButtonToMessageInputBar()
         listenToMessages()
     }
     
@@ -77,24 +77,24 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
         messageInputBar.do {
             $0.delegate = self
             $0.inputTextView.tintColor = .mainOrange1
-            $0.sendButton.setTitleColor(.mainOrange1, for: .normal)
-            $0.sendButton.setTitleColor(.white, for: .normal)
-            $0.sendButton.roundCorner(corners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner], cornerRadius: 15)
+            $0.sendButton.setImage(UIImage(systemName: "arrow.up.circle"), for: .normal)
+            $0.sendButton.setImage(UIImage(systemName: "arrow.up.circle"), for: .selected)
+            $0.sendButton.setImage(UIImage(systemName: "arrow.up.circle"), for: .highlighted)
+            $0.sendButton.tintColor = .mainOrange1
+            $0.sendButton.setTitle(nil, for: .normal)
             $0.inputTextView.placeholder = "메시지를 입력하세요"
-            $0.inputTextView.backgroundColor = .gray1
-            $0.inputTextView.roundCorner(corners: [.layerMinXMinYCorner, .layerMinXMaxYCorner], cornerRadius: 15)
-            $0.leftStackView.backgroundColor = .viewBackgroundGray
-            $0.contentView.backgroundColor = .mainOrange1
-            $0.contentView.roundCorner(corners: [.layerMinXMaxYCorner, .layerMinXMinYCorner], cornerRadius: 15)
-            $0.backgroundView.backgroundColor = .viewBackgroundGray
+            $0.inputTextView.backgroundColor = .white
+            $0.leftStackView.backgroundColor = .white
+            $0.backgroundView.backgroundColor = .white
+            $0.inputTextView.textColor = .mainOrange2
         }
+        
         
         cameraBarButtonItem.do {
             $0.tintColor = .mainOrange1
             $0.image = UIImage(systemName: "camera")
-            $0.isHidden = true
-            
         }
+        
         setUpNavBar()
         
     }
@@ -133,9 +133,9 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
     }
     
     private func addCameraBarButtonToMessageInputBar() {
-        messageInputBar.leftStackView.alignment = .center
-        messageInputBar.setLeftStackViewWidthConstant(to: 50, animated: false)
-        messageInputBar.setStackViewItems([cameraBarButtonItem], forStack: .left, animated: false)
+//        messageInputBar.leftStackView.alignment = .center
+//        messageInputBar.setLeftStackViewWidthConstant(to: 50, animated: false)
+//        messageInputBar.setStackViewItems([cameraBarButtonItem], forStack: .left, animated: false)
     }
     
     private func insertNewMessage(_ message: Message) {
