@@ -9,7 +9,8 @@ import MessageKit
 import InputBarAccessoryView
 import PhotosUI
 import FirebaseAuth
-
+import SnapKit
+import Then
 final class ChatRoomViewController: MessagesViewController, ViewControllerFoundation {
     
     //property
@@ -60,6 +61,7 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
         removeOutgoingMessageAvatars()
 //        addCameraBarButtonToMessageInputBar()
         listenToMessages()
+
     }
     
     internal func setUp() {
@@ -102,6 +104,7 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
         
     }
     internal func setLayout() {
+        
         
     }
     
