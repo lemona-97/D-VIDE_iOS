@@ -12,7 +12,6 @@ import CoreLocation
 
 final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, CLLocationManagerDelegate {
    
-    
     private var disposeBag = DisposeBag()
     
     private var viewModel : HomeViewModelBusinessLogic?

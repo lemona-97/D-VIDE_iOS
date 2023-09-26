@@ -224,7 +224,6 @@ final class ReviewTableViewCell: UITableViewCell {
                 likeLisenter()
             }
             
-            print("?")
         }), for: .touchUpInside)
         
         detailContentsView.rx.tapGesture()
@@ -234,7 +233,6 @@ final class ReviewTableViewCell: UITableViewCell {
                 if let detailLisenter = detailLisenter {
                     detailLisenter()
                 }
-                print("??")
             }.disposed(by: disposeBag)
         
         
@@ -251,11 +249,9 @@ final class ReviewTableViewCell: UITableViewCell {
         }
             
         if let nickName = reviewData.user.nickname {
-            if nickName == "null" {
-                self.userNickName.text = "탈퇴한 사용자 입니다"
-            } else {
-                self.userNickName.text = reviewData.user.nickname
-            }
+            self.userNickName.text = nickName
+        } else {
+            self.userNickName.text = "탈퇴한 사용자"
         }
        
         self.reviewLikeCount.text = String(Int(reviewData.review.likeCount))
@@ -274,7 +270,6 @@ final class ReviewTableViewCell: UITableViewCell {
         showIndicator(indicator: self.foodImageViewIndicator)
         self.userImageView.image = profileImage
         self.stopIndicator(indicator: self.userImageViewIndicator)
-        
         
         self.userNickName.text = nickname
         self.reviewLikeCount.text = String(Int(review.likeCount))

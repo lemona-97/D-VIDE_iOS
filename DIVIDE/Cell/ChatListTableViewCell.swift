@@ -43,6 +43,7 @@ final class ChatListTableViewCell: UITableViewCell {
         menuImg.do {
             $0.image = UIImage(named: "pizzaImage")
             $0.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner])
+            $0.contentMode = .scaleAspectFill
 
         }
         titleLabel.do {
