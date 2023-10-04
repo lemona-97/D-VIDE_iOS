@@ -75,25 +75,25 @@ protocol ProfileBusinessLogic: AnyObject {
 }
 
 /// 리뷰 작성
-protocol PostReviewBesinessLogic {
+protocol PostReviewBesinessLogic: AnyObject {
     /// 리뷰 작성 데이터 전송
     func postReview(postReviewModel: PostReviewModel, img : [Data], completion: @escaping (Result<PostReviewResponse, Error>) -> Void)
 }
 
 /// 디바이더 모집 비즈니스 로직
-protocol PostRecruitingBusinessLogic {
+protocol PostRecruitingBusinessLogic: AnyObject {
     /// 디바이더 모집 요청
     func requestpostRecruiting(param: PostRecruitingInput, img: [Data], completion: @escaping (Result<PostRecruitingResponse, Error>) -> Void)
 }
 
 /// 내가 쓴 리뷰
-protocol MyReviewBusinessLogic {
+protocol MyReviewBusinessLogic: AnyObject {
     /// 내가 쓴 리뷰 조회
     func requestMyReview(first : Int?) -> Single<[ReviewData]>
 }
 
 /// 상세 게시글 진입 후
-protocol PostDetailBusinessLogic {
+protocol PostDetailBusinessLogic: AnyObject {
     /// 게시글 상세 정보 조회
     func requestPostDetail(postId : Int) -> Single<PostDetailModel>
     

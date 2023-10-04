@@ -82,7 +82,7 @@ final class PostReviewViewController: DVIDEViewController2, ViewControllerFounda
         }
         
         rating.do {
-            $0.settings.fillMode        = .precise
+            $0.settings.fillMode        = .half
             $0.settings.updateOnTouch   = true
             $0.settings.starSize        = 28
             $0.settings.filledImage     = UIImage(named: "filledStar")
@@ -264,6 +264,11 @@ final class PostReviewViewController: DVIDEViewController2, ViewControllerFounda
                 case .success(let response):
                     self?.presentAlert(title: "리뷰 등록 성공 : \(response.reviewId)")
                 case .failure(let err):
+                    let destination = PopupViewController()
+                    destination.dismissListener = { }
+                    destination.modalPresentationStyle = .overFullScreen
+                    destination.setPopupMessage(message: "주문 진행 전 입니다.", popupType: .ALERT)
+                    self?.navigationController?.present(destination, animated: false)
                     print(err)
                 }
             }

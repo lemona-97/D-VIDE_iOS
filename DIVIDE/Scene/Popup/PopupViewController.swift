@@ -106,7 +106,7 @@ final class PopupViewController: UIViewController {
         closeButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
             self.dismiss(animated: false) { [weak self]  in
-                if let dismissListener = self?.dismissListener {
+                if let _ = self?.dismissListener {
                     self?.dismissListener?()
                 }
             }

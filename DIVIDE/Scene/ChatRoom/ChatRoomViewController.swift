@@ -74,6 +74,7 @@ final class ChatRoomViewController: MessagesViewController, ViewControllerFounda
             $0.messagesLayoutDelegate = self
             $0.messagesDisplayDelegate = self
             $0.backgroundColor = .viewBackgroundGray
+            $0.contentInset = .init(top: 40, left: 0, bottom: 0, right: 0)
         }
 
         messageInputBar.do {

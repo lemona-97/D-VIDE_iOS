@@ -9,13 +9,13 @@ import RxSwift
 import RxCocoa
 
 final class ReviewViewController: DVIDEViewController1, ViewControllerFoundation {
+    private let navigationLabel         = MainLabel(type: .hopang)
     
     private var disposeBag              = DisposeBag()
     private var viewModel               : ReviewBusinessLogic?
-    private let dummyUserPosition       = UserPosition(longitude: 127.030767490, latitude: 37.49015482509)
+    private let dummyUserPosition       = UserPosition(longitude: 126.98714734599184, latitude: 37.56055250541176)
     
     //상단
-    private let reviewTitleImg          = UIImageView()
     private let reviewSearchBtn         = UIButton()
     
     
@@ -40,15 +40,11 @@ final class ReviewViewController: DVIDEViewController1, ViewControllerFoundation
         self.viewModel = ReviewViewModel()
     }
     internal func setAttribute() {
-        self.view.backgroundColor = .viewBackgroundGray
-        navigationView.do {
-            $0.backgroundColor = .white
-            $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
-            $0.layer.addShadow(location: .bottom)
+        navigationLabel.do {
+            $0.text = "D/VIDE 리뷰"
+            $0.textAlignment = .center
         }
-        reviewTitleImg.do {
-            $0.image = UIImage(named: "ReviewTitle.png")
-        }
+ 
         reviewSearchBtn.do {
             $0.setImage(UIImage(named: "Search.png"), for: .normal)
             $0.isHidden = true
@@ -65,23 +61,14 @@ final class ReviewViewController: DVIDEViewController1, ViewControllerFoundation
     }
     internal func addView() {
         self.view.addSubview(navigationView)
-        navigationView.addSubviews([reviewTitleImg, reviewSearchBtn])
+        navigationView.addSubviews([navigationLabel, reviewSearchBtn])
         
         self.view.addSubview(reviewTableView)
     }
     internal func setLayout() {
-        
-        navigationView.snp.makeConstraints {
-            $0.height.equalTo(113)
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalToSuperview()
-        }
-        
-        reviewTitleImg.snp.makeConstraints {
+        navigationLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(15)
-            $0.height.equalTo(28.7)
-            $0.width.equalTo(127.37)
+            $0.bottom.equalTo(navigationView.snp.bottom).offset(-20)
         }
         
         reviewSearchBtn.snp.makeConstraints {

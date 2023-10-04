@@ -14,6 +14,8 @@ import MessageUI
 import FirebaseAuth
 import KakaoSDKUser
 import KakaoSDKAuth
+import CoreLocation
+
 final class ProfileViewController: UIViewController, UIImagePickerControllerDelegate {
     private var allComponents                   = [UIView()]
     
@@ -57,6 +59,7 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
     private var beforeProfile : ModifyProfileModel?
     private var isImageChanged                  = false
 
+    private var locationManager         = CLLocationManager()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -688,8 +691,18 @@ final class ProfileViewController: UIViewController, UIImagePickerControllerDele
         
         changeDefaultAddressButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
-            let destination = ChangeDefaultAddressViewController()
-            self.navigationController?.pushViewController(destination, animated: true)
+            guard let lat = locationManager.location?.coordinate.latitude else { return }
+            guard let lng = locationManager.location?.coordinate.longitude else { return }
+            if lng < 124 || lng > 132 || lat < 33 || lat > 43 {
+                let destination = PopupViewController()
+                destination.dismissListener = { }
+                destination.modalPresentationStyle = .overFullScreen
+                destination.setPopupMessage(message: "한국에서만 사용 가능합니다.", popupType: .ALERT)
+                self.navigationController?.present(destination, animated: false)
+            } else {
+                let destination = ChangeDefaultAddressViewController()
+                self.navigationController?.pushViewController(destination, animated: true)
+            }
         }), for: .touchUpInside)
         
         followingCount.rx.tapGesture()

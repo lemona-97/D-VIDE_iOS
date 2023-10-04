@@ -76,6 +76,7 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
     //DatePicker 정의
     private let datePicker = UIDatePicker()
     
+    private let postIndicator = UIActivityIndicatorView(style: .large)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -286,6 +287,10 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
             $0.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
         }
         
+        postIndicator.do {
+            $0.color = .mainOrange1
+            $0.cornerRadius = 15
+        }
     } // then
     
     internal func addView() {
@@ -302,7 +307,7 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
         scrollContentView.addSubviews([categoryCollectionView, titleTextField, storeTextField, deliveryFeeTextField, deliveryAimTextField, dueTimeTextField])
         
         // UIView add
-        scrollContentView.addSubviews([contentTextView, mapView])
+        scrollContentView.addSubviews([contentTextView, mapView, postIndicator])
         
         // MapView's subView
         mapView.addSubviews([markerImg, markerPointer])
@@ -487,6 +492,11 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
             $0.width.equalTo(71)
         }
         
+        postIndicator.snp.makeConstraints {
+            $0.height.width.equalTo(100)
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(mapView.snp.top).offset(100)
+        }
     }
     
     internal func addAction() {
@@ -513,7 +523,8 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
         
         // Check 1: 있는지 없는지
         if let title = titleTextField.text, let store = storeTextField.text, let deliveryFee = deliveryFeeTextField.text, let targetPrice = deliveryAimTextField.text, let content = contentTextView.text, let targetTime = milliseconds {
-            
+            postIndicator.startAnimating()
+            postIndicator.backgroundColor = .white
             var imgList : [Data] = []
             imgArray.forEach({ img in
                 if let jpegImg = img.jpegData(compressionQuality: 0.5) {
@@ -536,14 +547,19 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
                                                 category: categories.allCases[self.selectedCategoryTag].categoryName,
                                                 targetTime: targetTime)
             self.viewModel?.requestpostRecruiting(param: inputData, img: imgList) { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let response):
+                    DispatchQueue.main.async {
+                        self.postIndicator.stopAnimating()
+                        self.postIndicator.backgroundColor = .clear
+                    }
                     let destination = PopupViewController()
-                    destination.dismissListener = { self?.navigationController?.popViewController(animated: true) }
+                    destination.dismissListener = { self.navigationController?.popViewController(animated: true) }
                     destination.modalPresentationStyle = .overFullScreen
                     destination.setPopupMessage(message: "글이 업로드 되었어요! \n 채팅을 확인해 보세요", popupType: .ALERT)
                     
-                    self?.navigationController?.present(destination, animated: false)
+                    self.navigationController?.present(destination, animated: false)
                     
                 case .failure(let err):
                     print(err)

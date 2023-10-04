@@ -20,7 +20,7 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
     
     
     // 나중에 사용자의 현재 위치 받아오기
-    private let dummyUserPosition = UserPosition(longitude: 127.030767490, latitude: 37.49015482509)
+    private let dummyUserPosition = UserPosition(longitude: 126.98714734599184, latitude: 37.56055250541176)
     
     private var locationManager = CLLocationManager()
     private var userPosition : UserPosition? = nil
@@ -53,7 +53,15 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
         let viewModel = HomeViewModel()
         self.viewModel = viewModel
         if let userPosition = (UserDefaultsManager.userPosition) {
-            self.userPosition = userPosition
+            let lng = userPosition.longitude
+            let lat = userPosition.latitude
+            if lng < 124 || lng > 132 || lat < 33 || lat > 43 {
+                self.userPosition = dummyUserPosition
+
+            }else {
+                self.userPosition = userPosition
+
+            }
         } else {
             print("유저 위치 확인 안됨.")
             self.userPosition = dummyUserPosition

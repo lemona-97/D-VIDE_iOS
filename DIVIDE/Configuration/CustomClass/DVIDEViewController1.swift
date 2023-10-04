@@ -25,12 +25,20 @@ class DVIDEViewController1: UIViewController {
             $0.layer.addBorder([.bottom], color: .borderGray, width: 1)
             $0.layer.addShadow(location: .bottom)
         }
-        
-        navigationView.snp.makeConstraints {
-            $0.height.equalTo(113)
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(self.view.snp.top)
+        if UIDevice.current.model == "iPhone" {
+            navigationView.snp.makeConstraints {
+                $0.height.equalTo(113)
+                $0.leading.trailing.equalToSuperview()
+                $0.top.equalTo(self.view.snp.top)
+            }
+        } else {
+            navigationView.snp.makeConstraints {
+                $0.height.equalTo(93)
+                $0.leading.trailing.equalToSuperview()
+                $0.top.equalTo(self.view.snp.top)
+            }
         }
+        
     }
     
 
