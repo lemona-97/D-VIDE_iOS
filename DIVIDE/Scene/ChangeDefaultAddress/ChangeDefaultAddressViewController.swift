@@ -190,7 +190,9 @@ final class ChangeDefaultAddressViewController: DVIDEViewController2, ViewContro
 
 extension ChangeDefaultAddressViewController : UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textfield: UITextField) {
-        self.view.frame.origin.y -= 200
+        if UIDevice.current.model == "iPhone" {
+            self.view.frame.origin.y -= 200
+        }
         self.view.rx.tapGesture()
             .when(.recognized)
             .bind { _ in
@@ -198,7 +200,9 @@ extension ChangeDefaultAddressViewController : UITextFieldDelegate {
             }.disposed(by: disposeBag)
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-        self.view.frame.origin.y += 200
+        if UIDevice.current.model == "iPhone" {
+            self.view.frame.origin.y += 200
+        }
     }
     
 }

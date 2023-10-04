@@ -298,14 +298,14 @@ final class OtherProfileViewController: UIViewController, ViewControllerFoundati
             guard let userId = self.userId else { return }
             
             if self.followButton.isSelected {
-                viewModel?.unfollowUser(userId: userId, completion: { result in
+                viewModel?.unfollowUser(followId: userId, completion: { result in
                     switch result {
                     case .success(let response):
                         
                         if let _ = response.result  {
                             print(" 유저 \(userId) 언팔로우 성공")
-                            var before = Int(self.followerCountLabel.text!)
-                            var after = before! - 1
+                            let before = Int(self.followerCountLabel.text!)
+                            let after = before! - 1
                             self.followerCountLabel.text = String(after)
                         } else {
                             print(" 유저 \(userId) 언팔로우 실패")
@@ -323,8 +323,8 @@ final class OtherProfileViewController: UIViewController, ViewControllerFoundati
                     case .success(let response):
                         if let result = response.followId {
                             print(" 유저 \(result) 팔로우")
-                            var before = Int(self.followerCountLabel.text!)
-                            var after = before! + 1
+                            let before = Int(self.followerCountLabel.text!)
+                            let after = before! + 1
                             self.followerCountLabel.text = String(after)
                             
                         } else {
@@ -346,20 +346,18 @@ final class OtherProfileViewController: UIViewController, ViewControllerFoundati
             .bind { [weak self] _ in
                 print("팔로잉 목록 보기!")
                 guard let self = self else { return }
-                let destination = FollowViewController()
-                destination.type = .FOLLOWING
-                destination.userId = self.userId
-                destination.isOther = true
-                print(String(describing: self.navigationController))
-                print(String(describing: self.parent))
-                
-                let navCon = UINavigationController(rootViewController: destination)
-                navCon.modalPresentationStyle = .fullScreen
-                navCon.modalTransitionStyle = .flipHorizontal
-                self.present(navCon, animated: true)
-                
-                
-                self.parent?.navigationController?.pushViewController(destination, animated: true)
+//                let destination = FollowViewController()
+//                destination.type = .FOLLOWING
+//                destination.userId = self.userId
+//                destination.isOther = true
+//                
+//                let navCon = UINavigationController(rootViewController: destination)
+//                navCon.modalPresentationStyle = .fullScreen
+////                navCon.modalTransitionStyle = .flipHorizontal
+//                self.present(navCon, animated: true)
+//                
+//                
+//                self.parent?.navigationController?.pushViewController(destination, animated: true)
             }.disposed(by: disposeBag)
         
         followerTouchBox.rx.tapGesture()
@@ -367,11 +365,11 @@ final class OtherProfileViewController: UIViewController, ViewControllerFoundati
             .bind { [weak self] _ in
                 print("팔로우 목록 보기!")
                 guard let self = self else { return }
-                let destination = FollowViewController()
-                destination.type = .FOLLOWER
-                destination.userId = self.userId
-                destination.isOther = true
-                self.navigationController?.pushViewController(destination, animated: true)
+//                let destination = FollowViewController()
+//                destination.type = .FOLLOWER
+//                destination.userId = self.userId
+//                destination.isOther = true
+//                self.navigationController?.pushViewController(destination, animated: true)
             }.disposed(by: disposeBag)
         
     }

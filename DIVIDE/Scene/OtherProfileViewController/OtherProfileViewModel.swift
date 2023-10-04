@@ -12,7 +12,7 @@ protocol OtherProfileBusinessLogic {
     func requestOtherProfile(userId : Int, completion : @escaping (Result<OtherProfileModel, Error>) -> Void)
     func requestOtherReview(userId : Int, first : Int?) -> Single<[Review]>
     func followUser(userId : Int, completion : @escaping (Result<FollowResponse, Error>) -> Void)
-    func unfollowUser(userId : Int, completion : @escaping (Result<UnfollowResponse, Error>) -> Void)
+    func unfollowUser(followId : Int, completion : @escaping (Result<UnfollowResponse, Error>) -> Void)
     
 }
 
@@ -64,8 +64,8 @@ final class OtherProfileViewModel : OtherProfileBusinessLogic {
         }
     }
     
-    func unfollowUser(userId : Int, completion : @escaping (Result<UnfollowResponse, Error>) -> Void) {
-        realProvider.request(.unfollowUser(userId: userId)) { result in
+    func unfollowUser(followId : Int, completion : @escaping (Result<UnfollowResponse, Error>) -> Void) {
+        realProvider.request(.unfollowUser(followId: followId)) { result in
             switch result {
             case let .success(response):
                 print(response.description)

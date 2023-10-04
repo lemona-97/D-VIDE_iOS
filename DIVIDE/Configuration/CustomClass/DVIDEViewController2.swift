@@ -54,7 +54,9 @@ class DVIDEViewController2: UIViewController {
         //addAction
         backButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
+            print(self.navigationController?.viewControllers)
             self.navigationController?.popViewController(animated: true)
+            
         }), for: .touchUpInside)
     }
 

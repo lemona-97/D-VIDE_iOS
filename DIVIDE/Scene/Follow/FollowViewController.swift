@@ -103,6 +103,12 @@ final class FollowViewController: DVIDEViewController2, ViewControllerFoundation
 }
 
 extension FollowViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let destination = OtherProfileViewController()
+        destination.userId = allDataOfFollowInfo[indexPath.row].userId
+        destination.modalPresentationStyle = .pageSheet
+        self.navigationController?.present(destination, animated: true)
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         allDataOfFollowInfo.count + allDataOfOtherFollowInfo.count
     }

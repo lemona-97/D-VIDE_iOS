@@ -399,7 +399,9 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
 extension SignUpViewController : UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == nicknameTextField && self.view.frame.origin.y == 0{
-            self.view.frame.origin.y -= 200
+            if UIDevice.current.model == "iPhone" {
+                self.view.frame.origin.y -= 200
+            }
             
         }
         self.view.rx.tapGesture()
@@ -428,7 +430,9 @@ extension SignUpViewController : UITextFieldDelegate {
             }
         }
         if textField == nicknameTextField && self.view.frame.origin.y == -200 {
-            self.view.frame.origin.y += 200
+            if UIDevice.current.model == "iPhone" {
+                self.view.frame.origin.y += 200
+            }
         }
         
         if textField == passwordTextField2 {
