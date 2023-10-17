@@ -86,6 +86,7 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
     
     private var viewModel : PostDetailBusinessLogic?
     private var disposeBag = DisposeBag()
+    private var orderState = false
     // MARK: viewLoaded
     
     
@@ -723,48 +724,59 @@ final class PostDetailViewController: UIViewController, ViewControllerFoundation
         
         self.chatWithDIVIDERButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
-            if let postId = self.postId, let orderPrice = self.orderAmountValueTextField.text {
-                
-                var imageList : [Data] = []
-                self.imageArray.forEach({ image in
-                    if let jpegImg = image.jpegData(compressionQuality: 0.5) {
-                        imageList.append(jpegImg)
-                        print("img List is : \(imageList)")
-                    } else {
-                        print("사진 변환 오류")
-                        return
-                    }
-                })
-
-                let joinOrder = JoinOrderModel(postId: postId, orderPrice: Int(orderPrice)!)
-                self.viewModel?.joinOrder(joinOrder: joinOrder, images: imageList) { [weak self] result in
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let result):
-                        let destination = PopupViewController()
-                        destination.dismissListener = {
-                            self.navigationController?.popViewController(animated: true)
+            if orderState == false {
+                self.orderState = true
+                if let postId = self.postId, let orderPrice = self.orderAmountValueTextField.text {
+                    
+                    var imageList : [Data] = []
+                    self.imageArray.forEach({ image in
+                        if let jpegImg = image.jpegData(compressionQuality: 0.5) {
+                            imageList.append(jpegImg)
+                            print("img List is : \(imageList)")
+                        } else {
+                            print("사진 변환 오류")
+                            return
                         }
-                        destination.setPopupMessage(message: "디바이드 참여 완료! \n 디바이더와 채팅을 시작하세요!", popupType: .ALERT)
-                        // 주문 번호를 가지고 채팅방 id로 사용..?
-                        
-                        chatRoomStream.createChatRoom(postId: postId,
-                                                      title: self.postTitle!,
-                                                      foodImgUrl: self.postImgUrl!,
-                                                      divider: self.postUserId!,
-                                                      me: UserDefaultsManager.userId!,
-                                                      userNickname: self.otherNickname!,
-                                                      orderId: result.orderId)
-                        destination.modalPresentationStyle = .overFullScreen
-                        self.navigationController?.present(destination, animated: true)
-                    case .failure(let err):
-                        print(err)
+                    })
+
+                    let joinOrder = JoinOrderModel(postId: postId, orderPrice: Int(orderPrice)!)
+                    self.viewModel?.joinOrder(joinOrder: joinOrder, images: imageList) { [weak self] result in
+                        guard let self = self else { return }
+                        switch result {
+                        case .success(let result):
+                            let destination = PopupViewController()
+                            destination.dismissListener = {
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                            destination.setPopupMessage(message: "디바이드 참여 완료! \n 디바이더와 채팅을 시작하세요!", popupType: .ALERT)
+                            // 주문 번호를 가지고 채팅방 id로 사용..?
+                            
+                            chatRoomStream.createChatRoom(postId: postId,
+                                                          title: self.postTitle!,
+                                                          foodImgUrl: self.postImgUrl!,
+                                                          divider: self.postUserId!,
+                                                          me: UserDefaultsManager.userId!,
+                                                          userNickname: self.otherNickname!,
+                                                          orderId: result.orderId)
+                            destination.modalPresentationStyle = .overFullScreen
+                            self.navigationController?.present(destination, animated: true)
+                            self.orderState = false
+                        case .failure(let err):
+                            print(err)
+                        }
                     }
+                     
+                } else {
+                    self.presentAlert(title: "누락된 정보가 있습니다.")
                 }
-                 
             } else {
-                self.presentAlert(title: "누락된 정보가 있습니다.")
+                let destination = PopupViewController()
+                destination.dismissListener = {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                destination.setPopupMessage(message: "주문이 진행중입니다.", popupType: .ALERT)
             }
+            
         }), for: .touchUpInside)
     }
     
