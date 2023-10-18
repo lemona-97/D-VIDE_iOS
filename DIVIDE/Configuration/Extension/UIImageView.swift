@@ -26,9 +26,9 @@ extension UIImageView {
     }
     /// ImageView의 이미지를 URL값으로 부터 로딩
     ///
-    /// URL -> Data 는 global
+    /// URL -> Data 는 global 쓰레드
     ///
-    /// Data -> Image는 main
+    /// Data -> Image는 main 쓰레드
     func load(url: String, completion: @escaping () -> Void) {
         
         let cacheKey = NSString(string: url)

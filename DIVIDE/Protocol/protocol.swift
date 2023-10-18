@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 /// 코드 기반 VC 프로토콜
-protocol ViewControllerFoundation {
+protocol ViewControllerFoundation: AnyObject {
     func setAttribute()
     func addView()
     func setLayout()

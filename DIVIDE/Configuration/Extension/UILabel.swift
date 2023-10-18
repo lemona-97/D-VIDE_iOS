@@ -14,7 +14,7 @@ extension UILabel {
         self.attributedText = attributedStr
     }
     
-    /* 밑줄 추가 */
+    /// 밑줄 추가
     func setUnderline(range: NSRange) {
         guard let attributedString = self.mutableAttributedString() else { return }
         
@@ -22,7 +22,7 @@ extension UILabel {
         self.attributedText = attributedString
     }
     
-    /* AttributedString이 설정되어있지 않으면 생성하여 반환한다. */
+    /// AttributedString이 설정되어있지 않으면 생성하여 반환
     private func mutableAttributedString() -> NSMutableAttributedString? {
         guard let labelText = self.text, let labelFont = self.font else { return nil }
         
