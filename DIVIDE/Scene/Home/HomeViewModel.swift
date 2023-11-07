@@ -14,8 +14,8 @@ import RxSwift
 final class HomeViewModel : HomeViewModelBusinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     
-    func requestAroundPosts(param: UserPosition) -> Single<[Datum]> {
-        realProvider.rx.request(.showAroundPost(param: param))
+    func requestAroundPosts(param: UserPosition, skip: Int) -> Single<[Datum]> {
+        realProvider.rx.request(.showAroundPost(param: param, skip: skip))
             .filterSuccessfulStatusCodes()
             .map(UserPostsModel.self) // Single<UserPostsModel>
             .flatMap { result in
@@ -23,8 +23,8 @@ final class HomeViewModel : HomeViewModelBusinessLogic {
             }
     }
     
-    func requestAroundPostsWithCategory(param: UserPosition, category: String) -> Single<[Datum]> {
-        realProvider.rx.request(.showAroundPostWithCategory(param: param, category: category))
+    func requestAroundPostsWithCategory(param: UserPosition, category: String, skip: Int) -> Single<[Datum]> {
+        realProvider.rx.request(.showAroundPostWithCategory(param: param, category: category, skip: skip))
             .filterSuccessfulStatusCodes()
             .map(UserPostsModel.self)
             .flatMap { result in

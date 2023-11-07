@@ -21,12 +21,12 @@ protocol HomeViewModelBusinessLogic: AnyObject {
     /// 주변 500m내의 게시글 조회
     ///
     /// 카테고리에 상관없음
-    func requestAroundPosts(param: UserPosition) -> Single<[Datum]>
+    func requestAroundPosts(param: UserPosition, skip: Int) -> Single<[Datum]>
     
     /// 주변 500m 내에 해당 카테고리의 게시글 조회
     ///
     /// 카테고리 설정하여 게시글 호출
-    func requestAroundPostsWithCategory(param: UserPosition, category: String) -> Single<[Datum]>
+    func requestAroundPostsWithCategory(param: UserPosition, category: String, skip: Int) -> Single<[Datum]>
 }
 
 /// 회원가입 (회원가입 + 로그인)

@@ -33,7 +33,8 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
     private let tableView = UITableView()
     private let DVIDEBtn = UIButton()
     private var allDataFromServer = [Datum]()
-    
+    private var currentCategory : String?
+    private var isLast = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,8 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
         setUp()
         addAction()
         bindToViewModel()
+        
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,6 +101,8 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
             $0.showsVerticalScrollIndicator = false
             $0.separatorStyle = .none
             $0.register(OrderTableViewCell.self, forCellReuseIdentifier: OrderTableViewCell.className)
+            $0.dataSource = self
+            $0.delegate = self
         }
         
         DVIDEBtn.do {
@@ -155,22 +160,21 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
     }
     
     private func bindToViewModel(){
-        tableView.rx.setDelegate(self).disposed(by: disposeBag)
         
-        viewModel?.requestAroundPosts(param: self.userPosition ?? dummyUserPosition)
+        viewModel?.requestAroundPosts(param: self.userPosition ?? dummyUserPosition, skip: 0)
             .asObservable()
-            .bind(to: tableView.rx.items(cellIdentifier: OrderTableViewCell.className, cellType: OrderTableViewCell.self)) { [weak self] (row, item, cell) in
-                guard let self = self else { return }
-                self.allDataFromServer.append(item)
-                cell.setData(data: item)
-                GeocodingManager.reverseGeocoding(lat: item.post.latitude, lng: item.post.longitude, completion: { location in
-                    DispatchQueue.main.async {
-                        cell.setLocation(location: location)
-                    }
-                    
-                })
-                
-            }.disposed(by: disposeBag)
+            .subscribe(onNext: {[weak self] datums in
+                if datums.count != 10 {
+                    self?.isLast = true
+                }
+                self?.allDataFromServer.append(contentsOf: datums)
+            }, onError: { err in
+                print(err)
+            }, onCompleted: {
+                print("completed.")
+                self.tableView.reloadData()
+            }).disposed(by: disposeBag)
+
     }
     
 
@@ -193,38 +197,54 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //TODO: -diffable 컬렉션뷰 + modern collectionView 적용해보기?
         
-        self.tableView.delegate = nil
-        self.tableView.dataSource = nil
         allDataFromServer.removeAll()
+        isLast = false
+        
         self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         
         if indexPath.row == 0 {
+            currentCategory = nil
             bindToViewModel()
             return
         }
-        tableView.rx.setDelegate(self).disposed(by: disposeBag)
+
         let selectedCatagory = categories.allCases[indexPath.item - 1].categoryName
-        viewModel?.requestAroundPostsWithCategory(param: self.userPosition ?? dummyUserPosition, category: selectedCatagory)
+        currentCategory = selectedCatagory
+        viewModel?.requestAroundPostsWithCategory(param: self.userPosition ?? dummyUserPosition, category: selectedCatagory, skip: 0)
             .asObservable()
-            .bind(to: tableView.rx.items(cellIdentifier: OrderTableViewCell.className, cellType: OrderTableViewCell.self)) {[weak self] (row, item, cell) in
-                guard let self = self else { return }
-                self.allDataFromServer.append(item)
-                cell.setData(data: item)
-                GeocodingManager.reverseGeocoding(lat: item.post.latitude, lng: item.post.longitude, completion: { location in
-                        cell.setLocation(location: location)
-                })
-            }.disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] datums in
+                if datums.count != 10 {
+                    self?.isLast = true
+                }
+                self?.allDataFromServer.append(contentsOf: datums)
+            }, onError: { err in
+                print(err)
+            }, onCompleted: {
+                self.tableView.reloadData()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 //테이블 - post
 extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return allDataFromServer.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OrderTableViewCell.className, for: indexPath) as? OrderTableViewCell else { return UITableViewCell() }
+        if allDataFromServer.count > 0 {
+            let data = allDataFromServer[indexPath.row]
+            cell.setData(data: data)
+            GeocodingManager.reverseGeocoding(lat: data.post.latitude, lng: data.post.longitude, completion: { location in
+                DispatchQueue.main.async {
+                    cell.setLocation(location: location)
+                }
+                
+            })
+        }
+        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -248,6 +268,43 @@ extension HomeViewController:  UITableViewDelegate, UITableViewDataSource {
             }
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == allDataFromServer.count - 1 && !isLast && (allDataFromServer.count > 0) {
+            let skip = (allDataFromServer.count / 10)
+            
+            if let category =  currentCategory {
+                viewModel?.requestAroundPostsWithCategory(param: self.userPosition ?? dummyUserPosition, category: category, skip:skip)
+                    .asObservable()
+                    .subscribe(onNext: { [weak self] datums in
+                        if datums.count != 10 {
+                            self?.isLast = true
+                        }
+                        self?.allDataFromServer.append(contentsOf: datums)
+                    }, onError: { err in
+                        print(err)
+                    }, onCompleted: {
+                        self.tableView.reloadData()
+                    })
+                    .disposed(by: disposeBag)
+            } else {
+                viewModel?.requestAroundPosts(param: self.userPosition ?? dummyUserPosition, skip: skip)
+                    .asObservable()
+                    .subscribe(onNext: { [weak self] datums in
+                        if datums.count != 10 {
+                            self?.isLast = true
+                        }
+                        self?.allDataFromServer.append(contentsOf: datums)
+                    }, onError: { err in
+                        print(err)
+                    }, onCompleted: {
+                        self.tableView.reloadData()
+                    })
+                    .disposed(by: disposeBag)
+            }
+            
+        }
     }
 }
 

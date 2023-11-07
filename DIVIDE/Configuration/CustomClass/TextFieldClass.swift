@@ -34,8 +34,6 @@ class MainTextField: UITextField {
         case .main:
             self.setPaddingFor(left: 18, right: 18)
             self.backgroundColor = .white
-//            self.layer.borderWidth = 0.1
-//            self.layer.borderColor = UIColor.borderGray.cgColor
             self.layer.cornerRadius = 18
             self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMaxXMinYCorner, .layerMaxXMaxYCorner)
             self.layer.addShadow(location: .all)

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 public enum CustomButtonType {
+    /// 업로드하기, 디바이드 참여하기
     case mainAction
     case followAction
     case color
