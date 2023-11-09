@@ -8,6 +8,7 @@
 import PhotosUI
 import RxSwift
 import RxGesture
+import RxCocoa
 import Firebase
 import FirebaseAuth
 
@@ -15,17 +16,17 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
 
     //Outlets
     private let emailLabel                  = MainLabel(type: .Point2)
-    private let emailChecker                = BehaviorSubject<Bool>(value: true)
+    private let emailChecker                = BehaviorRelay<Bool>(value: true) // UI는 stream이 끊이면 안되니까 Subject 대신 Relay사용
     private let emailTextField              = UITextField()
     private let emailWarningLabel           = MainLabel(type: .warning)
     
     private let passwordLabel               = MainLabel(type: .Point2)
-    private let passwordChecker             = BehaviorSubject<Bool>(value: true)
+    private let passwordChecker             = BehaviorRelay<Bool>(value: true)
     private let passwordTextField           = UITextField()
     private let passwordWarningLabel        = MainLabel(type: .warning)
     
     private let passwordLabel2              = MainLabel(type: .Point2)
-    private let passwordChecker2            = BehaviorSubject<Bool>(value: true)
+    private let passwordChecker2            = BehaviorRelay<Bool>(value: true)
     private let passwordTextField2          = UITextField()
     private let passwordWarningLabel2       = MainLabel(type: .warning)
     
@@ -373,6 +374,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
             }).disposed(by: disposeBag)
 
         emailTextField.rx.text.orEmpty
+            .filter { !$0.isEmpty}
             .map { $0.isValidateEmail()}
             .bind(to: emailChecker)
             .disposed(by: disposeBag)
@@ -390,6 +392,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
             }).disposed(by: disposeBag)
         
         passwordTextField.rx.text.orEmpty
+            .filter { !$0.isEmpty}
             .map { $0.isValidatePassword()}
             .bind(to: passwordChecker)
             .disposed(by: disposeBag)
@@ -398,6 +401,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
         passwordChecker2
             .distinctUntilChanged()
             .observe(on: MainScheduler.instance)
+            
             .subscribe(onNext: { status in
                 if status {
                     self.hidePasswordWarning2()
@@ -407,6 +411,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
             }).disposed(by: disposeBag)
         
         passwordTextField2.rx.text.orEmpty
+            .filter { !$0.isEmpty}
             .map { self.isSamePassWord($0)}
             .bind(to: passwordChecker2)
             .disposed(by: disposeBag)

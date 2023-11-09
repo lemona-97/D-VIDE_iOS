@@ -208,7 +208,8 @@ final class ReviewDetailViewController: DVIDEViewController2, ViewControllerFoun
         
         viewModel?.requestReviewDetail(reviewId: reviewId)
             .asObservable()
-            .bind(onNext: { [weak self] reviewDetailData in
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] reviewDetailData in
                 guard let self = self else { return }
                 if let profileImgUrl = reviewDetailData.data.user.profileImgUrl {
                     self.userImageView.load(url: profileImgUrl) {

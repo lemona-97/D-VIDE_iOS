@@ -14,8 +14,8 @@ final class ReviewViewModel : ReviewBusinessLogic {
     var realProvider = MoyaProvider<APIService>(plugins: [MoyaInterceptor()])
     
     //    var postsFromServer = PublishSubject<[Datum]>()
-    func requestAroundReviews(param: UserPosition) -> Single<[ReviewData]> {
-        realProvider.rx.request(.showAroundReviews(param: param))
+    func requestAroundReviews(param: UserPosition, skip: Int) -> Single<[ReviewData]> {
+        realProvider.rx.request(.showAroundReviews(param: param, skip: skip))
             .filterSuccessfulStatusCodes()
             .map(UserReviewsModel.self) // Single<UserReviewsModel>
             .flatMap { result in

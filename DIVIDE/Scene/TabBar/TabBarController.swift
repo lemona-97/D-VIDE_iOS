@@ -6,10 +6,10 @@
 //
 
 import UIKit
-import KakaoSDKAuth
-import FirebaseAuth
+
+fileprivate let objectRatio  = 4.0 / 7.0
+
 class TabBarController: UITabBarController {
-    static let objectRatio  = 4.0 / 7.0
     let HomeIcon: UIImage = UIImage(imageLiteralResourceName: "Divide.png").resize(toTargetSize: CGSize(width: 60 * objectRatio, height: 60 * objectRatio))!.withRenderingMode(.alwaysOriginal)
     let HomeIconUnselected: UIImage = UIImage(imageLiteralResourceName: "DivideUnselected.png").resize(toTargetSize: CGSize(width: 55 * objectRatio, height: 55 * objectRatio))!.withRenderingMode(.alwaysOriginal)
     
