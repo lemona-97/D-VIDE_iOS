@@ -11,7 +11,7 @@ import Then
 import NMapsMap
 import SwiftyJSON
 
-// 추후 주문내역 VC에 있을떄 후기 작성 기능 & UI 적용 예정
+// 주문내역 VC에 있을떄 후기 작성 기능 & UI 적용
 final class OrderTableViewCell: UITableViewCell {
     private let contentBox = UIView()
     var remainEpochTime : Int?

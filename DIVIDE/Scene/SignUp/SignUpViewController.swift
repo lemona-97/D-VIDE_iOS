@@ -15,14 +15,17 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
 
     //Outlets
     private let emailLabel                  = MainLabel(type: .Point2)
+    private let emailChecker                = BehaviorSubject<Bool>(value: true)
     private let emailTextField              = UITextField()
     private let emailWarningLabel           = MainLabel(type: .warning)
     
     private let passwordLabel               = MainLabel(type: .Point2)
+    private let passwordChecker             = BehaviorSubject<Bool>(value: true)
     private let passwordTextField           = UITextField()
     private let passwordWarningLabel        = MainLabel(type: .warning)
     
     private let passwordLabel2              = MainLabel(type: .Point2)
+    private let passwordChecker2            = BehaviorSubject<Bool>(value: true)
     private let passwordTextField2          = UITextField()
     private let passwordWarningLabel2       = MainLabel(type: .warning)
     
@@ -42,6 +45,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
     private var isChecked                   = false
     private var policyLabel                 = MainLabel(type: .Basics3)
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
@@ -49,6 +53,7 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
         addView()
         setLayout()
         addAction()
+        bindUI()
     }
     internal func setUp() {
         viewModel = SignUpViewModel()
@@ -352,6 +357,60 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
                 }
             }.disposed(by: disposeBag)
     }
+    
+    private func bindUI() {
+        //email
+        emailChecker
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { status in
+                if status {
+                    self.hideEmailWarning()
+                } else {
+                    self.showEmailWarning()
+                }
+                
+            }).disposed(by: disposeBag)
+
+        emailTextField.rx.text.orEmpty
+            .map { $0.isValidateEmail()}
+            .bind(to: emailChecker)
+            .disposed(by: disposeBag)
+        
+        // password 1
+        passwordChecker
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { status in
+                if status {
+                    self.hidePasswordWarning()
+                } else {
+                    self.showPasswordWarning()
+                }
+            }).disposed(by: disposeBag)
+        
+        passwordTextField.rx.text.orEmpty
+            .map { $0.isValidatePassword()}
+            .bind(to: passwordChecker)
+            .disposed(by: disposeBag)
+        
+        // password 2
+        passwordChecker2
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { status in
+                if status {
+                    self.hidePasswordWarning2()
+                } else {
+                    self.showPasswordWarning2()
+                }
+            }).disposed(by: disposeBag)
+        
+        passwordTextField2.rx.text.orEmpty
+            .map { self.isSamePassWord($0)}
+            .bind(to: passwordChecker2)
+            .disposed(by: disposeBag)
+    }
     private func getPhoto() {
         photoConfiguration.filter = .any(of: [.images])
         photoConfiguration.selectionLimit = 1
@@ -385,6 +444,15 @@ final class SignUpViewController: DVIDEViewController2, ViewControllerFoundation
         self.passwordWarningLabel2.isHidden = true
     }
     
+    private func isSamePassWord(_ afterPassword : String ) -> Bool {
+        if let prePassword = passwordTextField.text {
+            if afterPassword == prePassword {
+                return true
+            }
+            return false
+        }
+        return false
+    }
     private func setSignUp() {
         if self.emailTextField.text != "" && self.passwordTextField.text != "" && self.passwordTextField2.text != "" && self.profileImageView.image != nil && self.nicknameTextField.text != "" && isChecked == true {
             self.signUpButton.isEnabled = true
@@ -413,38 +481,13 @@ extension SignUpViewController : UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == emailTextField {
-            if !(textField.text?.isValidateEmail())! {
-                textField.text = ""
-                self.showEmailWarning()
-            } else {
-                self.hideEmailWarning()
-            }
-        }
-        if textField == passwordTextField {
-            if !(textField.text?.isValidatePassword())! {
-                textField.text = ""
-                self.showPasswordWarning()
-            } else {
-                self.hidePasswordWarning()
-            }
-        }
         if textField == nicknameTextField && self.view.frame.origin.y == -200 {
             if UIDevice.current.model == "iPhone" {
                 self.view.frame.origin.y += 200
             }
         }
-        
-        if textField == passwordTextField2 {
-            if textField.text != passwordTextField.text {
-                self.showPasswordWarning2()
-            } else {
-                self.hidePasswordWarning2()
-            }
-        }
         textField.borderColor = .gray3
         textField.deleteRightButton()
-        
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {

@@ -10,7 +10,13 @@ import UIKit
 import Then
 
 public enum LabelType {
+    /// 호빵체
+    ///
+    /// mainOrange2, basic, size: 25
     case hopang
+    /// 타이틀
+    ///
+    /// mainOrange1, bold, size: 25
     case title
     case orange
     case Big1

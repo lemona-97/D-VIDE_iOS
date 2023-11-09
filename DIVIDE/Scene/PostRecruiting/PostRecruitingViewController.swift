@@ -544,7 +544,7 @@ final class PostRecruitingViewController: DVIDEViewController2, ViewControllerFo
                                                 deliveryPrice: Int(deliveryFee.split(separator: ",").joined())!,
                                                 longitude:  self.mapView.mapView.longitude,
                                                 latitude:   self.mapView.mapView.latitude,
-                                                category: categories.allCases[self.selectedCategoryTag].categoryName,
+                                                category: CATEGORIES.allCases[self.selectedCategoryTag].categoryName,
                                                 targetTime: targetTime)
             self.viewModel?.requestpostRecruiting(param: inputData, img: imgList) { [weak self] result in
                 guard let self = self else { return }
@@ -637,12 +637,12 @@ extension PostRecruitingViewController: UITextFieldDelegate {
 
 extension PostRecruitingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.allCases.count
+        return CATEGORIES.allCases.count
         
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeTopMenuCollectionViewCell", for: indexPath) as! HomeTopMenuCollectionViewCell
-        cell.menuLabel.text = categories.allCases[indexPath.row].category
+        cell.menuLabel.text = CATEGORIES.allCases[indexPath.row].category
         cell.tag = indexPath.row
         return cell
     }

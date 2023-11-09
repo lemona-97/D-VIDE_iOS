@@ -43,9 +43,7 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
         setLayout()
         setUp()
         addAction()
-        bindToViewModel()
-        
-       
+        fetchAroundPosts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,10 +157,11 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
         }), for: .touchUpInside)
     }
     
-    private func bindToViewModel(){
+    private func fetchAroundPosts(){
         
         viewModel?.requestAroundPosts(param: self.userPosition ?? dummyUserPosition, skip: 0)
             .asObservable()
+            .debug()
             .subscribe(onNext: {[weak self] datums in
                 if datums.count != 10 {
                     self?.isLast = true
@@ -182,7 +181,7 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        categories.allCases.count + 1
+        CATEGORIES.allCases.count + 1
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeTopMenuCollectionViewCell.className, for: indexPath) as! HomeTopMenuCollectionViewCell
@@ -190,7 +189,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.menuLabel.text = " " + "전체" + " "
             return cell
         }
-        cell.menuLabel.text = " " + categories.allCases[indexPath.row - 1].category + " "
+        cell.menuLabel.text = " " + CATEGORIES.allCases[indexPath.row - 1].category + " "
         return cell
     }
     
@@ -204,11 +203,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         if indexPath.row == 0 {
             currentCategory = nil
-            bindToViewModel()
+            fetchAroundPosts()
             return
         }
 
-        let selectedCatagory = categories.allCases[indexPath.item - 1].categoryName
+        let selectedCatagory = CATEGORIES.allCases[indexPath.item - 1].categoryName
         currentCategory = selectedCatagory
         viewModel?.requestAroundPostsWithCategory(param: self.userPosition ?? dummyUserPosition, category: selectedCatagory, skip: 0)
             .asObservable()

@@ -10,7 +10,7 @@ import Foundation
 //public let categories: [String] = ["분식", "한식", "일식", "중식", "디저트", "양식" ]
 //public let categoryName : [String] = ["STREET_FOOD", "KOREAN_FOOD", "JAPANESE_FOOD", "CHINESE_FOOD", "DESSERT", "WESTERN_FOOD"]
 
-enum categories : Int, CaseIterable {
+enum CATEGORIES : Int, CaseIterable {
     case STREET_FOOD
     case KOREAN_FOOD
     case JAPANESE_FOOD
