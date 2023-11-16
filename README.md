@@ -15,4 +15,4 @@ CocoaPod (Then, SnapKit, RxSwift, NMapsMap, Moya, SwiftyJSON)
 <img src = "https://github.com/lemona-97/D-VIDE_iOS/assets/75213755/54d346ab-37bc-4d04-8926-43083ece753c" width="30%" height="30%">
 
 Ver 1.1
-무한스크롤 업데이트 (게시글 조회)
+무한스크롤 업데이트 (주변 게시글, 리뷰목록)
