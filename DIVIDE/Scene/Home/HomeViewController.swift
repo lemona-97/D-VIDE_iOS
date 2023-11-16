@@ -59,7 +59,7 @@ final class HomeViewController: DVIDEViewController1, ViewControllerFoundation, 
             if lng < 124 || lng > 132 || lat < 33 || lat > 43 {
                 self.userPosition = dummyUserPosition
 
-            }else {
+            } else {
                 self.userPosition = userPosition
 
             }

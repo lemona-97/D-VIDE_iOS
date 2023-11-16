@@ -40,7 +40,7 @@ final class GeocodingManager {
         urlComponents.queryItems = queryItemArray
         
         guard let url = urlComponents.url else { return }
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: url, timeoutInterval: 20)
         
         request.httpMethod = "GET"
         request.addValue(clientID, forHTTPHeaderField: "X-NCP-APIGW-API-KEY-ID")
