@@ -1,5 +1,5 @@
-# iOS
-D/VIDE iOS 개발
+# D/VIDE 
+공동 주문 배달 플랫폼 디바이드!
 
 ---
 POP
